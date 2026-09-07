@@ -83,131 +83,10 @@
     </div>
 
     <!-- CONTENEDOR DEL FORMULARIO -->
-    <div class="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-10 relative overflow-hidden">
-      
-      <div id="tally-container" class="space-y-6">
-        
-        <form id="propuesta-form" class="space-y-6 text-left">
-          
-          <!-- 1. Datos del Instructor -->
-          <div class="space-y-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-              1. Tu Nombre o Nombre del Equipo de Instructores *
-            </label>
-            <input type="text" required placeholder="Ej: Hayashi & Franchi / Carmen Quispe" 
-                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
-          </div>
-
-          <!-- 2. Título del Taller -->
-          <div class="space-y-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-              2. Nombre sugerido para el Taller *
-            </label>
-            <input type="text" required placeholder="Ej: Circuitos Interactivos & Escaneo 3D" 
-                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
-          </div>
-
-          <!-- 3. Público Objetivo -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="space-y-2">
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                3. Público Objetivo *
-              </label>
-              <select required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition">
-                <option value="">Selecciona una opción</option>
-                <option value="kids">Niños y Adolescentes (8 a 15 años)</option>
-                <option value="creativos">Jóvenes & Creativos (15 a 25 años)</option>
-                <option value="profesionales">Adultos, Profesionales & Docentes</option>
-                <option value="instituciones">Para Colegios o Empresas (A medida)</option>
-              </select>
-            </div>
-
-            <div class="space-y-2">
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                4. Herramienta Principal *
-              </label>
-              <input type="text" required placeholder="Ej: Impresión 3D, Corte Láser, Sensores, etc." 
-                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
-            </div>
-          </div>
-
-          <!-- 4. El Reto de Fabricación -->
-          <div class="space-y-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
-              <span>5. ¿Cuál es el Reto de Fabricación? (Proyecto final que se llevan) *</span>
-            </label>
-            <textarea required rows="2" placeholder="Ej: Digitalizar un objeto real con escáner 3D y fabricar un dispositivo con respuesta lumínica y carcasa personalizada." 
-                      class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition"></textarea>
-            <p class="text-[11px] text-slate-400">Describe el objeto físico tangible que cada participante terminará y se llevará a casa.</p>
-          </div>
-
-          <!-- 5. Tiempos e Inversión -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="space-y-2">
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                6. Sesiones / Horas *
-              </label>
-              <input type="text" required placeholder="Ej: 4 sesiones (8 hrs)" 
-                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
-            </div>
-
-            <div class="space-y-2">
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                7. Horario Sugerido *
-              </label>
-              <input type="text" required placeholder="Ej: Sábados 10am - 12pm" 
-                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
-            </div>
-
-            <div class="space-y-2">
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                8. Inversión Sugerida *
-              </label>
-              <input type="text" required placeholder="Ej: S/. 180" 
-                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
-            </div>
-          </div>
-
-          <!-- 6. Temario Resumido -->
-          <div class="space-y-2">
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-              9. Breve Desglose de Sesiones (1 línea por sesión) *
-            </label>
-            <textarea required rows="4" placeholder="Sesión 1: Introducción a la herramienta y primeros bocetos.&#10;Sesión 2: Modelado digital y corrección de parámetros.&#10;Sesión 3: Calibración y pruebas de máquina.&#10;Sesión 4: Fabricación final, ensamble y presentación." 
-                      class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition font-mono text-xs"></textarea>
-          </div>
-
-          <!-- Botón de Envío -->
-          <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-xs text-slate-400">
-              Al enviar, tu propuesta será revisada por el equipo para coordinar fechas y publicar en la web.
-            </p>
-            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-7 py-3.5 rounded-xl shadow transition transform active:scale-95">
-              <i data-lucide="send" class="w-4 h-4"></i>
-              <span>Enviar Propuesta</span>
-            </button>
-          </div>
-
-        </form>
-
-        <!-- Mensaje de confirmación tras envío -->
-        <div id="confirmacion" class="hidden text-center py-10 space-y-4">
-          <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl font-bold">
-            ✓
-          </div>
-          <h2 class="text-2xl font-bold text-slate-900">¡Propuesta Recibida con Éxito!</h2>
-          <p class="text-sm text-slate-600 max-w-md mx-auto">
-            Muchas gracias por compartir tu iniciativa maker. La coordinación académica revisará los datos y se pondrá en contacto contigo para coordinar el lanzamiento en <strong>edu.fab.pe</strong>.
-          </p>
-          <div class="pt-4">
-            <a href="../index.html" class="inline-flex items-center gap-2 bg-slate-900 text-white text-xs font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition">
-              <span>Volver a la Web Principal</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-xl p-3 sm:p-8 relative overflow-hidden">
+      <!-- Tally Embed Oficial -->
+      <iframe data-tally-src="https://tally.so/embed/Bzy8NA?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0" title="Propuesta de Talleres FAB LAB Perú"></iframe>
+      <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
     </div>
 
     <!-- Caja de Asesoría si tienen dudas -->
@@ -233,16 +112,6 @@
 
   <script>
     lucide.createIcons();
-
-    const form = document.getElementById('propuesta-form');
-    const confirmacion = document.getElementById('confirmacion');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      form.classList.add('hidden');
-      confirmacion.classList.remove('hidden');
-      lucide.createIcons();
-    });
   </script>
 
 </body>
