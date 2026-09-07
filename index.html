@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talleres y Programas de Innovación | FAB LAB Perú</title>
-  <meta name="description" content="Aprende fabricación digital, modelado 3D, corte láser y prototipado. Talleres prácticos para personas, colegios y empresas en FAB LAB Perú." />
+  <title>Talleres & Experiencias Maker | FAB LAB Perú</title>
+  <meta name="description" content="Experimenta, diseña y materializa soluciones reales. Talleres prácticos de impresión 3D, corte láser, electrónica y diseño para personas e instituciones." />
   
   <link rel="icon" href="images/logo-fab.png" />
 
@@ -15,12 +15,13 @@
       theme: {
         extend: {
           colors: {
+            fabBlack: '#000000',
             fabBlue: '#046bd2',
             fabDarkBlue: '#045cb4',
-            fabNavy: '#1e293b',
+            fabNavy: '#0f172a',
             fabSlate: '#334155',
             fabMuted: '#64748b',
-            fabLight: '#F8FAFC',
+            fabBg: '#F8FAFC',
             fabSurface: '#F0F5FA'
           },
           fontFamily: {
@@ -34,57 +35,52 @@
   <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     body { font-family: 'Inter', sans-serif; }
-    .glass-header {
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #E2E8F0;
-    }
     .modal-backdrop {
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(4px);
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
     }
   </style>
 </head>
-<body class="bg-slate-50 text-fabNavy antialiased selection:bg-blue-100 selection:text-fabDarkBlue">
+<body class="bg-fabBg text-slate-800 antialiased selection:bg-blue-100 selection:text-fabDarkBlue">
 
-  <!-- CABECERA INSTITUCIONAL (RÉPLICA LIMPIA DE FAB.PE) -->
-  <header class="sticky top-0 z-40 glass-header transition-all duration-200">
+  <!-- ================================================================= -->
+  <!-- 1. CABECERA NEGRA IDÉNTICA A FAB.PE                                -->
+  <!-- ================================================================= -->
+  <header class="sticky top-0 z-40 bg-black border-b border-neutral-900 transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logotipo Oficial -->
-      <a href="https://fab.pe/" class="flex items-center gap-3 group">
-        <img src="images/logo-fab.png" alt="FAB LAB Perú" class="h-9 w-auto object-contain" />
-        <div class="hidden sm:block border-l border-slate-200 pl-3">
-          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block leading-none">Educación & Talleres</span>
-          <span class="text-[11px] text-slate-400 block font-normal mt-0.5">edu.fab.pe</span>
-        </div>
+      <!-- Logotipo Oficial: Isotipo Circular Tricolor + FABLABPERU en Blanco -->
+      <a href="https://fab.pe/" class="flex items-center gap-3 group py-2">
+        <img src="images/logo-fab.png" alt="Icono FAB LAB" class="h-9 w-auto object-contain" />
+        <span class="text-white font-extrabold text-xl sm:text-2xl tracking-tighter uppercase font-sans">
+          FABLAB<span class="font-light tracking-normal">PERU</span>
+        </span>
       </a>
 
-      <!-- Menú Réplica de fab.pe + Enlace a Talleres -->
-      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
-        <a href="https://fab.pe/" class="hover:text-fabBlue transition-colors">Inicio</a>
-        <a href="https://fab.pe/#about" class="hover:text-fabBlue transition-colors">Acerca</a>
-        <a href="https://fab.pe/#join" class="hover:text-fabBlue transition-colors">Líneas de Acción</a>
-        <a href="https://fab.pe/#projects" class="hover:text-fabBlue transition-colors">Proyectos</a>
-        <a href="#talleres" class="text-fabBlue font-semibold flex items-center gap-1">
-          <span>Talleres</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-fabBlue"></span>
+      <!-- Menú Idéntico a fab.pe en Mayúsculas -->
+      <nav class="hidden lg:flex items-center gap-8 text-xs sm:text-sm font-bold tracking-wider text-white/90 uppercase">
+        <a href="https://fab.pe/" class="hover:text-white transition-colors">INICIO</a>
+        <a href="https://fab.pe/#about" class="hover:text-white transition-colors">ACERCA</a>
+        <a href="https://fab.pe/#join" class="hover:text-white transition-colors">ÚNETE</a>
+        <a href="https://fab.pe/#projects" class="hover:text-white transition-colors">PROYECTOS</a>
+        <a href="https://fab.pe/#partners" class="hover:text-white transition-colors">ALIADOS</a>
+        <a href="#talleres" class="text-cyan-400 font-extrabold flex items-center gap-1.5 border-b-2 border-cyan-400 pb-0.5">
+          <span>TALLERES</span>
         </a>
-        <a href="#instituciones" class="hover:text-fabBlue transition-colors">Instituciones</a>
       </nav>
 
-      <!-- Botón de Contacto Directo WhatsApp -->
+      <!-- Botón WhatsApp Directo -->
       <div class="flex items-center gap-3">
         <a href="https://wa.me/51989984480?text=Hola%20FAB%20LAB%20Perú,%20deseo%20información%20sobre%20los%20talleres" 
            target="_blank" 
-           class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition">
+           class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-lg shadow transition transform active:scale-95">
           <i data-lucide="message-circle" class="w-4 h-4"></i>
           <span>Consultar por WhatsApp</span>
         </a>
@@ -93,63 +89,72 @@
     </div>
   </header>
 
-  <!-- HERO: ENFOCADO EN LAS POTENCIALIDADES DE LA FABRICACIÓN DIGITAL -->
-  <section class="relative pt-12 pb-16 lg:pt-20 lg:pb-24 bg-white border-b border-slate-200/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center space-y-6">
+  <!-- ================================================================= -->
+  <!-- 2. HERO: CONTRASTE DISTINTIVO & LENGUAJE EXPERIMENTAL              -->
+  <!-- ================================================================= -->
+  <section class="relative bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 text-white py-16 lg:py-24 overflow-hidden border-b border-slate-800">
+    
+    <!-- Elemento sutil de fondo -->
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px]"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-fabBlue text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full bg-fabBlue"></span>
-          <span>Aprende con FAB LAB Perú</span>
-        </div>
+        <!-- Columna de Texto -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+          
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-semibold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>Espacios de Creación y Fabricación Digital</span>
+          </div>
 
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          Aprende a transformar ideas en <span class="text-fabBlue">soluciones tangibles</span>
-        </h1>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1]">
+            Experimenta, prototipa y <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-300 to-indigo-200">materializa tus proyectos</span>
+          </h1>
 
-        <p class="text-base sm:text-xl text-slate-600 font-normal leading-relaxed">
-          La fabricación digital te da el poder de diseñar en computadora y materializar tus proyectos en el mundo real. Desarrolla habilidades prácticas en impresión 3D, corte láser, electrónica y diseño creativo.
-        </p>
+          <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
+            Pasa de la pantalla al mundo tangible. Conoce y utiliza cortadoras láser, impresoras 3D, electrónica interactiva y biomateriales para resolver retos reales con tus propias manos.
+          </p>
 
-        <!-- Botones de Acción -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-          <a href="#talleres" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-fabBlue hover:bg-fabDarkBlue text-white font-semibold px-6 py-3.5 rounded-xl shadow-sm transition">
-            <i data-lucide="compass" class="w-4 h-4"></i>
-            <span>Ver Talleres Disponibles</span>
-          </a>
-          <a href="#instituciones" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-6 py-3.5 rounded-xl transition">
-            <i data-lucide="building-2" class="w-4 h-4 text-slate-500"></i>
-            <span>Para Colegios y Empresas</span>
-          </a>
-        </div>
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+            <a href="#talleres" class="inline-flex items-center justify-center gap-2 bg-fabBlue hover:bg-fabDarkBlue text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+              <span>Explorar Talleres Disponibles</span>
+            </a>
+            <a href="#instituciones" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold px-6 py-3.5 rounded-xl transition">
+              <i data-lucide="building-2" class="w-4 h-4 text-cyan-300"></i>
+              <span>Para Colegios & Empresas</span>
+            </a>
+          </div>
 
-        <!-- 3 Pilares Simples -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t border-slate-100 text-left">
-          <div class="flex items-start gap-3">
-            <div class="w-9 h-9 rounded-lg bg-blue-50 text-fabBlue flex items-center justify-center flex-shrink-0 font-bold text-sm">
-              01
+          <!-- Franja de Valores de Acción -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800 text-xs text-slate-400 font-mono">
+            <div>
+              <strong class="text-white block font-bold text-sm">EXPERIMENTA</strong>
+              <span>Con máquinas y software real</span>
             </div>
             <div>
-              <h2 class="text-sm font-bold text-slate-800">Aprende Haciendo</h2>
-              <p class="text-xs text-slate-500 mt-0.5">Metodología 100% práctica enfocada en crear proyectos reales.</p>
+              <strong class="text-cyan-400 block font-bold text-sm">PROTOTIPA</strong>
+              <span>Prueba, corrige y ensambla</span>
+            </div>
+            <div>
+              <strong class="text-emerald-400 block font-bold text-sm">MATERIALIZA</strong>
+              <span>Te llevas tu pieza terminada</span>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 font-bold text-sm">
-              02
-            </div>
-            <div>
-              <h2 class="text-sm font-bold text-slate-800">De la Pantalla a la Realidad</h2>
-              <p class="text-xs text-slate-500 mt-0.5">Diseña en software intuitivo y materializa tu pieza terminada.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3">
-            <div class="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0 font-bold text-sm">
-              03
-            </div>
-            <div>
-              <h2 class="text-sm font-bold text-slate-800">Acompañamiento Experto</h2>
-              <p class="text-xs text-slate-500 mt-0.5">Mentores especializados en tecnología, pedagogía y diseño.</p>
+
+        </div>
+
+        <!-- Columna Visual: Foto Representativa de Taller / Manos Trabajando -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-slate-700/80 group">
+            <img src="images/talleres_adolescentes.jfif" alt="Taller de fabricación digital" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block">Metodología Maker</span>
+              <p class="text-sm font-semibold mt-0.5">Laboratorio interactivo y trabajo colaborativo guiado por mentores.</p>
             </div>
           </div>
         </div>
@@ -158,127 +163,95 @@
     </div>
   </section>
 
-  <!-- CATÁLOGO DE TALLERES -->
+  <!-- ================================================================= -->
+  <!-- 3. CATÁLOGO DE TALLERES ABIERTOS (SÓLO PARA PERSONAS)             -->
+  <!-- ================================================================= -->
   <section id="talleres" class="py-16 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Encabezado de Sección -->
       <div class="text-center max-w-2xl mx-auto mb-10">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Talleres Abiertos</h2>
+        <span class="text-xs font-bold text-fabBlue uppercase tracking-widest block mb-1">Inscripciones Abiertas</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Talleres para Personas & Familias</h2>
         <p class="mt-2 text-sm sm:text-base text-slate-600">
-          Programas con fechas programadas para personas, jóvenes y familias. Cupos reducidos para asegurar atención personalizada.
+          Fechas programadas con cupos limitados para garantizar acompañamiento cercano en cada sesión.
         </p>
 
-        <!-- Filtro Simple -->
+        <!-- Filtros de Audiencia -->
         <div class="mt-6 flex flex-wrap items-center justify-center gap-2" id="category-filters">
-          <!-- Populated by JS -->
+          <!-- Renderizado con JS -->
         </div>
       </div>
 
-      <!-- Grilla de Talleres -->
+      <!-- Grilla de Tarjetas -->
       <div id="workshops-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Rendered dynamically -->
+        <!-- Renderizado dinámico -->
       </div>
 
     </div>
   </section>
 
-  <!-- SECCIÓN PARA INSTITUCIONES (COLEGIOS Y EMPRESAS) -->
-  <section id="instituciones" class="py-16 bg-white border-t border-slate-200">
+  <!-- ================================================================= -->
+  <!-- 4. SECCIÓN INSTITUCIONES: ADAPTA CUALQUIER TALLER O CO-CREA UNO   -->
+  <!-- ================================================================= -->
+  <section id="instituciones" class="py-20 bg-white border-t border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="max-w-3xl mb-12">
-        <span class="text-xs font-bold text-fabBlue uppercase tracking-wider block">Soluciones Institucionales</span>
-        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
-          Programas a medida para Colegios, Universidades y Empresas
-        </h2>
-        <p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
-          Adaptamos nuestros formatos según los objetivos de tu organización: desde actividades formativas extracurriculares y capacitación docente, hasta dinámicas de innovación para equipos de trabajo.
-        </p>
-      </div>
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-xl">
+        <div class="max-w-3xl space-y-6 relative z-10 text-left">
+          
+          <span class="inline-block px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 text-xs font-bold uppercase tracking-wider">
+            Para Colegios, Universidades y Empresas
+          </span>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        <!-- Tarjeta Colegios -->
-        <div class="bg-slate-50 rounded-2xl p-7 border border-slate-200 flex flex-col justify-between space-y-6">
-          <div class="space-y-4">
-            <div class="w-12 h-12 rounded-xl bg-blue-100 text-fabBlue flex items-center justify-center">
-              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+            Elige cualquiera de nuestros talleres o <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">co-creamos uno a tu medida</span>
+          </h2>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            ¿Buscas una experiencia formativa o de innovación para tu institución? Podemos <strong>dictar en exclusiva cualquiera de los talleres de nuestro catálogo</strong> para tu grupo, o <strong>diseñar una experiencia personalizada</strong> según tus objetivos, tiempos y recursos.
+          </p>
+
+          <!-- 3 Alternativas Institucionales -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-xs">
+            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1.5">
+              <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">1</div>
+              <h3 class="font-bold text-white text-sm">Talleres del Catálogo</h3>
+              <p class="text-slate-400 leading-normal">Selecciona cualquier taller abierto y lo adaptamos a la fecha y cantidad de alumnos de tu institución.</p>
             </div>
-            <div>
-              <h3 class="text-xl font-bold text-slate-900">Para Colegios y Educadores</h3>
-              <p class="text-xs sm:text-sm text-slate-600 mt-1">
-                Fomentamos el pensamiento científico, creativo y tecnológico en los estudiantes mediante retos prácticos.
-              </p>
+
+            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1.5">
+              <div class="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">2</div>
+              <h3 class="font-bold text-white text-sm">Capacitación Docente STEAM</h3>
+              <p class="text-slate-400 leading-normal">Formación práctica para profesores que desean integrar tecnología y proyectos maker en sus clases.</p>
             </div>
-            <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-                <span>Talleres escolares y clubes de tecnología adaptables por edades.</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-                <span>Formación y acompañamiento pedagógico para la plana docente.</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-                <span>Asesoría en equipamiento seguro y espacios de fabricación en el colegio.</span>
-              </li>
-            </ul>
+
+            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1.5">
+              <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">3</div>
+              <h3 class="font-bold text-white text-sm">Innovación & Team Building</h3>
+              <p class="text-slate-400 leading-normal">Jornadas ágiles para empresas donde los equipos co-crean y prototipan soluciones tangibles.</p>
+            </div>
           </div>
-          <div>
-            <a href="https://wa.me/51989984480?text=Hola%20FAB%20LAB%20Perú,%20represento%20a%20un%20colegio%20y%20deseo%20información%20para%20alumnos/docentes" 
+
+          <!-- Botón de Conversación Institucional -->
+          <div class="pt-4 flex flex-wrap items-center gap-4">
+            <a href="https://wa.me/51989984480?text=Hola%20FAB%20LAB%20Perú,%20represento%20a%20una%20institución/empresa%20y%20deseo%20coordinar%20un%20taller%20o%20propuesta%20a%20medida" 
                target="_blank" 
-               class="w-full inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold px-5 py-3 rounded-xl transition">
-              <i data-lucide="message-circle" class="w-4 h-4"></i>
-              <span>Solicitar propuesta para colegios</span>
+               class="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl shadow-lg transition">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+              <span>Conversar con un Asesor Institucional</span>
             </a>
+            <span class="text-xs text-slate-400">Respuesta rápida vía WhatsApp: +51 989 984 480</span>
           </div>
-        </div>
 
-        <!-- Tarjeta Empresas -->
-        <div class="bg-slate-50 rounded-2xl p-7 border border-slate-200 flex flex-col justify-between space-y-6">
-          <div class="space-y-4">
-            <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
-              <i data-lucide="briefcase" class="w-6 h-6"></i>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-slate-900">Para Empresas e Innovación</h3>
-              <p class="text-xs sm:text-sm text-slate-600 mt-1">
-                Jornadas prácticas para desconectar de la rutina y aprender a validar ideas rápidamente mediante prototipos físicos.
-              </p>
-            </div>
-            <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-                <span>Dinámicas de Team Building enfocadas en agilidad y co-creación.</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-                <span>Jornadas de Design Sprint y prototipado rápido de conceptos.</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-                <span>Uso de maquinaria del FabLab asistido por especialistas.</span>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <a href="https://wa.me/51989984480?text=Hola%20FAB%20LAB%20Perú,%20represento%20a%20una%20empresa%20y%20deseo%20coordinar%20una%20jornada%20de%20innovación" 
-               target="_blank" 
-               class="w-full inline-flex items-center justify-center gap-2 bg-fabBlue hover:bg-fabDarkBlue text-white text-xs sm:text-sm font-semibold px-5 py-3 rounded-xl transition">
-              <i data-lucide="message-circle" class="w-4 h-4"></i>
-              <span>Conversar con un asesor corporativo</span>
-            </a>
-          </div>
         </div>
-
       </div>
 
     </div>
   </section>
 
-  <!-- PREGUNTAS FRECUENTES (BREVE Y CONCISA) -->
+  <!-- ================================================================= -->
+  <!-- 5. PREGUNTAS FRECUENTES                                           -->
+  <!-- ================================================================= -->
   <section class="py-16 bg-slate-50 border-t border-slate-200">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
@@ -288,91 +261,105 @@
       <div class="space-y-3">
         <details class="group bg-white p-5 rounded-xl border border-slate-200 cursor-pointer">
           <summary class="font-semibold text-slate-800 text-sm flex items-center justify-between list-none">
-            <span>¿Se necesitan conocimientos previos en diseño o computación?</span>
+            <span>¿Se necesitan conocimientos técnicos previos?</span>
             <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
           </summary>
           <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-            No. Todos nuestros talleres abiertos están estructurados desde el nivel básico. Te guiamos paso a paso con programas amigables y asesoría cercana.
+            No. Cada taller está planteado desde un nivel introductorio y experimental. Te enseñamos a usar los programas y te acompañamos paso a paso en el manejo seguro de las herramientas.
           </p>
         </details>
 
         <details class="group bg-white p-5 rounded-xl border border-slate-200 cursor-pointer">
           <summary class="font-semibold text-slate-800 text-sm flex items-center justify-between list-none">
-            <span>¿Cómo es el proceso de inscripción y pago?</span>
+            <span>¿Cómo se coordina la entrega o fabricación física?</span>
             <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
           </summary>
           <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Haces clic en el botón de WhatsApp del taller que te interesa. Te brindamos los métodos de pago (transferencia BCP, BBVA, Interbank o Yape/Plin) y confirmamos tu cupo al instante.
+            En los talleres virtuales, tras diseñar tu proyecto, los archivos se procesan en las máquinas del laboratorio. Puedes recoger tu pieza presencialmente o coordinar el envío a tu domicilio en Lima o provincias.
           </p>
         </details>
 
         <details class="group bg-white p-5 rounded-xl border border-slate-200 cursor-pointer">
           <summary class="font-semibold text-slate-800 text-sm flex items-center justify-between list-none">
-            <span>¿Qué ocurre si estoy en provincia o no puedo asistir presencialmente?</span>
+            <span>¿Cuáles son los métodos de pago?</span>
             <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
           </summary>
           <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Contamos con modalidades 100% virtuales en vivo. En los talleres donde se fabrica una pieza física, coordinamos el envío de tus creaciones a tu ciudad.
+            Aceptamos transferencias bancarias (BCP, Interbank, BBVA), pagos por Yape/Plin o tarjetas. Al consultar por WhatsApp te facilitamos los datos oficiales para confirmar tu vacante.
           </p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER OFICIAL -->
-  <footer class="bg-white border-t border-slate-200 py-10 text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <!-- ================================================================= -->
+  <!-- 6. FOOTER OFICIAL CON IDENTIDAD FAB.PE                            -->
+  <!-- ================================================================= -->
+  <footer class="bg-black text-slate-400 py-12 border-t border-neutral-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      
       <div class="flex items-center gap-3">
-        <img src="images/logo-fab.png" alt="FAB LAB Perú" class="h-6 w-auto object-contain opacity-90" />
-        <span>&copy; 2026 FAB LAB Perú. Todos los derechos reservados.</span>
+        <img src="images/logo-fab.png" alt="FAB LAB Perú" class="h-7 w-auto object-contain" />
+        <span class="text-white font-bold text-base tracking-tight">FABLAB<span class="font-light">PERU</span></span>
       </div>
-      <div class="flex items-center gap-6">
-        <a href="https://fab.pe/" class="hover:text-slate-900 transition">Web Principal</a>
-        <a href="https://wa.me/51989984480" target="_blank" class="text-emerald-600 font-semibold hover:underline">WhatsApp: +51 989 984 480</a>
+
+      <div class="flex items-center gap-6 font-medium">
+        <a href="https://fab.pe/" class="hover:text-white transition">Web Principal (fab.pe)</a>
+        <a href="https://fab.pe/#projects" class="hover:text-white transition">Proyectos</a>
+        <a href="https://wa.me/51989984480" target="_blank" class="text-emerald-400 hover:underline">WhatsApp: +51 989 984 480</a>
       </div>
+
+      <p>&copy; 2026 FAB LAB Perú. Todos los derechos reservados.</p>
     </div>
   </footer>
 
-  <!-- MODAL DE DETALLES: LAYOUT HORIZONTAL DE 2 COLUMNAS SIN SCROLL EN ESCRITORIO -->
-  <div id="workshop-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
+  <!-- ================================================================= -->
+  <!-- 7. MODAL DE TALLER: MÁS AMPLIO (MAX-W-5XL) Y SIN SCROLL EN DESKTOP-->
+  <!-- ================================================================= -->
+  <div id="workshop-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4 sm:p-6">
     
-    <!-- Contenedor Principal (Max Height controlado para evitar scroll en desktop) -->
-    <div class="bg-white rounded-2xl max-w-4xl w-full shadow-2xl border border-slate-200 relative overflow-hidden flex flex-col max-h-[95vh] md:max-h-[82vh]">
+    <!-- Contenedor Amplio (max-w-5xl) con altura contenida -->
+    <div class="bg-white rounded-3xl max-w-5xl w-full shadow-2xl border border-slate-200 relative overflow-hidden flex flex-col max-h-[92vh] md:max-h-[85vh]">
       
       <!-- Botón Cerrar -->
-      <button id="modal-close" class="absolute top-3 right-3 z-20 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full p-2 transition">
+      <button id="modal-close" class="absolute top-4 right-4 z-20 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full p-2.5 transition">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
-      <!-- Layout Split 2 Columnas -->
+      <!-- Layout Split Horizontal en 2 Columnas -->
       <div class="grid grid-cols-1 md:grid-cols-12 flex-1 overflow-y-auto md:overflow-hidden">
         
-        <!-- Columna Izquierda: Imagen (16:9), Datos Clave y Precio -->
-        <div class="md:col-span-5 bg-slate-50 p-6 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-between">
+        <!-- Columna Izquierda: Imagen (16:9), Ficha Técnica condensada e Inversión -->
+        <div class="md:col-span-5 bg-slate-50 p-6 sm:p-8 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-between">
+          
           <div class="space-y-4">
-            <!-- Imagen con ratio 16:9 estándar -->
-            <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-200 shadow-sm relative">
+            <!-- Imagen 16:9 Amplia -->
+            <div class="w-full aspect-video rounded-2xl overflow-hidden bg-slate-200 shadow-sm relative">
               <img id="modal-img" src="" alt="" class="w-full h-full object-cover" />
-              <span id="modal-badge" class="absolute top-2 left-2 bg-slate-900/80 text-white text-[10px] font-semibold px-2.5 py-1 rounded-md backdrop-blur-sm"></span>
+              <span id="modal-badge" class="absolute top-3 left-3 bg-slate-900/90 text-white text-[11px] font-bold px-3 py-1 rounded-md backdrop-blur-sm"></span>
             </div>
 
-            <!-- Datos Clave condensados -->
-            <div class="space-y-2.5 text-xs text-slate-600 pt-1">
-              <div class="flex items-center gap-2">
-                <i data-lucide="calendar" class="w-4 h-4 text-fabBlue flex-shrink-0"></i>
-                <span><strong>Inicio:</strong> <span id="modal-startdate"></span></span>
+            <!-- Ficha Técnica Rápida -->
+            <div class="bg-white rounded-xl p-4 border border-slate-200/80 space-y-2.5 text-xs text-slate-700">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-400">Inicio:</span>
+                <strong id="modal-startdate" class="text-slate-900"></strong>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="clock" class="w-4 h-4 text-fabBlue flex-shrink-0"></i>
-                <span><strong>Horario:</strong> <span id="modal-schedule"></span></span>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-400">Horario:</span>
+                <strong id="modal-schedule" class="text-slate-900"></strong>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="hourglass" class="w-4 h-4 text-fabBlue flex-shrink-0"></i>
-                <span><strong>Duración:</strong> <span id="modal-duration"></span></span>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-400">Duración:</span>
+                <strong id="modal-duration" class="text-slate-900"></strong>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="monitor" class="w-4 h-4 text-fabBlue flex-shrink-0"></i>
-                <span><strong>Modalidad:</strong> <span id="modal-format"></span></span>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-400">Herramienta:</span>
+                <strong id="modal-fabtool" class="text-fabBlue truncate max-w-[170px]"></strong>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-400">Modalidad:</span>
+                <strong id="modal-format" class="text-slate-900 truncate max-w-[170px]"></strong>
               </div>
             </div>
           </div>
@@ -380,37 +367,38 @@
           <!-- Inversión -->
           <div class="pt-4 border-t border-slate-200 mt-4">
             <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Inversión</span>
-            <span id="modal-price" class="text-2xl font-extrabold text-slate-900 block"></span>
+            <span id="modal-price" class="text-3xl font-extrabold text-slate-900 block font-mono"></span>
           </div>
+
         </div>
 
-        <!-- Columna Derecha: Título, Descripción, Viñetas y CTA WhatsApp -->
-        <div class="md:col-span-7 p-6 sm:p-7 flex flex-col justify-between space-y-4">
+        <!-- Columna Derecha: Información Principal, Qué Lograrás y WhatsApp -->
+        <div class="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-5">
           
-          <div class="space-y-3">
+          <div class="space-y-3.5">
             <div>
-              <span id="modal-target" class="text-[11px] font-semibold text-fabBlue uppercase tracking-wider block mb-1"></span>
-              <h3 id="modal-title" class="text-xl sm:text-2xl font-bold text-slate-900 leading-snug"></h3>
+              <span id="modal-target" class="text-xs font-bold text-fabBlue uppercase tracking-wider block mb-1"></span>
+              <h3 id="modal-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight"></h3>
             </div>
 
             <p id="modal-desc" class="text-xs sm:text-sm text-slate-600 leading-relaxed"></p>
 
             <div class="pt-2">
-              <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">Lo que aprenderás y lograrás:</h4>
-              <ul id="modal-highlights" class="space-y-1.5 text-xs text-slate-600">
-                <!-- Injected via JS -->
+              <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2.5">Lo que experimentarás y lograrás:</h4>
+              <ul id="modal-highlights" class="space-y-2 text-xs sm:text-sm text-slate-700">
+                <!-- Generado por JS -->
               </ul>
             </div>
           </div>
 
           <!-- Botón de WhatsApp -->
-          <div class="pt-3 border-t border-slate-100">
+          <div class="pt-4 border-t border-slate-100">
             <a id="modal-wsp-btn" href="#" target="_blank" 
-               class="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-3.5 rounded-xl shadow transition">
-              <i data-lucide="message-circle" class="w-4 h-4"></i>
-              <span>Consultar vacante por WhatsApp</span>
+               class="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-4 rounded-xl shadow-md transition transform active:scale-95">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+              <span class="text-sm">Consultar vacante por WhatsApp</span>
             </a>
-            <p class="text-[11px] text-center text-slate-400 mt-1.5">Atención directa: +51 989 984 480</p>
+            <p class="text-[11px] text-center text-slate-400 mt-2">Atención inmediata: +51 989 984 480</p>
           </div>
 
         </div>
@@ -421,7 +409,7 @@
 
   </div>
 
-  <!-- LOAD DATA & LOGIC -->
+  <!-- SCRIPTS & DATOS -->
   <script src="data.js"></script>
   <script>
     let activeCat = 'all';
@@ -436,9 +424,9 @@
       filterContainer.innerHTML = CATEGORIES.map(cat => `
         <button 
           onclick="setCat('${cat.id}')"
-          class="px-4 py-2 rounded-xl text-xs font-medium transition ${
+          class="px-4 py-2 rounded-xl text-xs font-semibold transition ${
             activeCat === cat.id 
-              ? 'bg-fabBlue text-white shadow-sm font-semibold' 
+              ? 'bg-slate-900 text-white shadow-sm' 
               : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
           }"
         >
@@ -460,48 +448,48 @@
         : WORKSHOPS.filter(w => w.category === activeCat);
 
       workshopsGrid.innerHTML = list.map(w => `
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition duration-200 group">
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition duration-200 group">
           
           <!-- Imagen 16:9 Estándar -->
           <div class="relative w-full aspect-video bg-slate-100 overflow-hidden">
-            <img src="${w.image}" alt="${w.title}" class="w-full h-full object-cover group-hover:scale-102 transition duration-300" />
+            <img src="${w.image}" alt="${w.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
             <div class="absolute top-3 left-3">
-              <span class="bg-white/95 text-slate-800 text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
+              <span class="bg-slate-900/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
                 ${w.badge}
               </span>
             </div>
           </div>
 
           <!-- Contenido -->
-          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
             
             <div class="space-y-2">
-              <span class="text-[11px] font-semibold text-fabBlue uppercase tracking-wide block">${w.targetAudience}</span>
-              <h3 class="text-base font-bold text-slate-900 leading-snug line-clamp-2">${w.title}</h3>
-              <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">${w.subtitle}</p>
+              <span class="text-[11px] font-bold text-fabBlue uppercase tracking-wide block">${w.targetAudience}</span>
+              <h3 class="text-lg font-bold text-slate-900 leading-snug line-clamp-2">${w.title}</h3>
+              <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">${w.subtitle}</p>
             </div>
 
-            <!-- Fila de Datos Clave -->
-            <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs text-slate-600">
+            <!-- Datos Clave -->
+            <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs text-slate-700">
               <div>
-                <span class="text-[10px] text-slate-400 block">Inicio</span>
-                <span class="font-medium text-slate-800">${w.startDate}</span>
+                <span class="text-[10px] text-slate-400 block font-medium">Inicio</span>
+                <span class="font-bold text-slate-800">${w.startDate}</span>
               </div>
               <div>
-                <span class="text-[10px] text-slate-400 block">Duración</span>
-                <span class="font-medium text-slate-800">${w.duration}</span>
+                <span class="text-[10px] text-slate-400 block font-medium">Duración</span>
+                <span class="font-bold text-slate-800">${w.duration}</span>
               </div>
             </div>
 
             <!-- Footer Tarjeta -->
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
               <div>
-                <span class="text-[10px] text-slate-400 block">Inversión</span>
-                <span class="text-base font-bold text-slate-900">${w.price}</span>
+                <span class="text-[10px] text-slate-400 block font-medium">Inversión</span>
+                <span class="text-lg font-black text-slate-900 font-mono">${w.price}</span>
               </div>
               <button 
                 onclick="openWorkshopModal('${w.id}')"
-                class="inline-flex items-center gap-1 text-xs font-semibold px-3.5 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-fabBlue transition"
+                class="inline-flex items-center gap-1 text-xs font-bold px-4 py-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-fabBlue transition"
               >
                 <span>Ver detalles</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -516,7 +504,7 @@
       lucide.createIcons();
     }
 
-    // Modal sin Scroll en Pantallas de Computadora
+    // Modal Amplio sin scroll en Desktop
     window.openWorkshopModal = function(id) {
       const w = WORKSHOPS.find(item => item.id === id);
       if (!w) return;
@@ -529,19 +517,18 @@
       document.getElementById('modal-startdate').innerText = w.startDate;
       document.getElementById('modal-schedule').innerText = w.schedule;
       document.getElementById('modal-duration').innerText = w.duration;
+      document.getElementById('modal-fabtool').innerText = w.fabTool;
       document.getElementById('modal-format').innerText = w.format;
       document.getElementById('modal-price').innerText = w.price;
 
-      // Highlights / Viñetas
       const highlightsContainer = document.getElementById('modal-highlights');
       highlightsContainer.innerHTML = w.highlights.map(h => `
-        <li class="flex items-start gap-2">
-          <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600 mt-0.5 flex-shrink-0"></i>
+        <li class="flex items-start gap-2.5">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0"></i>
           <span>${h}</span>
         </li>
       `).join('');
 
-      // Enlace dinámico de WhatsApp con el nuevo número
       const wspMessage = `Hola FAB LAB Perú, deseo información sobre el taller: ${encodeURIComponent(w.title)} (${w.price})`;
       document.getElementById('modal-wsp-btn').href = `https://wa.me/${SITE_DATA.whatsappBase}?text=${wspMessage}`;
 
