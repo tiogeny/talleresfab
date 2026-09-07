@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Propuesta de Talleres & Experiencias | FAB LAB Perú</title>
+  <meta name="description" content="Portal oficial para que instructores y mentores propongan nuevos talleres y experiencias de innovación en FAB LAB Perú." />
+  
+  <link rel="icon" href="../images/logo-circle.png" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            fabBlack: '#000000',
+            fabBlue: '#046bd2',
+            fabDarkBlue: '#045cb4',
+            fabNavy: '#0f172a',
+            fabBg: '#F8FAFC'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-fabBg text-slate-800 antialiased selection:bg-blue-100 selection:text-fabDarkBlue min-h-screen flex flex-col justify-between">
+
+  <!-- CABECERA NEGRA OFICIAL -->
+  <header class="bg-black border-b border-neutral-900 sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Logo Oficial -->
+      <a href="https://fab.pe/" class="flex items-center" title="FAB LAB Perú">
+        <img src="../images/logo-fablabperu-white.png" alt="FAB LAB Perú" class="h-8 sm:h-9 w-auto object-contain" />
+      </a>
+
+      <div class="flex items-center gap-4 text-xs font-mono">
+        <span class="text-slate-400 hidden sm:inline">PORTAL DE MENTORES</span>
+        <a href="../index.html" class="text-cyan-400 hover:underline flex items-center gap-1 font-semibold">
+          <span>&larr; Ver Catálogo Web</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14 flex-1 w-full">
+    
+    <!-- Encabezado de Bienvenida -->
+    <div class="text-center space-y-3 mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-fabBlue border border-blue-100 text-xs font-semibold">
+        <span class="w-2 h-2 rounded-full bg-fabBlue"></span>
+        <span>Convocatoria de Talleres 2026</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Propón un Nuevo Taller o Experiencia Maker
+      </h1>
+
+      <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
+        Completa este formulario con los detalles clave de tu propuesta. La coordinación académica de <strong>FAB LAB Perú</strong> revisará los contenidos para aprobar su publicación en <strong>edu.fab.pe</strong>.
+      </p>
+    </div>
+
+    <!-- CONTENEDOR DEL FORMULARIO -->
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-10 relative overflow-hidden">
+      
+      <div id="tally-container" class="space-y-6">
+        
+        <form id="propuesta-form" class="space-y-6 text-left">
+          
+          <!-- 1. Datos del Instructor -->
+          <div class="space-y-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              1. Tu Nombre o Nombre del Equipo de Instructores *
+            </label>
+            <input type="text" required placeholder="Ej: Hayashi & Franchi / Carmen Quispe" 
+                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
+          </div>
+
+          <!-- 2. Título del Taller -->
+          <div class="space-y-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              2. Nombre sugerido para el Taller *
+            </label>
+            <input type="text" required placeholder="Ej: Circuitos Interactivos & Escaneo 3D" 
+                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
+          </div>
+
+          <!-- 3. Público Objetivo -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                3. Público Objetivo *
+              </label>
+              <select required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition">
+                <option value="">Selecciona una opción</option>
+                <option value="kids">Niños y Adolescentes (8 a 15 años)</option>
+                <option value="creativos">Jóvenes & Creativos (15 a 25 años)</option>
+                <option value="profesionales">Adultos, Profesionales & Docentes</option>
+                <option value="instituciones">Para Colegios o Empresas (A medida)</option>
+              </select>
+            </div>
+
+            <div class="space-y-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                4. Herramienta Principal *
+              </label>
+              <input type="text" required placeholder="Ej: Impresión 3D, Corte Láser, Sensores, etc." 
+                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
+            </div>
+          </div>
+
+          <!-- 4. El Reto de Fabricación -->
+          <div class="space-y-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+              <span>5. ¿Cuál es el Reto de Fabricación? (Proyecto final que se llevan) *</span>
+            </label>
+            <textarea required rows="2" placeholder="Ej: Digitalizar un objeto real con escáner 3D y fabricar un dispositivo con respuesta lumínica y carcasa personalizada." 
+                      class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition"></textarea>
+            <p class="text-[11px] text-slate-400">Describe el objeto físico tangible que cada participante terminará y se llevará a casa.</p>
+          </div>
+
+          <!-- 5. Tiempos e Inversión -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="space-y-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                6. Sesiones / Horas *
+              </label>
+              <input type="text" required placeholder="Ej: 4 sesiones (8 hrs)" 
+                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
+            </div>
+
+            <div class="space-y-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                7. Horario Sugerido *
+              </label>
+              <input type="text" required placeholder="Ej: Sábados 10am - 12pm" 
+                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
+            </div>
+
+            <div class="space-y-2">
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                8. Inversión Sugerida *
+              </label>
+              <input type="text" required placeholder="Ej: S/. 180" 
+                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition" />
+            </div>
+          </div>
+
+          <!-- 6. Temario Resumido -->
+          <div class="space-y-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              9. Breve Desglose de Sesiones (1 línea por sesión) *
+            </label>
+            <textarea required rows="4" placeholder="Sesión 1: Introducción a la herramienta y primeros bocetos.&#10;Sesión 2: Modelado digital y corrección de parámetros.&#10;Sesión 3: Calibración y pruebas de máquina.&#10;Sesión 4: Fabricación final, ensamble y presentación." 
+                      class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-fabBlue focus:ring-1 focus:ring-fabBlue text-sm bg-slate-50 focus:bg-white transition font-mono text-xs"></textarea>
+          </div>
+
+          <!-- Botón de Envío -->
+          <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-xs text-slate-400">
+              Al enviar, tu propuesta será revisada por el equipo para coordinar fechas y publicar en la web.
+            </p>
+            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-7 py-3.5 rounded-xl shadow transition transform active:scale-95">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Enviar Propuesta</span>
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Mensaje de confirmación tras envío -->
+        <div id="confirmacion" class="hidden text-center py-10 space-y-4">
+          <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl font-bold">
+            ✓
+          </div>
+          <h2 class="text-2xl font-bold text-slate-900">¡Propuesta Recibida con Éxito!</h2>
+          <p class="text-sm text-slate-600 max-w-md mx-auto">
+            Muchas gracias por compartir tu iniciativa maker. La coordinación académica revisará los datos y se pondrá en contacto contigo para coordinar el lanzamiento en <strong>edu.fab.pe</strong>.
+          </p>
+          <div class="pt-4">
+            <a href="../index.html" class="inline-flex items-center gap-2 bg-slate-900 text-white text-xs font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition">
+              <span>Volver a la Web Principal</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Caja de Asesoría si tienen dudas -->
+    <div class="mt-8 bg-blue-50 border border-blue-100 rounded-2xl p-5 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="space-y-1">
+        <h3 class="text-sm font-bold text-slate-900">¿Tienes dudas sobre cómo estructurar tu taller?</h3>
+        <p class="text-xs text-slate-600">Nuestro equipo de coordinación puede ayudarte a definir el reto y los requerimientos de laboratorio.</p>
+      </div>
+      <a href="https://wa.me/51989984480?text=Hola%20coordinación%20FAB%20LAB%20Perú,%20tengo%20una%20duda%20para%20proponer%20un%20taller" 
+         target="_blank" 
+         class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition whitespace-nowrap">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span>Consultar por WhatsApp</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-black text-slate-400 py-8 border-t border-neutral-800 text-xs text-center">
+    <p>&copy; 2026 FAB LAB Perú • Portal de Gestión de Talleres</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    const form = document.getElementById('propuesta-form');
+    const confirmacion = document.getElementById('confirmacion');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      form.classList.add('hidden');
+      confirmacion.classList.remove('hidden');
+      lucide.createIcons();
+    });
+  </script>
+
+</body>
+</html>
