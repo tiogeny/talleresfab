@@ -10,7 +10,7 @@ $currentUser = get_current_user_data();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Admin de Talleres | FAB LAB PerÃº</title>
+  <title>Panel Admin de Talleres | FAB LAB Perú</title>
   <link rel="icon" href="../images/logo-circle.png">
   
   <!-- Tailwind CSS CDN -->
@@ -58,11 +58,11 @@ $currentUser = get_current_user_data();
 
       <div class="text-center space-y-4 mb-8">
         <a href="../index.html" class="inline-block">
-          <img src="../images/logo-fablabperu-white.png" alt="FAB LAB PerÃº" class="h-9 mx-auto object-contain">
+          <img src="../images/logo-fablabperu-white.png" alt="FAB LAB Perú" class="h-9 mx-auto object-contain">
         </a>
         <div>
-          <h1 class="text-xl font-bold text-white tracking-tight">Panel de GestiÃ³n de Talleres</h1>
-          <p class="text-xs text-slate-400 mt-1">Acceso seguro para administraciÃ³n y mentores</p>
+          <h1 class="text-xl font-bold text-white tracking-tight">Panel de Gestión de Talleres</h1>
+          <p class="text-xs text-slate-400 mt-1">Acceso seguro para administración y mentores</p>
         </div>
       </div>
 
@@ -101,7 +101,7 @@ $currentUser = get_current_user_data();
 
       <div class="mt-8 pt-6 border-t border-slate-800/80 text-center">
         <a href="../index.html" class="text-xs text-slate-500 hover:text-slate-300 flex items-center justify-center gap-1 transition">
-          <span>&larr; Volver al CatÃ¡logo PÃºblico</span>
+          <span>&larr; Volver al Catálogo Público</span>
         </a>
       </div>
 
@@ -119,7 +119,7 @@ $currentUser = get_current_user_data();
       <div class="flex items-center gap-3">
         <a href="../index.html" target="_blank" title="Ver web en vivo" class="flex items-center gap-2">
           <img src="../images/logo-circle.png" alt="FAB LAB" class="w-8 h-8 rounded-full">
-          <span class="font-extrabold text-white text-sm tracking-tight hidden sm:inline">FAB LAB PerÃº</span>
+          <span class="font-extrabold text-white text-sm tracking-tight hidden sm:inline">FAB LAB Perú</span>
         </a>
         <span class="text-xs font-mono bg-blue-500/20 text-cyan-400 px-2 py-0.5 rounded border border-blue-500/30">
           Studio v2.0
@@ -143,7 +143,7 @@ $currentUser = get_current_user_data();
           <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs border border-cyan-500/30" title="<?= htmlspecialchars($currentUser['email']) ?>">
             <?= strtoupper(substr($currentUser['name'], 0, 1)) ?>
           </div>
-          <button onclick="handleLogout()" class="text-slate-400 hover:text-rose-400 p-1.5 rounded-lg hover:bg-slate-800 transition" title="Cerrar SesiÃ³n">
+          <button onclick="handleLogout()" class="text-slate-400 hover:text-rose-400 p-1.5 rounded-lg hover:bg-slate-800 transition" title="Cerrar Sesión">
             <i data-lucide="log-out" class="w-4 h-4"></i>
           </button>
         </div>
@@ -155,7 +155,7 @@ $currentUser = get_current_user_data();
   <!-- CUERPO PRINCIPAL DEL PANEL -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-6">
     
-    <!-- Banner de Bienvenida y MÃ©tricas -->
+    <!-- Banner de Bienvenida y Métricas -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center justify-between">
@@ -200,10 +200,10 @@ $currentUser = get_current_user_data();
 
     </div>
 
-    <!-- PestaÃ±as y Filtros -->
+    <!-- Pestañas y Filtros -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
       
-      <!-- PestaÃ±as -->
+      <!-- Pestañas -->
       <div class="flex flex-wrap items-center gap-2">
         <button onclick="switchTab('published')" id="tab-published" class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-white border border-slate-700 flex items-center gap-1.5 transition">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -228,7 +228,7 @@ $currentUser = get_current_user_data();
         </button>
       </div>
 
-      <!-- Buscador rÃ¡pido -->
+      <!-- Buscador rápido -->
       <div class="w-full sm:w-64 relative">
         <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-500"></i>
         <input type="text" id="search-input" oninput="renderTalleres()" placeholder="Buscar taller o mentor..." 
@@ -239,15 +239,15 @@ $currentUser = get_current_user_data();
 
     <!-- Contenedor del Listado (Grid de Tarjetas) -->
     <div id="talleres-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <!-- Inyectado vÃ­a JavaScript -->
+      <!-- Inyectado vía JavaScript -->
     </div>
 
-    <!-- Estado vacÃ­o -->
+    <!-- Estado vacío -->
     <div id="empty-state" class="hidden text-center py-16 space-y-3 bg-slate-900/50 border border-slate-800/80 rounded-3xl p-8">
       <div class="w-12 h-12 rounded-2xl bg-slate-800 text-slate-500 flex items-center justify-center mx-auto">
         <i data-lucide="inbox" class="w-6 h-6"></i>
       </div>
-      <h4 class="text-base font-bold text-slate-300">No hay talleres en esta categorÃ­a</h4>
+      <h4 class="text-base font-bold text-slate-300">No hay talleres en esta categoría</h4>
       <p class="text-xs text-slate-500 max-w-sm mx-auto">Puedes crear un taller nuevo o esperar propuestas de los instructores.</p>
     </div>
 
@@ -278,7 +278,7 @@ $currentUser = get_current_user_data();
       <!-- Contenido scrolleable -->
       <div class="p-6 overflow-y-auto custom-scroll space-y-6 flex-1">
         
-        <!-- CAJA MÃGICA DE GEMINI IA -->
+        <!-- CAJA MÁGICA DE GEMINI IA -->
         <div class="bg-gradient-to-br from-blue-950/40 via-slate-900 to-slate-900 border border-cyan-500/30 rounded-2xl p-4 sm:p-5 space-y-3 relative overflow-hidden">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2 text-cyan-400 font-bold text-xs">
@@ -289,10 +289,10 @@ $currentUser = get_current_user_data();
           </div>
           
           <p class="text-xs text-slate-300">
-            Pega aquÃ­ las notas sueltas, borrador o audios del profesor. La IA estructurarÃ¡ el temario, el reto y los copys automÃ¡ticamente:
+            Pega aquí las notas sueltas, borrador o audios del profesor. La IA estructurará el temario, el reto y los copys automáticamente:
           </p>
 
-          <textarea id="ai-raw-notes" rows="2" placeholder="Ej: Taller de Bio-JoyerÃ­a: usaremos almidÃ³n de yuca y cÃ¡scaras para hacer bioplÃ¡sticos, luego corte lÃ¡ser para armar aretes y collares. Para jÃ³venes de 15 a 25 aÃ±os. SÃ¡bados de 3 a 5pm. Precio S/. 180..." 
+          <textarea id="ai-raw-notes" rows="2" placeholder="Ej: Taller de Bio-Joyería: usaremos almidón de yuca y cáscaras para hacer bioplásticos, luego corte láser para armar aretes y collares. Para jóvenes de 15 a 25 años. Sábados de 3 a 5pm. Precio S/. 180..." 
                     class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition"></textarea>
 
           <div class="flex items-center justify-end">
@@ -304,16 +304,42 @@ $currentUser = get_current_user_data();
           </div>
         </div>
 
+        <!-- CAJA DE ORIENTACIÓN PEDAGÓGICA (Visible tras generar con IA) -->
+        <div id="ai-pedagogical-box" class="hidden bg-emerald-950/30 border border-emerald-500/40 rounded-2xl p-4 sm:p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs">
+              <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+              <span>ORIENTACIÓN PEDAGÓGICA MAKER (Feedback de Coordinación)</span>
+            </div>
+            <span id="ai-maker-score" class="text-xs font-bold font-mono bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full border border-emerald-500/40"></span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+              <strong class="text-amber-400 block text-[11px] uppercase">🎯 Reto Tangible</strong>
+              <p id="ai-challenge-tip" class="text-slate-300 leading-relaxed"></p>
+            </div>
+            <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+              <strong class="text-cyan-400 block text-[11px] uppercase">📚 Progresión Didáctica</strong>
+              <p id="ai-didactic-tip" class="text-slate-300 leading-relaxed"></p>
+            </div>
+            <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+              <strong class="text-purple-400 block text-[11px] uppercase">⚙️ Insumos & Seguridad</strong>
+              <p id="ai-safety-tip" class="text-slate-300 leading-relaxed"></p>
+            </div>
+          </div>
+        </div>
+
         <!-- FORMULARIO DETALLADO -->
         <form id="taller-form" onsubmit="saveWorkshop(event)" class="space-y-5">
           <input type="hidden" id="f-id">
           <input type="hidden" id="f-from-proposal-id">
 
-          <!-- 1. TÃ­tulo y SubtÃ­tulo -->
+          <!-- 1. Título y Subtítulo -->
           <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
             <div class="sm:col-span-8 space-y-1.5">
-              <label class="block text-xs font-bold text-slate-300 uppercase">TÃ­tulo del Taller *</label>
-              <input type="text" id="f-title" required placeholder="Ej: Neo-ArtesanÃ­a & Relieves 3D" 
+              <label class="block text-xs font-bold text-slate-300 uppercase">Título del Taller *</label>
+              <input type="text" id="f-title" required placeholder="Ej: Neo-Artesanía & Relieves 3D" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 transition">
             </div>
 
@@ -328,18 +354,18 @@ $currentUser = get_current_user_data();
           </div>
 
           <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-slate-300 uppercase">SubtÃ­tulo / Gancho *</label>
+            <label class="block text-xs font-bold text-slate-300 uppercase">Subtítulo / Gancho *</label>
             <input type="text" id="f-subtitle" required placeholder="Frase corta que explica el objetivo" 
                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
           </div>
 
-          <!-- 2. CategorÃ­a, Mentor y Precios -->
+          <!-- 2. Categoría, Mentor y Precios -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="space-y-1.5">
-              <label class="block text-xs font-bold text-slate-300 uppercase">CategorÃ­a</label>
+              <label class="block text-xs font-bold text-slate-300 uppercase">Categoría</label>
               <select id="f-category" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
-                <option value="kids">NiÃ±os y Adolescentes</option>
-                <option value="creativos">JÃ³venes & Creativos</option>
+                <option value="kids">Niños y Adolescentes</option>
+                <option value="creativos">Jóvenes & Creativos</option>
                 <option value="profesionales">Adultos & Profesionales</option>
               </select>
             </div>
@@ -351,7 +377,7 @@ $currentUser = get_current_user_data();
             </div>
 
             <div class="space-y-1.5">
-              <label class="block text-xs font-bold text-slate-300 uppercase">InversiÃ³n (S/.) *</label>
+              <label class="block text-xs font-bold text-slate-300 uppercase">Inversión (S/.) *</label>
               <input type="text" id="f-price" required placeholder="Ej: S/. 180" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition font-mono">
             </div>
@@ -361,69 +387,69 @@ $currentUser = get_current_user_data();
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-300 uppercase">Fecha de Inicio</label>
-              <input type="text" id="f-startDate" placeholder="Ej: SÃ¡bado 18 de Octubre" 
+              <input type="text" id="f-startDate" placeholder="Ej: Sábado 18 de Octubre" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
             </div>
 
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-300 uppercase">Horario</label>
-              <input type="text" id="f-schedule" placeholder="Ej: SÃ¡bados 10:00 am - 12:00 m" 
+              <input type="text" id="f-schedule" placeholder="Ej: Sábados 10:00 am - 12:00 m" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
             </div>
 
             <div class="space-y-1.5">
-              <label class="block text-xs font-bold text-slate-300 uppercase">DuraciÃ³n</label>
+              <label class="block text-xs font-bold text-slate-300 uppercase">Duración</label>
               <input type="text" id="f-duration" placeholder="Ej: 4 sesiones (8 hrs)" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
             </div>
           </div>
 
-          <!-- 4. Herramientas y PÃºblico -->
+          <!-- 4. Herramientas y Público -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-300 uppercase">Badge / Etiqueta</label>
-              <input type="text" id="f-badge" placeholder="Ej: PrecisiÃ³n LÃ¡ser" 
+              <input type="text" id="f-badge" placeholder="Ej: Precisión Láser" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
             </div>
 
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-300 uppercase">Herramienta Principal</label>
-              <input type="text" id="f-fabTool" placeholder="Ej: Cortadora LÃ¡ser CO2" 
+              <input type="text" id="f-fabTool" placeholder="Ej: Cortadora Láser CO2" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
             </div>
 
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-300 uppercase">Formato</label>
-              <input type="text" id="f-format" placeholder="Ej: Virtual + FabricaciÃ³n fÃ­sica" 
+              <input type="text" id="f-format" placeholder="Ej: Virtual + Fabricación física" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
             </div>
           </div>
 
-          <!-- 5. Reto de FabricaciÃ³n (CLAVE) -->
+          <!-- 5. Reto de Fabricación (CLAVE) -->
           <div class="space-y-1.5 bg-slate-950 p-4 rounded-xl border border-slate-800">
             <label class="block text-xs font-bold text-amber-400 uppercase flex items-center gap-1.5">
               <i data-lucide="target" class="w-3.5 h-3.5"></i>
-              <span>El Reto de FabricaciÃ³n (Objeto fÃ­sico que se llevan a casa) *</span>
+              <span>El Reto de Fabricación (Objeto físico que se llevan a casa) *</span>
             </label>
-            <textarea id="f-challenge" rows="2" required placeholder="Describe la pieza concreta que cada participante terminarÃ¡ y se llevarÃ¡ terminada." 
+            <textarea id="f-challenge" rows="2" required placeholder="Describe la pieza concreta que cada participante terminará y se llevará terminada." 
                       class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-400 transition"></textarea>
           </div>
 
-          <!-- 6. DescripciÃ³n general -->
+          <!-- 6. Descripción general -->
           <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-slate-300 uppercase">DescripciÃ³n General</label>
-            <textarea id="f-description" rows="2" placeholder="3 a 4 lÃ­neas que explican la experiencia del participante." 
+            <label class="block text-xs font-bold text-slate-300 uppercase">Descripción General</label>
+            <textarea id="f-description" rows="2" placeholder="3 a 4 líneas que explican la experiencia del participante." 
                       class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-white focus:outline-none focus:border-cyan-400 transition"></textarea>
           </div>
 
-          <!-- 7. Temario SesiÃ³n por SesiÃ³n -->
+          <!-- 7. Temario Sesión por Sesión -->
           <div class="space-y-2">
             <label class="block text-xs font-bold text-slate-300 uppercase">Temario Desglosado (Sesiones)</label>
             <div id="syllabus-container" class="space-y-2">
-              <!-- Rellenado dinÃ¡mico vÃ­a JS -->
+              <!-- Rellenado dinámico vía JS -->
             </div>
             <button type="button" onclick="addSyllabusRow()" class="text-xs text-cyan-400 hover:underline flex items-center gap-1">
-              <i data-lucide="plus" class="w-3 h-3"></i> AÃ±adir SesiÃ³n
+              <i data-lucide="plus" class="w-3 h-3"></i> Añadir Sesión
             </button>
           </div>
 
@@ -432,7 +458,7 @@ $currentUser = get_current_user_data();
             <label class="block text-xs font-bold text-slate-300 uppercase">Imagen del Taller (16:9)</label>
             <div class="flex flex-col sm:flex-row items-center gap-4">
               <div class="w-32 aspect-video bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shrink-0">
-                <img id="f-img-preview" src="../images/talleres_niÃ±os.jfif" alt="" class="w-full h-full object-cover">
+                <img id="f-img-preview" src="../images/talleres_niños.jfif" alt="" class="w-full h-full object-cover">
               </div>
               <div class="space-y-2 w-full">
                 <input type="text" id="f-image" placeholder="images/nombre-imagen.jfif o URL externa" 
@@ -454,7 +480,7 @@ $currentUser = get_current_user_data();
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-400 uppercase flex items-center justify-between">
                 <span>Copy para Instagram / Facebook</span>
-                <button type="button" onclick="copyToClipboard('f-copy-ig', 'Â¡Copy de Instagram copiado!')" class="text-cyan-400 hover:underline text-[10px]">Copiar</button>
+                <button type="button" onclick="copyToClipboard('f-copy-ig', '¡Copy de Instagram copiado!')" class="text-cyan-400 hover:underline text-[10px]">Copiar</button>
               </label>
               <textarea id="f-copy-ig" rows="3" placeholder="Texto generado para redes sociales" 
                         class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300 font-mono"></textarea>
@@ -463,7 +489,7 @@ $currentUser = get_current_user_data();
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-400 uppercase flex items-center justify-between">
                 <span>Mensaje para WhatsApp</span>
-                <button type="button" onclick="copyToClipboard('f-copy-wa', 'Â¡Mensaje de WhatsApp copiado!')" class="text-emerald-400 hover:underline text-[10px]">Copiar</button>
+                <button type="button" onclick="copyToClipboard('f-copy-wa', '¡Mensaje de WhatsApp copiado!')" class="text-emerald-400 hover:underline text-[10px]">Copiar</button>
               </label>
               <textarea id="f-copy-wa" rows="3" placeholder="Mensaje con emojis para listas de WhatsApp" 
                         class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300 font-mono"></textarea>
@@ -550,7 +576,7 @@ $currentUser = get_current_user_data();
   }
 
   async function handleLogout() {
-    if (!confirm('Â¿Deseas cerrar tu sesiÃ³n?')) return;
+    if (!confirm('¿Deseas cerrar tu sesión?')) return;
     await fetch('api.php?action=logout', { method: 'POST' });
     window.location.reload();
   }
@@ -651,7 +677,7 @@ $currentUser = get_current_user_data();
           
           <div>
             <div class="w-full aspect-video bg-slate-800 relative overflow-hidden">
-              <img src="../${t.image || 'images/talleres_niÃ±os.jfif'}" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='../images/talleres_niÃ±os.jfif'">
+              <img src="../${t.image || 'images/talleres_niños.jfif'}" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='../images/talleres_niños.jfif'">
               <div class="absolute top-3 left-3">${statusBadge}</div>
               <div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-md text-white font-mono text-xs font-bold px-2.5 py-1 rounded-lg border border-white/10">
                 ${t.price || 'S/. 150'}
@@ -681,7 +707,7 @@ $currentUser = get_current_user_data();
           <div class="p-4 bg-slate-950/80 border-t border-slate-800/80 flex items-center justify-between gap-2">
             
             <div class="flex items-center gap-1.5">
-              ${!isProp ? `
+              ${(!isProp && (state.currentUser && state.currentUser.role === 'admin')) ? `
                 <button onclick="toggleWorkshopStatus('${t.id}', '${t.status === 'published' ? 'draft' : 'published'}')" 
                         class="p-2 rounded-xl text-xs font-semibold ${t.status === 'published' ? 'text-amber-400 hover:bg-amber-500/10' : 'text-emerald-400 hover:bg-emerald-500/10'} transition" 
                         title="${t.status === 'published' ? 'Ocultar de la web' : 'Publicar en la web'}">
@@ -695,15 +721,15 @@ $currentUser = get_current_user_data();
             </div>
 
             <div class="flex items-center gap-1.5">
-              ${!isProp ? `
+              ${(!isProp && (state.currentUser && state.currentUser.role === 'admin')) ? `
                 <button onclick="deleteWorkshop('${t.id}')" class="p-2 rounded-xl text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition" title="Eliminar Taller">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
-              ` : `
+              ` : (isProp ? `
                 <button onclick="editWorkshop('${t.id}', true)" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition">
                   Convertir en Taller
                 </button>
-              `}
+              ` : '')}
             </div>
 
           </div>
@@ -724,7 +750,7 @@ $currentUser = get_current_user_data();
     document.getElementById('f-from-proposal-id').value = '';
 
     if (taller) {
-      document.getElementById('modal-title-text').innerText = fromProposal ? 'Revisar Propuesta para PublicaciÃ³n' : 'Editar Taller';
+      document.getElementById('modal-title-text').innerText = fromProposal ? 'Revisar Propuesta para Publicación' : 'Editar Taller';
       document.getElementById('f-id').value = fromProposal ? '' : taller.id;
       if (fromProposal) document.getElementById('f-from-proposal-id').value = taller.id;
 
@@ -742,8 +768,8 @@ $currentUser = get_current_user_data();
       document.getElementById('f-format').value = taller.format || 'Virtual interactivo';
       document.getElementById('f-challenge').value = taller.challenge || '';
       document.getElementById('f-description').value = taller.description || '';
-      document.getElementById('f-image').value = taller.image || 'images/talleres_niÃ±os.jfif';
-      document.getElementById('f-img-preview').src = '../' + (taller.image || 'images/talleres_niÃ±os.jfif');
+      document.getElementById('f-image').value = taller.image || 'images/talleres_niños.jfif';
+      document.getElementById('f-img-preview').src = '../' + (taller.image || 'images/talleres_niños.jfif');
       document.getElementById('f-copy-ig').value = taller.socialCopyInstagram || '';
       document.getElementById('f-copy-wa').value = taller.socialCopyWhatsapp || '';
 
@@ -755,10 +781,23 @@ $currentUser = get_current_user_data();
     } else {
       document.getElementById('modal-title-text').innerText = 'Nuevo Taller';
       document.getElementById('f-id').value = '';
-      document.getElementById('f-status').value = 'published';
-      document.getElementById('f-image').value = 'images/talleres_adolescentes.jfif';
-      document.getElementById('f-img-preview').src = '../images/talleres_adolescentes.jfif';
       defaultSyllabusRows();
+    }
+
+    const isInstructor = (state.currentUser && state.currentUser.role === 'instructor');
+    const statusSelect = document.getElementById('f-status');
+    const saveBtn = document.getElementById('btn-save');
+
+    if (isInstructor) {
+      statusSelect.innerHTML = '<option value="draft">🟡 Borrador (Pendiente de Aprobación por Coordinación)</option>';
+      saveBtn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i><span>Guardar Propuesta para Aprobación</span>';
+    } else {
+      statusSelect.innerHTML = `
+        <option value="published">🟢 Publicado (Visible en la web)</option>
+        <option value="draft">🟡 Borrador (Oculto)</option>
+        <option value="archived">⚪ Archivado</option>
+      `;
+      saveBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>Guardar y Publicar en la Web</span>';
     }
 
     modal.classList.remove('hidden');
@@ -773,10 +812,10 @@ $currentUser = get_current_user_data();
   }
 
   function defaultSyllabusRows() {
-    addSyllabusRow('SesiÃ³n 1', 'IntroducciÃ³n & Bocetos', 'Conceptos iniciales y primeros parÃ¡metros.');
-    addSyllabusRow('SesiÃ³n 2', 'DiseÃ±o y Modelado', 'Ajuste de tolerancias y resoluciÃ³n tÃ©cnica.');
-    addSyllabusRow('SesiÃ³n 3', 'FabricaciÃ³n & Pruebas', 'Procesamiento en mÃ¡quinas del laboratorio.');
-    addSyllabusRow('SesiÃ³n 4', 'Ensamble y Acabados', 'PresentaciÃ³n del reto fÃ­sico terminado.');
+    addSyllabusRow('Sesión 1', 'Introducción & Bocetos', 'Conceptos iniciales y primeros parámetros.');
+    addSyllabusRow('Sesión 2', 'Diseño y Modelado', 'Ajuste de tolerancias y resolución técnica.');
+    addSyllabusRow('Sesión 3', 'Fabricación & Pruebas', 'Procesamiento en máquinas del laboratorio.');
+    addSyllabusRow('Sesión 4', 'Ensamble y Acabados', 'Presentación del reto físico terminado.');
   }
 
   function addSyllabusRow(session = '', title = '', desc = '') {
@@ -785,9 +824,9 @@ $currentUser = get_current_user_data();
     const div = document.createElement('div');
     div.className = 'grid grid-cols-1 sm:grid-cols-12 gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 items-center';
     div.innerHTML = `
-      <input type="text" class="sm:col-span-2 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-cyan-400 font-bold" value="${session || 'SesiÃ³n ' + idx}">
+      <input type="text" class="sm:col-span-2 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-cyan-400 font-bold" value="${session || 'Sesión ' + idx}">
       <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" placeholder="Tema principal" value="${title}">
-      <input type="text" class="sm:col-span-5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300" placeholder="QuÃ© harÃ¡n en clase" value="${desc}">
+      <input type="text" class="sm:col-span-5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300" placeholder="Qué harán en clase" value="${desc}">
       <button type="button" onclick="this.parentElement.remove()" class="sm:col-span-1 text-slate-500 hover:text-rose-400 p-1 text-center" title="Quitar">
         <i data-lucide="x" class="w-4 h-4 mx-auto"></i>
       </button>
@@ -853,14 +892,14 @@ $currentUser = get_current_user_data();
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        showToast('Â¡Taller guardado y sincronizado con edu.fab.pe!');
+        showToast('¡Taller guardado y sincronizado con edu.fab.pe!');
         closeWorkshopModal();
         await loadData();
       } else {
         alert(data.error || 'Error al guardar el taller.');
       }
     } catch (err) {
-      alert('Error de conexiÃ³n al guardar.');
+      alert('Error de conexión al guardar.');
     } finally {
       btn.disabled = false;
       btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>Guardar y Publicar en la Web</span>';
@@ -886,7 +925,7 @@ $currentUser = get_current_user_data();
   }
 
   async function deleteWorkshop(id) {
-    if (!confirm('Â¿EstÃ¡s seguro de eliminar este taller? Esta acciÃ³n no se puede deshacer.')) return;
+    if (!confirm('¿Estás seguro de eliminar este taller? Esta acción no se puede deshacer.')) return;
     try {
       const res = await fetch('api.php?action=delete_taller', {
         method: 'POST',
@@ -938,15 +977,23 @@ $currentUser = get_current_user_data();
         if (w.challenge) document.getElementById('f-challenge').value = w.challenge;
         if (w.description) document.getElementById('f-description').value = w.description;
         if (w.socialCopyInstagram) document.getElementById('f-copy-ig').value = w.socialCopyInstagram;
-        if (w.socialCopyWhatsapp) document.getElementById('f-copy-wa').value = w.socialCopyWhatsapp;
-
         if (w.syllabus && Array.isArray(w.syllabus)) {
           const container = document.getElementById('syllabus-container');
           container.innerHTML = '';
           w.syllabus.forEach(s => addSyllabusRow(s.session, s.title, s.desc));
         }
 
-        showToast('âœ¨ Â¡Taller auto-completado con Ã©xito por Gemini!');
+        if (w.pedagogicalFeedback) {
+          const pBox = document.getElementById('ai-pedagogical-box');
+          document.getElementById('ai-maker-score').innerText = w.pedagogicalFeedback.makerScore || 'Maker Verified';
+          document.getElementById('ai-challenge-tip').innerText = w.pedagogicalFeedback.challengeTip || 'Reto físico validado.';
+          document.getElementById('ai-didactic-tip').innerText = w.pedagogicalFeedback.didacticTip || 'Secuencia didáctica organizada.';
+          document.getElementById('ai-safety-tip').innerText = w.pedagogicalFeedback.safetyOrMaterials || 'Protocolo de laboratorio estándar.';
+          pBox.classList.remove('hidden');
+          window._lastPedagogicalFeedback = w.pedagogicalFeedback;
+        }
+
+        showToast('✨ ¡Taller y Orientación Pedagógica generados con éxito por Gemini!');
       } else {
         alert(data.error || 'Gemini no pudo procesar la solicitud.');
       }
@@ -978,7 +1025,7 @@ $currentUser = get_current_user_data();
         document.getElementById('f-image').value = data.url;
         document.getElementById('f-img-preview').src = '../' + data.url;
         status.innerText = 'âœ“ Imagen subida';
-        showToast('Imagen subida con Ã©xito.');
+        showToast('Imagen subida con éxito.');
       } else {
         status.innerText = 'Error';
         alert(data.error || 'Error al subir la imagen.');

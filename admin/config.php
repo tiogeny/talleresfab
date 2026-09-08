@@ -10,7 +10,7 @@ if (!defined('GEMINI_API_KEY')) {
     define('GEMINI_API_KEY', getenv('GEMINI_API_KEY') ?: '');
 }
 
-define('GEMINI_MODEL', 'gemini-1.5-flash');
+define('GEMINI_MODEL', 'gemini-flash-lite-latest');
 
 // Usuarios con acceso al panel
 $AUTHORIZED_USERS = [

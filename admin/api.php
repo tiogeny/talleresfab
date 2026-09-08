@@ -179,6 +179,15 @@ if ($action === 'save_taller') {
         }
     }
 
+    $currentUser = get_current_user_data();
+    $isInstructor = ($currentUser['role'] === 'instructor');
+
+    // Los instructores guardan en estado borrador para revisión del administrador
+    $targetStatus = in_array($data['status'] ?? '', ['published', 'draft', 'archived']) ? $data['status'] : 'published';
+    if ($isInstructor) {
+        $targetStatus = 'draft';
+    }
+
     $workshop = [
         'id' => $id,
         'title' => trim($data['title'] ?? ''),
@@ -194,12 +203,13 @@ if ($action === 'save_taller') {
         'fabTool' => trim($data['fabTool'] ?? 'Fabricación Digital'),
         'challenge' => trim($data['challenge'] ?? ''),
         'description' => trim($data['description'] ?? ''),
-        'instructor' => trim($data['instructor'] ?? get_current_user_data()['name']),
-        'instructorEmail' => trim($data['instructorEmail'] ?? get_current_user_data()['email']),
-        'status' => in_array($data['status'] ?? '', ['published', 'draft', 'archived']) ? $data['status'] : 'published',
+        'instructor' => trim($data['instructor'] ?? $currentUser['name']),
+        'instructorEmail' => trim($data['instructorEmail'] ?? $currentUser['email']),
+        'status' => $targetStatus,
         'syllabus' => is_array($data['syllabus'] ?? null) ? $data['syllabus'] : [],
         'highlights' => is_array($data['highlights'] ?? null) ? $data['highlights'] : [],
         'image' => trim($data['image'] ?? 'images/talleres_adolescentes.jfif'),
+        'pedagogicalFeedback' => is_array($data['pedagogicalFeedback'] ?? null) ? $data['pedagogicalFeedback'] : null,
         'socialCopyInstagram' => trim($data['socialCopyInstagram'] ?? ''),
         'socialCopyWhatsapp' => trim($data['socialCopyWhatsapp'] ?? ''),
         'updatedAt' => date('c')
@@ -225,13 +235,22 @@ if ($action === 'save_taller') {
         }
     }
 
-    json_response(['success' => true, 'message' => 'Taller guardado y sincronizado correctamente.', 'workshop' => $workshop]);
+    $successMsg = $isInstructor 
+        ? 'Taller guardado como borrador. La Administración lo revisará para publicarlo.' 
+        : ($targetStatus === 'published' ? '¡Taller guardado y publicado en la web en vivo!' : 'Taller guardado.');
+
+    json_response(['success' => true, 'message' => $successMsg, 'workshop' => $workshop]);
 }
 
 // -------------------------------------------------------------
 // 7. AUTH ACTION: Cambiar Estado (Publicar / Ocultar / Archivar)
 // -------------------------------------------------------------
 if ($action === 'set_status') {
+    $currentUser = get_current_user_data();
+    if ($currentUser['role'] !== 'admin') {
+        json_response(['error' => 'Solo la Administración puede cambiar el estado público de los talleres.'], 403);
+    }
+
     $rawInput = file_get_contents('php://input');
     $data = json_decode($rawInput, true) ?: $_POST;
     $id = $data['id'] ?? '';
@@ -264,6 +283,11 @@ if ($action === 'set_status') {
 // 8. AUTH ACTION: Eliminar Taller
 // -------------------------------------------------------------
 if ($action === 'delete_taller') {
+    $currentUser = get_current_user_data();
+    if ($currentUser['role'] !== 'admin') {
+        json_response(['error' => 'Solo la Administración puede eliminar talleres.'], 403);
+    }
+
     $rawInput = file_get_contents('php://input');
     $data = json_decode($rawInput, true) ?: $_POST;
     $id = $data['id'] ?? '';
@@ -337,17 +361,19 @@ if ($action === 'ai_generate') {
         json_response(['error' => 'Falta configurar la clave GEMINI_API_KEY en config.php'], 500);
     }
 
-    $prompt = "Eres el Director Académico y de Marketing de FAB LAB Perú (edu.fab.pe).\n";
-    $prompt .= "Recibe las siguientes notas o idea en bruto de un taller y genera un JSON estrictamente válido.\n";
+    $prompt = "Eres el Director Académico y Diseñador Pedagógico de FAB LAB Perú (edu.fab.pe).\n";
+    $prompt .= "Tu rol es:\n";
+    $prompt .= "1. Estructurar la propuesta del taller en un formato técnico y atractivo.\n";
+    $prompt .= "2. Brindar ORIENTACIÓN PEDAGÓGICA MAKER al instructor (evaluar el reto tangible, dar recomendaciones didácticas y sugerir insumos/seguridad).\n\n";
     $prompt .= "REGLAS DE TONO:\n";
     $prompt .= "- NO uses verbos pasivos como 'aprende', usa verbos de acción y experimentación: 'diseña', 'prototipa', 'materializa', 'experimenta', 'conecta'.\n";
     $prompt .= "- Moneda: Soles (S/.). Teléfono oficial: +51 989 984 480.\n";
     $prompt .= "- No menciones FabCoins ni MIT.\n";
-    $prompt .= "- El reto de fabricación debe ser un objeto físico tangible o producto concreto terminado que se llevan a casa.\n\n";
+    $prompt .= "- El reto de fabricación DEBE ser un objeto físico tangible o producto concreto terminado que se llevan a casa.\n\n";
     $prompt .= "NOTAS DEL TALLER:\n" . $rawNotes . "\n\n";
-    $prompt .= "Devuelve ÚNICAMENTE un objeto JSON con este esquema exacto:\n";
+    $prompt .= "Devuelve ÚNICAMENTE un objeto JSON estrictamente válido con este esquema:\n";
     $prompt .= "{\n";
-    $prompt .= "  \"title\": \"Título corto y atractivo\",\n";
+    $prompt .= "  \"title\": \"Título corto y potente\",\n";
     $prompt .= "  \"subtitle\": \"Frase de impacto de lo que van a crear\",\n";
     $prompt .= "  \"category\": \"kids | creativos | profesionales\",\n";
     $prompt .= "  \"targetAudience\": \"Descripción del público objetivo\",\n";
@@ -357,8 +383,8 @@ if ($action === 'ai_generate') {
     $prompt .= "  \"duration\": \"Ej: 4 sesiones prácticas (8 hrs)\",\n";
     $prompt .= "  \"schedule\": \"Ej: Sábados de 10am a 12m\",\n";
     $prompt .= "  \"format\": \"Virtual interactivo | Presencial | Híbrido\",\n";
-    $prompt .= "  \"fabTool\": \"Herramientas principales (Láser, 3D, Arduino, etc)\",\n";
-    $prompt .= "  \"challenge\": \"Descripción del reto físico que se llevan\",\n";
+    $prompt .= "  \"fabTool\": \"Herramientas principales usadas\",\n";
+    $prompt .= "  \"challenge\": \"Descripción del reto físico tangible que se llevan\",\n";
     $prompt .= "  \"description\": \"Descripción envolvente en 3-4 líneas\",\n";
     $prompt .= "  \"syllabus\": [\n";
     $prompt .= "    { \"session\": \"Sesión 1\", \"title\": \"...\", \"desc\": \"...\" },\n";
@@ -367,46 +393,61 @@ if ($action === 'ai_generate') {
     $prompt .= "    { \"session\": \"Sesión 4\", \"title\": \"...\", \"desc\": \"...\" }\n";
     $prompt .= "  ],\n";
     $prompt .= "  \"highlights\": [\"Logro 1\", \"Logro 2\", \"Logro 3\", \"Logro 4\"],\n";
+    $prompt .= "  \"pedagogicalFeedback\": {\n";
+    $prompt .= "    \"makerScore\": \"9/10 (Alto Enfoque Práctico)\",\n";
+    $prompt .= "    \"challengeTip\": \"Consejo pedagógico para hacer el reto más tangible y motivador en el laboratorio\",\n";
+    $prompt .= "    \"didacticTip\": \"Recomendación para la secuencia de las sesiones y evitar baches técnicos\",\n";
+    $prompt .= "    \"safetyOrMaterials\": \"Insumos recomendados y precauciones en el laboratorio\"\n";
+    $prompt .= "  },\n";
     $prompt .= "  \"socialCopyInstagram\": \"Texto persuasivo para post de Instagram con emojis y hashtags\",\n";
     $prompt .= "  \"socialCopyWhatsapp\": \"Mensaje formateado para listas de difusión de WhatsApp con número oficial\"\n";
     $prompt .= "}";
 
-    $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/" . GEMINI_MODEL . ":generateContent?key=" . urlencode($apiKey);
+    $modelsToTry = array_unique([GEMINI_MODEL, 'gemini-flash-lite-latest', 'gemini-3.1-flash-lite']);
+    $response = null;
+    $httpCode = 0;
+    $geminiData = null;
 
-    $payload = [
-        "contents" => [
-            [
-                "parts" => [
-                    ["text" => $prompt]
+    foreach ($modelsToTry as $modelCandidate) {
+        $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/" . $modelCandidate . ":generateContent?key=" . urlencode($apiKey);
+
+        $payload = [
+            "contents" => [
+                [
+                    "parts" => [
+                        ["text" => $prompt]
+                    ]
                 ]
+            ],
+            "generationConfig" => [
+                "temperature" => 0.7,
+                "responseMimeType" => "application/json"
             ]
-        ],
-        "generationConfig" => [
-            "temperature" => 0.7,
-            "responseMimeType" => "application/json"
-        ]
-    ];
+        ];
 
-    $ch = curl_init($endpoint);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $ch = curl_init($endpoint);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-    $response = curl_exec($ch);
-    $curlError = curl_error($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+        $response = curl_exec($ch);
+        $curlError = curl_error($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
 
-    if ($curlError) {
-        json_response(['error' => 'Error de conexión con Gemini: ' . $curlError], 500);
+        if (!$curlError && $httpCode === 200) {
+            $geminiData = json_decode($response, true);
+            if (!empty($geminiData['candidates'][0]['content']['parts'][0]['text'])) {
+                break; // Éxito!
+            }
+        }
     }
 
-    $geminiData = json_decode($response, true);
     if ($httpCode >= 400 || empty($geminiData['candidates'][0]['content']['parts'][0]['text'])) {
-        $errorMsg = $geminiData['error']['message'] ?? 'Respuesta no válida de Gemini.';
+        $errorMsg = $geminiData['error']['message'] ?? 'Respuesta no válida de Gemini. Por favor intenta de nuevo en unos segundos.';
         json_response(['error' => 'Error API Gemini: ' . $errorMsg, 'raw' => $response], 500);
     }
 
