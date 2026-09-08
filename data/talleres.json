@@ -7,9 +7,9 @@
     "targetAudience": "Jóvenes, Adultos, Artistas, Diseñadores y Entusiastas Maker",
     "badge": "Arte & Corte Láser",
     "price": "S/. 200",
-    "startDate": "Martes 7 de Octubre",
+    "startDate": "7 de Octubre (7, 14, 21 y 28 Oct)",
     "duration": "4 sesiones (8 hrs)",
-    "schedule": "Martes de 7:00 pm a 9:00 pm",
+    "schedule": "7:00 pm a 9:00 pm | 31 de Octubre: Exposición Hub Miraflores",
     "format": "Híbrido (Teoría/Diseño virtual + Corte y Exposición presencial en Fab Lab Miraflores)",
     "fabTool": "Inkscape / Cuttle & Cortadora Láser CO2",
     "challenge": "Diseñar virtualmente un cuadro en relieve 2.5D en capas de MDF, fabricarlo en corte láser, aplicar acabados acrílicos y exponerlo en la Feria FABulosa.",
@@ -57,8 +57,8 @@
     "badge": "Robótica & IA Kids",
     "price": "S/. 400",
     "startDate": "Sábado 25 de Octubre",
-    "duration": "8 sesiones (16 hrs)",
-    "schedule": "Sábados de 3:30 pm a 5:30 pm",
+    "duration": "8 sesiones (2 horas por sesión)",
+    "schedule": "Miércoles de 4:00 pm a 6:00 pm / Viernes de 4:00 pm a 6:00 pm",
     "format": "Híbrido (Clases virtuales interactivas y retos prácticos de laboratorio)",
     "fabTool": "mBlock, mlink2, Sensores, Actuadores y Cámara ML",
     "challenge": "Programar sensores y actuadores, entrenar un modelo de Machine Learning para reconocimiento de gestos y crear un videojuego funcional integrador.",
@@ -114,46 +114,47 @@
   },
   {
     "id": "digitoys-fabricacion-digital",
-    "title": "Digitoys: Fabricación Digital de Juguetes & Autómatas",
-    "subtitle": "Diseña, corta con láser y ensambla tus propios juguetes mecánicos articulados con movimiento.",
+    "title": "Digitoys: Fabricación Digital de Juguetes, Autómatas & Emprendimiento Maker",
+    "subtitle": "Crea juguetes interactivos, vectoriza piezas press-fit, simula costos con FabCoins y diseña tu empaque de autor.",
     "category": "kids",
     "targetAudience": "Niños de 7 a 13 años y familias creativas",
-    "badge": "Juguetes & Autómatas",
+    "badge": "Juguetes & Emprendimiento",
     "price": "S/. 200",
-    "startDate": "Sábado 25 de Octubre",
+    "startDate": "Sábado 03 de Octubre (3, 10, 17 y 24 Oct)",
     "duration": "4 sesiones (6 hrs)",
-    "schedule": "Sábados de 10:00 am a 11:30 am",
-    "format": "Presencial en Fab Lab Miraflores",
-    "fabTool": "Cortadora Láser CO2, Impresión 3D y Mecanismos de Ensamble",
-    "challenge": "Idear, vectorizar y ensamblar un autómata mecánico de madera con sistema de manivela, levas y articulaciones móviles.",
-    "description": "Digitoys es el emblemático programa maker donde niños y niñas dan vida a juguetes interactivos mediante fabricación digital. A través de retos manuales y digitales, los participantes descubren el fascinante mundo de la cinemática lúdica: diseñan personajes articulados en madera y acrílico, operan la cortadora láser e impresora 3D, y calibran engranajes y levas para construir su propio autómata mecánico funcional.",
+    "schedule": "Sábados de 10:00 am a 11:30 am (Fechas: 3, 10, 17 y 24 de Octubre)",
+    "format": "Virtual",
+    "fabTool": "Impresión 3D",
+    "challenge": "Fundar una mini-marca maker, diseñar un juguete o autómata autoportante con mecanismo móvil (manivelas, levas o articulaciones), costear su producción con una bolsa de FabCoins, fabricarlo en corte láser e impresión 3D, y lanzar el producto terminado con empaque de colección y pitch de 30 segundos.",
+    "description": "Digitoys es el emblemático programa maker donde niños y niñas dan vida a juguetes interactivos y fundan su primera marca de productos físicos mediante fabricación digital. A través de un ciclo completo de emprendimiento y retos manuales-digitales, los participantes descubren el fascinante mundo de la cinemática lúdica y el diseño de producto: conciben su criatura de autor, vectorizan piezas press-fit con tolerancias exactas, presupuestan su producción con FabCoins, operan la cortadora láser e impresoras 3D, y fabrican un autómata mecánico coleccionable listo para el mercado con su propio empaque de diseño.",
     "syllabus": [
       {
         "session": "Misión 1",
-        "title": "El Mundo de los Autómatas",
-        "desc": "Exploración de la mecánica del movimiento: levas, bielas, manivelas y bocetado del personaje o criatura mecánica."
+        "title": "Concebir — La Marca, el Personaje y la Cinemática",
+        "desc": "Exploración de la mecánica del movimiento (levas, bielas, manivelas y engranajes). Creación de la historia y boceto del personaje con plumón negro aplicando la regla de oro física: base plana autoportante para sostenerse solo sin soportes."
       },
       {
         "session": "Misión 2",
-        "title": "Diseño Digital y Piezas Press-Fit",
-        "desc": "Trazado digital de los eslabones y engranajes con tolerancias precisas de encaje a presión sin pegamento."
+        "title": "Ingeniería Digital y Piezas Press-Fit",
+        "desc": "Digitalización vectorial del personaje y modelado con espesor de 10 mm. Trazado paramétrico de eslabones y engranajes con tolerancias precisas de encaje a presión (press-fit) y compensación de corte láser (kerf) sin uso de pegamento."
       },
       {
         "session": "Misión 3",
-        "title": "Corte Láser y Fabricación en el Lab",
-        "desc": "Operación segura de la máquina láser en MDF y acrílico, más piezas complementarias en impresión 3D."
+        "title": "Fabricación en el Lab y Presupuesto con FabCoins",
+        "desc": "Cálculo de costos de producción en materiales (MDF, acrílico y filamento PLA ecológico) debitando de su bolsa de FabCoins. Operación segura de la cortadora láser CO2, preparación de archivos para impresión 3D y simulación de capas en el slicer."
       },
       {
         "session": "Misión 4",
-        "title": "Calibración, Acabados y Show Digitoys",
-        "desc": "Ensamble cinemático, lubricación de ejes, personalización artística y presentación interactiva de cada juguete."
+        "title": "Post-Proceso, Packaging Coleccionable y Show Pitch",
+        "desc": "Ensamble mecánico y calibración de ejes. Armado de la caja troquelada de packaging coleccionable con etiqueta de autor de edición limitada. Presentación final ante el aula con fotografía de producto y pitch de ventas de 30 segundos para obtener el Pasaporte Maker Oficial."
       }
     ],
     "highlights": [
-      "Aprende cinemática y física aplicada a través del juego y la construcción real.",
-      "Uso práctico de máquinas de alta tecnología: cortadora láser CO2 e impresoras 3D.",
-      "Desarrollo del pensamiento espacial, motricidad fina y resolución de retos mecánicos.",
-      "Cada participante fabrica y se lleva a casa su autómata mecánico 100% funcional."
+      "Aprende cinemática, diseño 3D y física aplicada a través del juego y la construcción real.",
+      "Vivencia práctica del ciclo de emprendimiento: presupuesto con FabCoins, empaque y pitch comercial.",
+      "Uso directo de máquinas de fabricación digital de nivel profesional: cortadora láser CO2 e impresoras 3D.",
+      "Desarrollo del pensamiento espacial, resolución de problemas mecánicos y oratoria para presentar proyectos.",
+      "Cada participante se lleva a casa su autómata 100% funcional en su caja de empaque y su Pasaporte Maker verificado."
     ],
     "image": "images/taller-digitoys.jpg",
     "instructor": "Henry Sánchez",
