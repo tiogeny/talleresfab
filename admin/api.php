@@ -146,7 +146,8 @@ function sync_to_data_js() {
     $jsContent .= "  { id: \"creativos\", name: \"Jóvenes & Creativos\" },\n";
     $jsContent .= "  { id: \"profesionales\", name: \"Adultos & Profesionales\" }\n";
     $jsContent .= "];\n\n";
-    $jsContent .= "const WORKSHOPS = " . $jsonPublished . ";\n";
+    $jsContent .= "var WORKSHOPS = " . $jsonPublished . ";\n";
+    $jsContent .= "if (typeof window !== 'undefined') window.WORKSHOPS = WORKSHOPS;\n";
 
     $res = @file_put_contents(DATA_JS_FILE, $jsContent, LOCK_EX);
     if ($res === false) {

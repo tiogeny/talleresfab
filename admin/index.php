@@ -594,11 +594,15 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
           <div class="space-y-2 bg-slate-950 p-4 rounded-xl border border-slate-800">
             <label class="block text-xs font-bold text-slate-200 uppercase">Imagen de Portada (16:9)</label>
             <div class="flex flex-col sm:flex-row items-center gap-4">
-              <div class="w-32 aspect-video bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shrink-0">
-                <img id="f-img-preview" src="../images/talleres_niños.jfif" alt="" class="w-full h-full object-cover">
+              <div class="w-32 aspect-video bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shrink-0 flex items-center justify-center relative">
+                <img id="f-img-preview" src="" alt="" class="w-full h-full object-cover hidden">
+                <div id="f-img-placeholder" class="text-center text-slate-500 space-y-1">
+                  <i data-lucide="image" class="w-6 h-6 mx-auto"></i>
+                  <span class="text-[9px] block">Sin portada</span>
+                </div>
               </div>
               <div class="space-y-2 w-full">
-                <input type="text" id="f-image" placeholder="images/talleres_adolescentes.jfif" 
+                <input type="text" id="f-image" oninput="updateImagePreview(this.value)" placeholder="Pega una URL o sube una imagen desde tu PC..." 
                        class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-mono">
                 <div class="flex items-center gap-2">
                   <label class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-3 py-1.5 rounded-lg border border-slate-600 cursor-pointer transition">
@@ -1009,13 +1013,76 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     }
   }
 
+  function updateImagePreview(url) {
+    const preview = document.getElementById('f-img-preview');
+    const placeholder = document.getElementById('f-img-placeholder');
+    if (url && url.trim()) {
+      preview.src = url.startsWith('http') || url.startsWith('/') ? url : ('../' + url);
+      preview.classList.remove('hidden');
+      if (placeholder) placeholder.classList.add('hidden');
+    } else {
+      preview.src = '';
+      preview.classList.add('hidden');
+      if (placeholder) placeholder.classList.remove('hidden');
+    }
+  }
+
+  function renderEmptySyllabusPrompt() {
+    const container = document.getElementById('syllabus-container');
+    container.innerHTML = `
+      <div id="syllabus-empty-state" class="p-6 text-center border border-dashed border-slate-800 rounded-2xl space-y-3 bg-slate-950/40">
+        <div class="w-10 h-10 rounded-xl bg-slate-900 text-slate-500 flex items-center justify-center mx-auto border border-slate-800">
+          <i data-lucide="calendar" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h5 class="text-xs font-bold text-slate-300">No hay sesiones añadidas aún</h5>
+          <p class="text-[11px] text-slate-500 mt-0.5">Puedes cargar la estructura didáctica recomendada de 4 sesiones o añadir sesiones a tu medida.</p>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-2 pt-1">
+          <button type="button" onclick="loadStandardSpiral()" class="px-3.5 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Cargar Espiral Estándar (4 Sesiones)</span>
+          </button>
+          <button type="button" onclick="addSyllabusRow()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-semibold transition flex items-center gap-1">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Añadir Sesión Manual</span>
+          </button>
+        </div>
+      </div>
+    `;
+    lucide.createIcons();
+  }
+
   function loadStandardSpiral() {
+    const emptyState = document.getElementById('syllabus-empty-state');
+    if (emptyState) emptyState.remove();
+
     const container = document.getElementById('syllabus-container');
     container.innerHTML = '';
     addSyllabusRow('Sesión 1', 'Exploración & Bocetos Maker', 'Propiedades del material, fundamentos técnicos y boceto rápido a mano.');
     addSyllabusRow('Sesión 2', 'Modelado Digital CAD', 'Construcción geométrica 2D/3D paramétrica y cálculo de tolerancias de ensamble.');
     addSyllabusRow('Sesión 3', 'Fabricación CAM & Calibración', 'Generación de trayectorias, calibración de máquina y fabricación de piezas en el lab.');
     addSyllabusRow('Sesión 4', 'Ensamble & Reto Logrado', 'Post-procesado, ensamble físico sin holguras, pruebas funcionales y documentación.');
+  }
+
+  function addSyllabusRow(session = '', title = '', desc = '') {
+    const emptyState = document.getElementById('syllabus-empty-state');
+    if (emptyState) emptyState.remove();
+
+    const container = document.getElementById('syllabus-container');
+    const idx = container.querySelectorAll('.syllabus-row').length + 1;
+    const div = document.createElement('div');
+    div.className = 'syllabus-row grid grid-cols-1 sm:grid-cols-12 gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 items-center';
+    div.innerHTML = `
+      <input type="text" class="sm:col-span-3 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-cyan-400 font-bold" value="${session || 'Sesión ' + idx}">
+      <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" placeholder="Tema principal de clase" value="${title}">
+      <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300" placeholder="Qué actividad práctica harán" value="${desc}">
+      <button type="button" onclick="this.parentElement.remove()" class="sm:col-span-1 text-slate-500 hover:text-rose-400 p-1 text-center" title="Quitar Sesión">
+        <i data-lucide="x" class="w-4 h-4 mx-auto"></i>
+      </button>
+    `;
+    container.appendChild(div);
+    lucide.createIcons();
   }
 
   function openWorkshopModal(taller = null, fromProposal = false) {
@@ -1039,63 +1106,49 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       }
       document.getElementById('f-category').value = taller.category || 'creativos';
       document.getElementById('f-instructor').value = taller.instructor || state.currentUser.name;
-      document.getElementById('f-price').value = taller.price || 'S/. 150';
+      document.getElementById('f-price').value = taller.price || '';
       document.getElementById('f-startDate').value = taller.startDate || '';
       document.getElementById('f-schedule').value = taller.schedule || '';
-      document.getElementById('f-duration').value = taller.duration || '4 sesiones prácticas (8 hrs)';
-      document.getElementById('f-badge').value = taller.badge || 'Maker';
-      document.getElementById('f-fabTool').value = taller.fabTool || 'Fabricación Digital';
-      document.getElementById('f-format').value = taller.format || 'Virtual interactivo + Fabricación física';
+      document.getElementById('f-duration').value = taller.duration || '';
+      document.getElementById('f-badge').value = taller.badge || '';
+      document.getElementById('f-fabTool').value = taller.fabTool || '';
+      document.getElementById('f-format').value = taller.format || '';
       document.getElementById('f-challenge').value = taller.challenge || '';
       document.getElementById('f-description').value = taller.description || '';
-      document.getElementById('f-image').value = taller.image || 'images/talleres_adolescentes.jfif';
-      document.getElementById('f-img-preview').src = '../' + (taller.image || 'images/talleres_adolescentes.jfif');
+      document.getElementById('f-image').value = taller.image || '';
+      updateImagePreview(taller.image);
       document.getElementById('f-copy-ig').value = taller.socialCopyInstagram || '';
       document.getElementById('f-copy-wa').value = taller.socialCopyWhatsapp || '';
 
       if (taller.syllabus && Array.isArray(taller.syllabus) && taller.syllabus.length > 0) {
         taller.syllabus.forEach(s => addSyllabusRow(s.session, s.title, s.desc));
       } else {
-        loadStandardSpiral();
+        renderEmptySyllabusPrompt();
       }
     } else {
       document.getElementById('modal-title-text').innerText = IS_ADMIN ? 'Nuevo Taller' : 'Nueva Propuesta de Taller';
       document.getElementById('f-id').value = '';
+      document.getElementById('f-title').value = '';
+      document.getElementById('f-subtitle').value = '';
       document.getElementById('f-instructor').value = state.currentUser.name;
-      loadStandardSpiral();
+      document.getElementById('f-price').value = '';
+      document.getElementById('f-startDate').value = '';
+      document.getElementById('f-schedule').value = '';
+      document.getElementById('f-duration').value = '';
+      document.getElementById('f-badge').value = '';
+      document.getElementById('f-fabTool').value = '';
+      document.getElementById('f-format').value = '';
+      document.getElementById('f-challenge').value = '';
+      document.getElementById('f-description').value = '';
+      document.getElementById('f-image').value = '';
+      updateImagePreview('');
+      document.getElementById('f-copy-ig').value = '';
+      document.getElementById('f-copy-wa').value = '';
+      renderEmptySyllabusPrompt();
     }
 
     modal.classList.remove('hidden');
     modal.classList.add('flex');
-    lucide.createIcons();
-  }
-
-  function viewWorkshopStructure(id) {
-    const item = state.talleres.find(t => t.id === id);
-    if (!item) return;
-    openWorkshopModal(item);
-  }
-
-  function closeWorkshopModal() {
-    const modal = document.getElementById('workshop-modal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-  }
-
-  function addSyllabusRow(session = '', title = '', desc = '') {
-    const container = document.getElementById('syllabus-container');
-    const idx = container.children.length + 1;
-    const div = document.createElement('div');
-    div.className = 'grid grid-cols-1 sm:grid-cols-12 gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 items-center';
-    div.innerHTML = `
-      <input type="text" class="sm:col-span-3 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-cyan-400 font-bold" value="${session || 'Sesión ' + idx}">
-      <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" placeholder="Tema principal de clase" value="${title}">
-      <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300" placeholder="Qué actividad práctica harán" value="${desc}">
-      <button type="button" onclick="this.parentElement.remove()" class="sm:col-span-1 text-slate-500 hover:text-rose-400 p-1 text-center" title="Quitar Sesión">
-        <i data-lucide="x" class="w-4 h-4 mx-auto"></i>
-      </button>
-    `;
-    container.appendChild(div);
     lucide.createIcons();
   }
 

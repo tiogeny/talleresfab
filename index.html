@@ -498,9 +498,15 @@
   </div>
 
   <!-- SCRIPTS & DATOS -->
-  <script src="data.js?v=2.2"></script>
+  <script src="data.js?v=2.3"></script>
   <script>
     let activeCat = 'all';
+
+    function getLiveWorkshops() {
+      if (typeof window !== 'undefined' && Array.isArray(window.WORKSHOPS)) return window.WORKSHOPS;
+      if (typeof WORKSHOPS !== 'undefined' && Array.isArray(WORKSHOPS)) return WORKSHOPS;
+      return [];
+    }
 
     const filterContainer = document.getElementById('category-filters');
     const workshopsGrid = document.getElementById('workshops-grid');
@@ -531,9 +537,10 @@
 
     // Render Cards
     function renderWorkshops() {
+      const all = getLiveWorkshops();
       const list = activeCat === 'all' 
-        ? WORKSHOPS 
-        : WORKSHOPS.filter(w => w.category === activeCat);
+        ? all 
+        : all.filter(w => w.category === activeCat);
 
       workshopsGrid.innerHTML = list.map(w => `
         <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition duration-200 group">
@@ -594,7 +601,8 @@
 
     // Modal Editorial Limpio
     window.openWorkshopModal = function(id) {
-      const w = WORKSHOPS.find(item => item.id === id);
+      const all = getLiveWorkshops();
+      const w = all.find(item => item.id === id);
       if (!w) return;
 
       document.getElementById('modal-img').src = w.image;
@@ -660,7 +668,8 @@
         if (res.ok) {
           const list = await res.json();
           if (Array.isArray(list)) {
-            window.WORKSHOPS = list.filter(w => !w.status || w.status === 'published');
+            const publishedOnly = list.filter(w => !w.status || w.status === 'published');
+            window.WORKSHOPS = publishedOnly;
             renderWorkshops();
           }
         }
