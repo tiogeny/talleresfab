@@ -1,6 +1,6 @@
 // Datos de Talleres Abiertos - FAB LAB Perú (edu.fab.pe)
 // Sincronizado automáticamente desde el Panel Admin de FAB LAB Perú
-// Última actualización: 2026-09-08 21:26:31
+// Última actualización: 2026-09-08 21:34:33
 
 const SITE_DATA = {
   phone: "+51 989 984 480",
@@ -61,7 +61,7 @@ var WORKSHOPS = [
             "Acabados artísticos con pintura acrílica, contrastes de color y técnicas de ensamble.",
             "Presentación de tu obra personal y colectiva en la exposición de la Feria FABulosa."
         ],
-        "image": "images\/talleres_adultos.jfif",
+        "image": "images\/taller-minicuadros-25d.jpg",
         "instructor": "Evelyn Andrea Cuadrado Guerrero",
         "instructorEmail": "contacto@fablablima.org",
         "status": "published",
@@ -125,7 +125,7 @@ var WORKSHOPS = [
             "Desarrollo completo de videojuegos interactivos desde el diseño visual hasta las mecánicas.",
             "Proyecto final integrador de libre elección guiado paso a paso por instructores especialistas."
         ],
-        "image": "images\/talleres_adolescentes.jfif",
+        "image": "images\/taller-open-circuits.jpg",
         "instructor": "Hayashi Mateo y Francheska Baca",
         "instructorEmail": "contacto@fablablima.org",
         "status": "published",
@@ -174,7 +174,7 @@ var WORKSHOPS = [
             "Desarrollo del pensamiento espacial, motricidad fina y resolución de retos mecánicos.",
             "Cada participante fabrica y se lleva a casa su autómata mecánico 100% funcional."
         ],
-        "image": "images\/talleres_niños.jfif",
+        "image": "images\/taller-digitoys.jpg",
         "instructor": "Henry Sánchez",
         "instructorEmail": "contacto@fablablima.org",
         "status": "published",
