@@ -196,7 +196,7 @@
         <span class="text-xs font-bold text-fabBlue uppercase tracking-widest block mb-1">Inscripciones Abiertas</span>
         <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Talleres para Personas & Familias</h2>
         <p class="mt-2 text-sm sm:text-base text-slate-600">
-          Fechas programadas con cupos reducidos para asegurar mentoría personalizada en cada sesión.
+          Fechas programadas con cupos reducidos para asegurar mentoría personalizada en cada misión didáctica.
         </p>
 
         <!-- Filtros de Audiencia -->
@@ -456,11 +456,11 @@
               <p id="modal-challenge" class="text-xs sm:text-sm font-semibold text-slate-900 mt-1 leading-snug"></p>
             </div>
 
-            <!-- 📚 TEMARIO Y SESIONES DE APRENDIZAJE -->
+            <!-- 📚 TEMARIO Y MISIONES DE APRENDIZAJE MAKER -->
             <div>
               <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                <i data-lucide="layers" class="w-3.5 h-3.5 text-fabBlue"></i>
-                <span>TEMARIO Y SESIONES DE APRENDIZAJE</span>
+                <i data-lucide="compass" class="w-3.5 h-3.5 text-fabBlue"></i>
+                <span>RUTA DE APRENDIZAJE Y MISIONES MAKER</span>
               </h4>
               <div id="modal-syllabus" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                 <!-- Generado por JS -->
@@ -618,14 +618,16 @@
       document.getElementById('modal-format').innerText = w.format;
       document.getElementById('modal-price').innerText = w.price;
 
-      // Temario / Sesiones
+      // Temario / Misiones Didácticas
       const syllabusContainer = document.getElementById('modal-syllabus');
-      syllabusContainer.innerHTML = w.syllabus.map(s => `
+      syllabusContainer.innerHTML = w.syllabus.map(s => {
+        const label = (s.session || s.mission || s.Fase || 'Misión').replace(/^Sesión/i, 'Misión');
+        return `
         <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
-          <span class="text-fabBlue font-bold block text-[11px]">${s.session || s.Fase}: ${s.title}</span>
+          <span class="text-fabBlue font-bold block text-[11px]">${label}: ${s.title}</span>
           <span class="text-slate-600 block text-[11px] leading-tight mt-0.5">${s.desc}</span>
         </div>
-      `).join('');
+      `}).join('');
 
       // Highlights
       const highlightsContainer = document.getElementById('modal-highlights');

@@ -366,11 +366,11 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
               <i data-lucide="sparkles" class="w-4 h-4 animate-pulse"></i>
               <span>GENERADOR & ESTRUCTURADOR CON GEMINI IA</span>
             </div>
-            <span class="text-[10px] text-slate-400 font-mono">Gemini 1.5 Flash</span>
+            <span class="text-[10px] text-slate-400 font-mono">Gemini 3.5 Flash Lite (Makerdu AI)</span>
           </div>
           
           <p class="text-xs text-slate-300">
-            Pega aquí notas libres, apuntes de voz o la idea general del mentor. La IA formulará el reto tangible, desglosará las 4 sesiones y creará los textos:
+            Pega aquí notas libres, apuntes de voz o la idea general del mentor. La IA formulará el reto tangible, desglosará las misiones Makerdu y calculará la inversión en base a S/. 25 por hora:
           </p>
 
           <textarea id="ai-raw-notes" rows="2" placeholder="Ej: Taller de Bio-Joyería: usaremos almidón de yuca y cáscaras para hacer bioplásticos, luego corte láser para armar aretes y collares. Para jóvenes de 15 a 25 años. Sábados de 3 a 5pm. Precio S/. 180..." 
@@ -489,20 +489,27 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
             </div>
           </div>
 
-          <!-- 4. TEMARIO DESGLOSADO: ESPIRAL DIDÁCTICA FAB LAB -->
+          <!-- 4. TEMARIO DESGLOSADO: ESPIRAL DIDÁCTICA MAKERDU (MISIONES) -->
           <div class="space-y-3 bg-slate-950 p-5 rounded-2xl border border-slate-800">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <label class="block text-xs font-bold text-cyan-400 uppercase flex items-center gap-1.5">
-                  <i data-lucide="book-open" class="w-4 h-4"></i>
-                  <span>Temario & Progresión Didáctica Maker (Sesiones)</span>
+                  <i data-lucide="compass" class="w-4 h-4"></i>
+                  <span>Temario & Progresión Didáctica Maker (Misiones)</span>
                 </label>
-                <p class="text-[11px] text-slate-400 mt-0.5">Sigue la espiral didáctica: Explorar ➔ Modelar CAD ➔ Fabricar CAM ➔ Ensamblar y Probar</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Metodología Makerdu: Ruta en misiones prácticas orientadas al reto tangible.</p>
               </div>
-              <button type="button" onclick="loadStandardSpiral()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                <span>Cargar Espiral Estándar (4 Sesiones)</span>
-              </button>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button type="button" onclick="loadMissionsPreset(2)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] font-semibold transition" title="Sprint Corto: 2 misiones (4 hrs)">
+                  Sprint (2)
+                </button>
+                <button type="button" onclick="loadMissionsPreset(4)" class="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[11px] font-semibold transition" title="Ruta Estándar: 4 misiones (8 hrs)">
+                  Estándar (4)
+                </button>
+                <button type="button" onclick="loadMissionsPreset(6)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] font-semibold transition" title="Ruta Especializada: 6 misiones (12 hrs)">
+                  Avanzado (6)
+                </button>
+              </div>
             </div>
 
             <div id="syllabus-container" class="space-y-2.5 pt-2">
@@ -510,10 +517,64 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
             </div>
 
             <div class="pt-2 flex items-center justify-between">
-              <button type="button" onclick="addSyllabusRow()" class="text-xs text-cyan-400 hover:underline flex items-center gap-1">
-                <i data-lucide="plus" class="w-3 h-3"></i> Añadir Sesión
+              <button type="button" onclick="addMissionRow()" class="text-xs text-cyan-400 hover:underline flex items-center gap-1 font-semibold">
+                <i data-lucide="plus" class="w-3 h-3"></i> Añadir Misión
               </button>
-              <span class="text-[11px] text-slate-500">Recomendado: 4 sesiones de 2 hrs para prototipado completo</span>
+              <span class="text-[11px] text-slate-500">Versátil: añade las misiones que requiera tu reto pedagógico</span>
+            </div>
+          </div>
+
+          <!-- CALCULADORA MAKERDU: BASE S/. 25 / HORA Y DURACIÓN VERSÁTIL -->
+          <div class="bg-gradient-to-br from-amber-500/10 via-slate-900 to-cyan-500/10 p-4 rounded-2xl border border-amber-500/20 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-base border border-amber-500/30">
+                  ⚡
+                </div>
+                <div>
+                  <h5 class="text-xs font-bold text-slate-100 flex items-center gap-2">
+                    <span>Calculadora Makerdu (Base S/. 25 por hora)</span>
+                    <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full font-mono font-bold">Tarifa Base</span>
+                  </h5>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Ajusta el número de misiones y horas para autocalcular la inversión pedagógica sugerida.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 items-end pt-1">
+              <div class="space-y-1">
+                <label class="block text-[11px] font-semibold text-slate-300">N° Misiones:</label>
+                <input type="number" id="calc-missions" min="1" max="16" value="4" oninput="recalcMakerduPricing()" 
+                       class="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-cyan-400 font-bold focus:outline-none focus:border-cyan-400">
+              </div>
+
+              <div class="space-y-1">
+                <label class="block text-[11px] font-semibold text-slate-300">Horas por Misión:</label>
+                <select id="calc-hours-per-mission" onchange="recalcMakerduPricing()" 
+                        class="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-cyan-400 font-bold focus:outline-none focus:border-cyan-400">
+                  <option value="1.5">1.5 hrs</option>
+                  <option value="2" selected>2.0 hrs (Estándar)</option>
+                  <option value="2.5">2.5 hrs</option>
+                  <option value="3">3.0 hrs (Intensivo)</option>
+                  <option value="4">4.0 hrs (Masterclass)</option>
+                </select>
+              </div>
+
+              <div class="space-y-1">
+                <label class="block text-[11px] font-semibold text-slate-300">Tarifa Makerdu:</label>
+                <div class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700/80 text-xs font-mono font-bold text-emerald-400 flex items-center justify-between">
+                  <span id="calc-total-hours">8 hrs</span>
+                  <span id="calc-total-price" class="text-amber-300 font-bold">S/. 200</span>
+                </div>
+              </div>
+
+              <div>
+                <button type="button" onclick="applyMakerduPricing()" 
+                        class="w-full px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                  <span>Aplicar al Taller</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -536,8 +597,8 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-200 uppercase">Inversión (S/.) *</label>
-              <input type="text" id="f-price" required placeholder="Ej: S/. 180" 
-                     class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition font-mono">
+              <input type="text" id="f-price" required placeholder="Ej: S/. 200" 
+                     class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition font-mono font-bold">
             </div>
           </div>
 
@@ -557,7 +618,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-200 uppercase">Duración Total</label>
-              <input type="text" id="f-duration" placeholder="Ej: 4 sesiones prácticas (8 hrs)" 
+              <input type="text" id="f-duration" placeholder="Ej: 4 misiones prácticas (8 hrs)" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-xs focus:outline-none focus:border-cyan-400 transition">
             </div>
           </div>
@@ -590,9 +651,12 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
                       class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-white focus:outline-none focus:border-cyan-400 transition"></textarea>
           </div>
 
-          <!-- 9. IMAGEN DEL TALLER -->
-          <div class="space-y-2 bg-slate-950 p-4 rounded-xl border border-slate-800">
-            <label class="block text-xs font-bold text-slate-200 uppercase">Imagen de Portada (16:9)</label>
+          <!-- 9. IMAGEN DEL TALLER Y PROMPT VISUAL IA -->
+          <div class="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-bold text-slate-200 uppercase">Imagen de Portada (16:9)</label>
+              <span class="text-[11px] text-slate-400">Sube una foto del laboratorio o pega una URL</span>
+            </div>
             <div class="flex flex-col sm:flex-row items-center gap-4">
               <div class="w-32 aspect-video bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shrink-0 flex items-center justify-center relative">
                 <img id="f-img-preview" src="" alt="" class="w-full h-full object-cover hidden">
@@ -613,6 +677,21 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
                   <span id="upload-status" class="text-[11px] text-slate-400"></span>
                 </div>
               </div>
+            </div>
+
+            <!-- PROMPT VISUAL GENERADO POR IA (Para Midjourney / Recraft / DALL-E) -->
+            <div class="pt-3 border-t border-slate-800/80 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="text-[11px] font-bold text-amber-400 uppercase flex items-center gap-1.5">
+                  <i data-lucide="wand-2" class="w-3 h-3"></i>
+                  <span>Prompt Sugerido por IA para Portada Visual (Midjourney / Recraft / DALL-E)</span>
+                </label>
+                <button type="button" onclick="copyToClipboard('f-image-prompt', '¡Prompt copiado!')" class="text-cyan-400 hover:underline text-[10px] font-semibold flex items-center gap-1">
+                  <i data-lucide="copy" class="w-3 h-3"></i> Copiar Prompt
+                </button>
+              </div>
+              <textarea id="f-image-prompt" rows="2" placeholder="La IA generará aquí un prompt fotográfico profesional optimizado para que crees la portada en cualquier IA de imagen..." 
+                        class="w-full px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-slate-300 font-mono"></textarea>
             </div>
           </div>
 
@@ -1027,25 +1106,61 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     }
   }
 
+  function recalcMakerduPricing() {
+    const missions = parseInt(document.getElementById('calc-missions').value) || 1;
+    const hoursPerMission = parseFloat(document.getElementById('calc-hours-per-mission').value) || 2;
+    const totalHours = missions * hoursPerMission;
+    const priceBase = Math.round(totalHours * 25);
+    
+    const hElem = document.getElementById('calc-total-hours');
+    const pElem = document.getElementById('calc-total-price');
+    if (hElem) hElem.innerText = `${totalHours} hrs`;
+    if (pElem) pElem.innerText = `S/. ${priceBase}`;
+  }
+
+  function applyMakerduPricing() {
+    const missions = parseInt(document.getElementById('calc-missions').value) || 1;
+    const hoursPerMission = parseFloat(document.getElementById('calc-hours-per-mission').value) || 2;
+    const totalHours = missions * hoursPerMission;
+    const priceBase = Math.round(totalHours * 25);
+
+    const missionWord = missions === 1 ? 'misión intensiva' : 'misiones prácticas';
+    document.getElementById('f-duration').value = `${missions} ${missionWord} (${totalHours} hrs)`;
+    document.getElementById('f-price').value = `S/. ${priceBase}`;
+    showToast(`⚡ Tarifa Makerdu aplicada: ${missions} misiones (${totalHours} hrs) = S/. ${priceBase}`);
+  }
+
+  function updateMissionCountFromSyllabus() {
+    const count = document.querySelectorAll('#syllabus-container .syllabus-row').length;
+    const cInput = document.getElementById('calc-missions');
+    if (count > 0 && cInput) {
+      cInput.value = count;
+      recalcMakerduPricing();
+    }
+  }
+
   function renderEmptySyllabusPrompt() {
     const container = document.getElementById('syllabus-container');
     container.innerHTML = `
       <div id="syllabus-empty-state" class="p-6 text-center border border-dashed border-slate-800 rounded-2xl space-y-3 bg-slate-950/40">
         <div class="w-10 h-10 rounded-xl bg-slate-900 text-slate-500 flex items-center justify-center mx-auto border border-slate-800">
-          <i data-lucide="calendar" class="w-5 h-5"></i>
+          <i data-lucide="compass" class="w-5 h-5"></i>
         </div>
         <div>
-          <h5 class="text-xs font-bold text-slate-300">No hay sesiones añadidas aún</h5>
-          <p class="text-[11px] text-slate-500 mt-0.5">Puedes cargar la estructura didáctica recomendada de 4 sesiones o añadir sesiones a tu medida.</p>
+          <h5 class="text-xs font-bold text-slate-300">No hay misiones didácticas añadidas aún</h5>
+          <p class="text-[11px] text-slate-500 mt-0.5">Puedes cargar una ruta Makerdu recomendada o añadir misiones personalizadas.</p>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-2 pt-1">
-          <button type="button" onclick="loadStandardSpiral()" class="px-3.5 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition flex items-center gap-1.5">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            <span>Cargar Espiral Estándar (4 Sesiones)</span>
+          <button type="button" onclick="loadMissionsPreset(2)" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-semibold transition flex items-center gap-1">
+            <span>Sprint (2 Misiones)</span>
           </button>
-          <button type="button" onclick="addSyllabusRow()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-semibold transition flex items-center gap-1">
+          <button type="button" onclick="loadMissionsPreset(4)" class="px-3.5 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Ruta Estándar (4 Misiones)</span>
+          </button>
+          <button type="button" onclick="addMissionRow()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-semibold transition flex items-center gap-1">
             <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-            <span>Añadir Sesión Manual</span>
+            <span>Añadir Misión Manual</span>
           </button>
         </div>
       </div>
@@ -1053,19 +1168,44 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     lucide.createIcons();
   }
 
-  function loadStandardSpiral() {
+  function loadMissionsPreset(count = 4) {
     const emptyState = document.getElementById('syllabus-empty-state');
     if (emptyState) emptyState.remove();
 
     const container = document.getElementById('syllabus-container');
     container.innerHTML = '';
-    addSyllabusRow('Sesión 1', 'Exploración & Bocetos Maker', 'Propiedades del material, fundamentos técnicos y boceto rápido a mano.');
-    addSyllabusRow('Sesión 2', 'Modelado Digital CAD', 'Construcción geométrica 2D/3D paramétrica y cálculo de tolerancias de ensamble.');
-    addSyllabusRow('Sesión 3', 'Fabricación CAM & Calibración', 'Generación de trayectorias, calibración de máquina y fabricación de piezas en el lab.');
-    addSyllabusRow('Sesión 4', 'Ensamble & Reto Logrado', 'Post-procesado, ensamble físico sin holguras, pruebas funcionales y documentación.');
+    
+    if (count === 2) {
+      addMissionRow('Misión 1', 'Inmersión & Modelado CAD Rápido', 'Exploración de requerimientos técnicos, geometría 2D/3D y tolerancias.');
+      addMissionRow('Misión 2', 'Fabricación CAM, Ensamble & Demo', 'Corte/impresión en máquina, ensamble y reto funcional completado.');
+      document.getElementById('calc-missions').value = 2;
+      document.getElementById('calc-hours-per-mission').value = 2;
+      recalcMakerduPricing();
+      applyMakerduPricing();
+    } else if (count === 6) {
+      addMissionRow('Misión 1', 'Inmersión Maker & Concept Design', 'Fundamentos técnicos, bocetería manual y selección de materiales.');
+      addMissionRow('Misión 2', 'Modelado Paramétrico 3D Avanzado', 'Creación de ensambles digitales y verificación de holguras.');
+      addMissionRow('Misión 3', 'Fabricación Digital Sustractiva (CNC / Láser)', 'Configuración de trayectorias CAM y corte de partes estructurales.');
+      addMissionRow('Misión 4', 'Fabricación Aditiva 3D & Componentes', 'Impresión 3D de piezas complejas y post-procesado.');
+      addMissionRow('Misión 5', 'Integración Electrónica / Ensamble', 'Cableado, sensorización y ensamble mecánico de precisión.');
+      addMissionRow('Misión 6', 'Demo Day, Pruebas & Documentación', 'Presentación del prototipo funcional y registro open-source.');
+      document.getElementById('calc-missions').value = 6;
+      document.getElementById('calc-hours-per-mission').value = 2;
+      recalcMakerduPricing();
+      applyMakerduPricing();
+    } else {
+      addMissionRow('Misión 1', 'Inmersión Maker & Bocetos', 'Propiedades del material, fundamentos técnicos y boceto rápido a mano.');
+      addMissionRow('Misión 2', 'Modelado Digital CAD', 'Construcción geométrica 2D/3D paramétrica y cálculo de tolerancias.');
+      addMissionRow('Misión 3', 'Fabricación CAM & Calibración', 'Generación de trayectorias, calibración de máquina y fabricación de piezas.');
+      addMissionRow('Misión 4', 'Ensamble Físico & Misión Cumplida', 'Post-procesado, ensamble físico sin holguras y pruebas funcionales.');
+      document.getElementById('calc-missions').value = 4;
+      document.getElementById('calc-hours-per-mission').value = 2;
+      recalcMakerduPricing();
+      applyMakerduPricing();
+    }
   }
 
-  function addSyllabusRow(session = '', title = '', desc = '') {
+  function addMissionRow(session = '', title = '', desc = '') {
     const emptyState = document.getElementById('syllabus-empty-state');
     if (emptyState) emptyState.remove();
 
@@ -1073,17 +1213,25 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     const idx = container.querySelectorAll('.syllabus-row').length + 1;
     const div = document.createElement('div');
     div.className = 'syllabus-row grid grid-cols-1 sm:grid-cols-12 gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 items-center';
+    
+    let missionLabel = (session || 'Misión ' + idx).replace(/^Sesión/i, 'Misión');
+
     div.innerHTML = `
-      <input type="text" class="sm:col-span-3 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-cyan-400 font-bold" value="${session || 'Sesión ' + idx}">
-      <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" placeholder="Tema principal de clase" value="${title}">
-      <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300" placeholder="Qué actividad práctica harán" value="${desc}">
-      <button type="button" onclick="this.parentElement.remove()" class="sm:col-span-1 text-slate-500 hover:text-rose-400 p-1 text-center" title="Quitar Sesión">
+      <input type="text" class="sm:col-span-3 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-cyan-400 font-bold" value="${missionLabel}">
+      <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" placeholder="Reto o tema principal" value="${title}">
+      <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300" placeholder="Actividad práctica en el lab" value="${desc}">
+      <button type="button" onclick="this.parentElement.remove(); updateMissionCountFromSyllabus();" class="sm:col-span-1 text-slate-500 hover:text-rose-400 p-1 text-center" title="Quitar Misión">
         <i data-lucide="x" class="w-4 h-4 mx-auto"></i>
       </button>
     `;
     container.appendChild(div);
     lucide.createIcons();
+    updateMissionCountFromSyllabus();
   }
+
+  // Alias para retrocompatibilidad total
+  const addSyllabusRow = addMissionRow;
+  const loadStandardSpiral = () => loadMissionsPreset(4);
 
   function openWorkshopModal(taller = null, fromProposal = false) {
     const modal = document.getElementById('workshop-modal');
@@ -1117,14 +1265,18 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       document.getElementById('f-description').value = taller.description || '';
       document.getElementById('f-image').value = taller.image || '';
       updateImagePreview(taller.image);
+      document.getElementById('f-image-prompt').value = taller.imagePrompt || '';
       document.getElementById('f-copy-ig').value = taller.socialCopyInstagram || '';
       document.getElementById('f-copy-wa').value = taller.socialCopyWhatsapp || '';
 
       if (taller.syllabus && Array.isArray(taller.syllabus) && taller.syllabus.length > 0) {
-        taller.syllabus.forEach(s => addSyllabusRow(s.session, s.title, s.desc));
+        taller.syllabus.forEach(s => addMissionRow(s.session, s.title, s.desc));
+        document.getElementById('calc-missions').value = taller.syllabus.length;
       } else {
         renderEmptySyllabusPrompt();
+        document.getElementById('calc-missions').value = 4;
       }
+      recalcMakerduPricing();
     } else {
       document.getElementById('modal-title-text').innerText = IS_ADMIN ? 'Nuevo Taller' : 'Nueva Propuesta de Taller';
       document.getElementById('f-id').value = '';
@@ -1142,8 +1294,12 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       document.getElementById('f-description').value = '';
       document.getElementById('f-image').value = '';
       updateImagePreview('');
+      document.getElementById('f-image-prompt').value = '';
       document.getElementById('f-copy-ig').value = '';
       document.getElementById('f-copy-wa').value = '';
+      document.getElementById('calc-missions').value = 4;
+      document.getElementById('calc-hours-per-mission').value = 2;
+      recalcMakerduPricing();
       renderEmptySyllabusPrompt();
     }
 
@@ -1199,6 +1355,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       challenge: document.getElementById('f-challenge').value,
       description: document.getElementById('f-description').value,
       image: document.getElementById('f-image').value,
+      imagePrompt: document.getElementById('f-image-prompt') ? document.getElementById('f-image-prompt').value : '',
       syllabus: syllabus,
       socialCopyInstagram: document.getElementById('f-copy-ig').value,
       socialCopyWhatsapp: document.getElementById('f-copy-wa').value
@@ -1302,10 +1459,14 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
         if (w.description) document.getElementById('f-description').value = w.description;
         if (w.socialCopyInstagram) document.getElementById('f-copy-ig').value = w.socialCopyInstagram;
         if (w.socialCopyWhatsapp) document.getElementById('f-copy-wa').value = w.socialCopyWhatsapp;
+        if (w.imagePrompt) document.getElementById('f-image-prompt').value = w.imagePrompt;
+
         if (w.syllabus && Array.isArray(w.syllabus)) {
           const container = document.getElementById('syllabus-container');
           container.innerHTML = '';
-          w.syllabus.forEach(s => addSyllabusRow(s.session, s.title, s.desc));
+          w.syllabus.forEach(s => addMissionRow(s.session, s.title, s.desc));
+          document.getElementById('calc-missions').value = w.syllabus.length;
+          recalcMakerduPricing();
         }
 
         if (w.pedagogicalFeedback) {
