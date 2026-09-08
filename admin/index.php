@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/auth.php';
 
@@ -73,21 +73,19 @@ $currentUser = get_current_user_data();
         </div>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-semibold text-slate-300">Correo ElectrÃ³nico</label>
+          <label class="block text-xs font-semibold text-slate-300">Correo Electrónico</label>
           <div class="relative">
             <i data-lucide="mail" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-500"></i>
-            <input type="email" id="login-email" required placeholder="contacto@fablablima.org" 
-                   value="contacto@fablablima.org"
+            <input type="email" id="login-email" required placeholder="tu@correo.com" 
                    class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
           </div>
         </div>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-semibold text-slate-300">ContraseÃ±a</label>
+          <label class="block text-xs font-semibold text-slate-300">Contraseña</label>
           <div class="relative">
             <i data-lucide="lock" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-500"></i>
-            <input type="password" id="login-password" required placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
-                   value="FabLab2026!"
+            <input type="password" id="login-password" required placeholder="••••••••" 
                    class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
           </div>
         </div>
@@ -524,7 +522,17 @@ $currentUser = get_current_user_data();
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      const data = await res.json();
+      const text = await res.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseErr) {
+        console.error('Non-JSON response:', text);
+        errorBox.classList.remove('hidden');
+        document.getElementById('login-error-text').innerText = text.length < 150 ? text : 'Error en respuesta del servidor (' + res.status + ')';
+        return;
+      }
+
       if (res.ok && data.success) {
         window.location.reload();
       } else {
@@ -533,7 +541,7 @@ $currentUser = get_current_user_data();
       }
     } catch (err) {
       errorBox.classList.remove('hidden');
-      document.getElementById('login-error-text').innerText = 'No se pudo conectar con el servidor.';
+      document.getElementById('login-error-text').innerText = 'No se pudo conectar con el servidor: ' + err.message;
     } finally {
       btn.disabled = false;
       btn.innerHTML = '<i data-lucide="log-in" class="w-4 h-4"></i><span>Ingresar al Panel</span>';

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Configuración de Seguridad y Accesos - FAB LAB Perú
 // Este archivo protege las credenciales del panel admin.
 
