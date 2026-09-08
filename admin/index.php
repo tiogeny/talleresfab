@@ -302,6 +302,11 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
           <button onclick="switchTab('all')" id="tab-all" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
             <span>Ver Todos</span>
           </button>
+
+          <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
+            <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-500"></i>
+            <span>Calendario del Lab</span>
+          </button>
         <?php else: ?>
           <button onclick="switchTab('drafts')" id="tab-drafts" class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-slate-800 dark:text-white border border-slate-900 dark:border-slate-700 flex items-center gap-1.5 transition shadow-sm">
             <span class="w-2 h-2 rounded-full bg-amber-400"></span>
@@ -314,6 +319,11 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
             <span>Catálogo Público (Referencia)</span>
             <span id="badge-tab-published" class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-1.5 py-0.2 rounded font-mono">0</span>
           </button>
+
+          <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
+            <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-500"></i>
+            <span>Calendario del Lab</span>
+          </button>
         <?php endif; ?>
       </div>
 
@@ -322,6 +332,85 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
         <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
         <input type="text" id="search-input" oninput="renderTalleres()" placeholder="Buscar taller, reto o herramienta..." 
                class="w-full pl-9 pr-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition shadow-sm">
+      </div>
+
+    </div>
+
+    <!-- VISTA CALENDARIO DEL FAB LAB -->
+    <div id="calendar-view" class="hidden space-y-6">
+      
+      <!-- Cabecera del Calendario -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 dark:bg-cyan-500/20 dark:text-cyan-400 flex items-center justify-center font-bold border border-blue-200 dark:border-cyan-500/30 shadow-sm">
+            <i data-lucide="calendar" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 id="cal-month-title" class="text-lg font-bold text-slate-900 dark:text-white">Marzo 2026</h3>
+              <span class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 rounded-full font-mono font-bold">En Vivo</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Disponibilidad de laboratorio, fechas programadas y turnos de máquinas</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-2xl p-1 border border-slate-200 dark:border-slate-700 shadow-sm">
+            <button type="button" onclick="changeCalMonth(-1)" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-700 transition" title="Mes Anterior">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button type="button" onclick="changeCalMonth(0)" class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-700 transition">
+              Hoy
+            </button>
+            <button type="button" onclick="changeCalMonth(1)" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-700 transition" title="Mes Siguiente">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <button type="button" onclick="openWorkshopModal()" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-extrabold text-xs shadow-md transition flex items-center gap-1.5">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Nuevo Taller</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Leyenda rápida -->
+      <div class="flex flex-wrap items-center gap-4 px-2 text-xs text-slate-600 dark:text-slate-400">
+        <span class="font-bold text-slate-800 dark:text-slate-200 text-[11px] uppercase">Leyenda:</span>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span class="text-[11px]">Taller Publicado</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+          <span class="text-[11px]">Borrador / Propuesta</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+          <span class="text-[11px]">Día con disponibilidad</span>
+        </div>
+      </div>
+
+      <!-- Grilla del Calendario -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm overflow-hidden">
+        <div class="grid grid-cols-7 gap-2 text-center text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider pb-3 border-b border-slate-200 dark:border-slate-800">
+          <div>Lun</div>
+          <div>Mar</div>
+          <div>Mié</div>
+          <div>Jue</div>
+          <div>Vie</div>
+          <div class="text-blue-600 dark:text-cyan-400">Sáb</div>
+          <div class="text-rose-500">Dom</div>
+        </div>
+
+        <div id="calendar-days-grid" class="grid grid-cols-7 gap-2 pt-3 min-h-[380px]">
+          <!-- Inyectado dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Panel de Detalle del Día Seleccionado -->
+      <div id="calendar-day-detail" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-4">
+        <!-- Rellenado dinámicamente al hacer clic en un día -->
       </div>
 
     </div>
@@ -561,7 +650,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
             </div>
           </div>
 
-          <!-- CALCULADORA DE TARIFAS: BASE S/. 25 / HORA Y DURACIÓN VERSÁTIL -->
+          <!-- CALCULADORA DE TARIFAS: BASE S/. 25 / HORA Y DURACIÓN POR HORAS/SESIONES -->
           <div class="bg-gradient-to-br from-amber-50/70 via-slate-50 to-blue-50/70 dark:from-amber-500/10 dark:via-slate-900 dark:to-cyan-500/10 p-4 rounded-2xl border border-amber-200 dark:border-amber-500/20 space-y-3">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div class="flex items-center gap-2.5">
@@ -571,23 +660,23 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
                 <div>
                   <h5 class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                     <span>Calculadora de Tarifas (Base S/. 25 por hora)</span>
-                    <span class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300 px-2 py-0.5 rounded-full font-mono font-bold">Tarifa Base</span>
+                    <span class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300 px-2 py-0.5 rounded-full font-mono font-bold">Por Horas de Taller</span>
                   </h5>
-                  <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Ajusta el número de misiones y horas para autocalcular la inversión pedagógica sugerida.</p>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">El precio depende del tiempo de laboratorio (N° sesiones × horas). Las misiones son tu temario pedagógico independiente.</p>
                 </div>
               </div>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 items-end pt-1">
               <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">N° Misiones:</label>
-                <input type="number" id="calc-missions" min="1" max="16" value="4" oninput="recalcPricing()" 
+                <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">N° Sesiones:</label>
+                <input type="number" id="calc-sessions" min="1" max="24" value="4" oninput="recalcPricing(false)" 
                        class="w-full px-3 py-1.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-blue-700 dark:text-cyan-400 font-bold focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400">
               </div>
 
               <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">Horas por Misión:</label>
-                <select id="calc-hours-per-mission" onchange="recalcPricing()" 
+                <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">Horas por Sesión:</label>
+                <select id="calc-hours-per-session" onchange="recalcPricing(false)" 
                         class="w-full px-3 py-1.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-blue-700 dark:text-cyan-400 font-bold focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400">
                   <option value="1.5">1.5 hrs</option>
                   <option value="2" selected>2.0 hrs (Estándar)</option>
@@ -598,18 +687,16 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
               </div>
 
               <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">Tarifa Sugerida:</label>
-                <div class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700/80 text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 flex items-center justify-between shadow-sm">
-                  <span id="calc-total-hours">8 hrs</span>
-                  <span id="calc-total-price" class="text-amber-600 dark:text-amber-300 font-bold">S/. 200</span>
-                </div>
+                <label class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">Total Horas:</label>
+                <input type="number" id="calc-total-hours" min="1" max="120" value="8" step="0.5" oninput="recalcPricing(true)" 
+                       class="w-full px-3 py-1.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-blue-700 dark:text-cyan-400 font-bold focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400">
               </div>
 
               <div>
                 <button type="button" onclick="applyPricing()" 
                         class="w-full px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm">
                   <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                  <span>Aplicar al Taller</span>
+                  <span id="calc-apply-label">Aplicar: S/. 200</span>
                 </button>
               </div>
             </div>
@@ -642,9 +729,17 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
           <!-- 6. FECHAS, HORARIOS Y DURACIÓN -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="space-y-1.5">
-              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Fecha de Inicio</label>
-              <input type="text" id="f-startDate" placeholder="Ej: Sábado 18 de Octubre" 
-                     class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Fecha de Inicio *</label>
+                <span id="date-collision-badge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full"></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <input type="date" id="f-date-picker" onchange="onDatePickerChange(this.value)" 
+                       class="px-2.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition cursor-pointer" title="Elegir fecha en calendario">
+                <input type="text" id="f-startDate" oninput="checkDateAvailability(this.value)" required placeholder="Ej: Sábado 18 de Octubre" 
+                       class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition font-medium">
+              </div>
+              <p id="date-availability-hint" class="text-[10px] text-slate-500 dark:text-slate-400"></p>
             </div>
 
             <div class="space-y-1.5">
@@ -655,7 +750,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
             <div class="space-y-1.5">
               <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Duración Total</label>
-              <input type="text" id="f-duration" placeholder="Ej: 4 misiones prácticas (8 hrs)" 
+              <input type="text" id="f-duration" placeholder="Ej: 4 sesiones (8 hrs en total)" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition">
             </div>
           </div>
@@ -681,54 +776,71 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
             </div>
           </div>
 
-          <!-- 8. DESCRIPCIÓN GENERAL -->
+          <!-- 8. DESCRIPCIÓN ENVOLVENTE Y LOGROS -->
           <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Descripción General de la Experiencia</label>
-            <textarea id="f-description" rows="2" placeholder="3 a 4 líneas que explican qué aprenderá y experimentará el participante." 
-                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition"></textarea>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Descripción Envolvente (Experiencia en el Laboratorio)</label>
+            <textarea id="f-description" rows="3" placeholder="Describe la experiencia de aprendizaje y lo que los participantes vivirán en el laboratorio..." 
+                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition"></textarea>
           </div>
 
-          <!-- 9. IMAGEN DEL TALLER Y PROMPT VISUAL IA -->
-          <div class="space-y-3 bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-            <div class="flex items-center justify-between">
-              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Imagen de Portada (16:9)</label>
-              <span class="text-[11px] text-slate-500 dark:text-slate-400">Sube una foto del laboratorio o pega una URL</span>
-            </div>
-            <div class="flex flex-col sm:flex-row items-center gap-4">
-              <div class="w-32 aspect-video bg-slate-200 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 shrink-0 flex items-center justify-center relative">
-                <img id="f-img-preview" src="" alt="" class="w-full h-full object-cover hidden">
-                <div id="f-img-placeholder" class="text-center text-slate-400 dark:text-slate-500 space-y-1">
-                  <i data-lucide="image" class="w-6 h-6 mx-auto"></i>
-                  <span class="text-[9px] block">Sin portada</span>
+          <!-- 9. PORTADA VISUAL Y PROMPT DE IMAGEN -->
+          <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase mb-2">Portada Visual del Taller</label>
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div class="w-32 h-20 rounded-xl bg-slate-200 dark:bg-slate-800 overflow-hidden border border-slate-300 dark:border-slate-700 shrink-0 shadow-inner flex items-center justify-center">
+                  <img id="f-img-preview" src="../images/talleres_niños.jfif" alt="" class="w-full h-full object-cover" onerror="this.src='../images/talleres_niños.jfif'">
                 </div>
-              </div>
-              <div class="space-y-2 w-full">
-                <input type="text" id="f-image" oninput="updateImagePreview(this.value)" placeholder="Pega una URL o sube una imagen desde tu PC..." 
-                       class="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white font-mono">
-                <div class="flex items-center gap-2">
-                  <label class="inline-flex items-center gap-1.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 cursor-pointer transition shadow-sm">
-                    <i data-lucide="upload" class="w-3.5 h-3.5"></i>
-                    <span>Subir foto desde mi PC</span>
-                    <input type="file" id="f-image-file" accept="image/*" class="hidden" onchange="uploadImageFile(this)">
-                  </label>
-                  <span id="upload-status" class="text-[11px] text-slate-500 dark:text-slate-400"></span>
+
+                <div class="flex-1 space-y-2 w-full">
+                  <input type="text" id="f-image" placeholder="Ruta de imagen (ej: images/taller-laser.jpg)" oninput="updateImagePreview(this.value)" 
+                         class="w-full px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-mono">
+                  
+                  <div class="flex items-center gap-3">
+                    <label class="cursor-pointer px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-semibold transition flex items-center gap-1.5 shadow-sm">
+                      <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                      <span>Subir foto desde mi PC</span>
+                      <input type="file" id="f-image-file" accept="image/*" class="hidden" onchange="uploadImageFile(this)">
+                    </label>
+                    <span id="upload-status" class="text-[11px] text-slate-500 dark:text-slate-400"></span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- PROMPT VISUAL GENERADO POR IA (Para Midjourney / Recraft / DALL-E) -->
-            <div class="pt-3 border-t border-slate-200 dark:border-slate-800/80 space-y-1.5">
-              <div class="flex items-center justify-between">
+            <!-- PROMPT VISUAL GENERADO POR IA (Para Midjourney / Flux / DALL-E) -->
+            <div class="pt-3 border-t border-slate-200 dark:border-slate-800/80 space-y-2">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <label class="text-[11px] font-bold text-amber-700 dark:text-amber-400 uppercase flex items-center gap-1.5">
-                  <i data-lucide="wand-2" class="w-3 h-3 text-amber-500"></i>
-                  <span>Prompt Sugerido por IA para Portada Visual (Midjourney / Recraft / DALL-E)</span>
+                  <i data-lucide="wand-2" class="w-3.5 h-3.5 text-amber-500"></i>
+                  <span>Prompt Visual Cinematográfico para Portada (Midjourney / Flux / DALL-E)</span>
                 </label>
-                <button type="button" onclick="copyToClipboard('f-image-prompt', '¡Prompt copiado!')" class="text-blue-600 dark:text-cyan-400 hover:underline text-[10px] font-semibold flex items-center gap-1">
-                  <i data-lucide="copy" class="w-3 h-3"></i> Copiar Prompt
+                <div class="flex items-center gap-1.5">
+                  <button type="button" onclick="copyPromptWithParams()" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-[10px] font-bold flex items-center gap-1 transition">
+                    <i data-lucide="copy" class="w-3 h-3"></i> Copiar con Parámetros (--ar 16:9)
+                  </button>
+                  <button type="button" onclick="copyToClipboard('f-image-prompt', '¡Prompt copiado!')" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-[10px] font-semibold flex items-center gap-1 hover:bg-slate-200 transition">
+                    <i data-lucide="copy" class="w-3 h-3"></i> Texto Limpio
+                  </button>
+                </div>
+              </div>
+
+              <!-- Selector de Estilos de Portada -->
+              <div class="flex flex-wrap items-center gap-1.5 pt-0.5">
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1">Estilos de Dirección de Arte:</span>
+                <button type="button" onclick="applyImageStyle('documentary')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-blue-500 text-[11px] text-slate-700 dark:text-slate-300 transition flex items-center gap-1 shadow-sm">
+                  <span>📸</span> <span>Fotografía Documental Maker</span>
+                </button>
+                <button type="button" onclick="applyImageStyle('product')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-amber-500 text-[11px] text-slate-700 dark:text-slate-300 transition flex items-center gap-1 shadow-sm">
+                  <span>💡</span> <span>Hero Shot de Producto</span>
+                </button>
+                <button type="button" onclick="applyImageStyle('render3d')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-purple-500 text-[11px] text-slate-700 dark:text-slate-300 transition flex items-center gap-1 shadow-sm">
+                  <span>🎨</span> <span>Despiece Render 3D</span>
                 </button>
               </div>
-              <textarea id="f-image-prompt" rows="2" placeholder="La IA generará aquí un prompt fotográfico profesional optimizado para que crees la portada en cualquier IA de imagen..." 
-                        class="w-full px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-[11px] text-slate-800 dark:text-slate-300 font-mono"></textarea>
+
+              <textarea id="f-image-prompt" rows="3" placeholder="La IA generará aquí un prompt fotográfico profesional ultra detallado optimizado para Midjourney v6, Flux.1 y DALL-E..." 
+                        class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-[11px] text-slate-800 dark:text-slate-300 font-mono focus:outline-none focus:border-amber-500"></textarea>
             </div>
           </div>
 
@@ -976,7 +1088,19 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
   function renderTalleres() {
     const grid = document.getElementById('talleres-grid');
     const empty = document.getElementById('empty-state');
+    const calView = document.getElementById('calendar-view');
     const search = document.getElementById('search-input').value.toLowerCase();
+
+    if (state.activeTab === 'calendar') {
+      if (grid) grid.classList.add('hidden');
+      if (empty) empty.classList.add('hidden');
+      if (calView) calView.classList.remove('hidden');
+      renderCalendar();
+      return;
+    }
+
+    if (calView) calView.classList.add('hidden');
+    if (grid) grid.classList.remove('hidden');
 
     let items = [];
 
@@ -1097,7 +1221,15 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
               `}
             </div>
 
-            <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="copyWhatsAppLink('${t.id}')" class="p-2 rounded-xl text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition" title="Copiar enlace de inscripción por WhatsApp">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+              </button>
+
+              <button type="button" onclick="duplicateWorkshop('${t.id}', ${isProp})" class="p-2 rounded-xl text-slate-500 hover:text-blue-600 hover:bg-slate-200 dark:hover:bg-slate-800 transition" title="Duplicar Taller (Nueva Fecha)">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+              </button>
+
               ${(IS_ADMIN && !isProp) ? `
                 <button onclick="deleteWorkshop('${t.id}')" class="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:text-rose-400 dark:hover:bg-rose-500/10 transition" title="Eliminar Taller Permanentemente">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -1143,37 +1275,43 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     }
   }
 
-  function recalcPricing() {
-    const missions = parseInt(document.getElementById('calc-missions').value) || 1;
-    const hoursPerMission = parseFloat(document.getElementById('calc-hours-per-mission').value) || 2;
-    const totalHours = missions * hoursPerMission;
-    const priceBase = Math.round(totalHours * 25);
+  function recalcPricing(isManualHours = false) {
+    const sInput = document.getElementById('calc-sessions');
+    const hSelect = document.getElementById('calc-hours-per-session');
+    const thInput = document.getElementById('calc-total-hours');
+    const btnLabel = document.getElementById('calc-apply-label');
     
-    const hElem = document.getElementById('calc-total-hours');
-    const pElem = document.getElementById('calc-total-price');
-    if (hElem) hElem.innerText = `${totalHours} hrs`;
-    if (pElem) pElem.innerText = `S/. ${priceBase}`;
+    if (!sInput || !hSelect || !thInput) return;
+
+    let totalHours;
+    if (isManualHours) {
+      totalHours = parseFloat(thInput.value) || 1;
+    } else {
+      const sessions = parseInt(sInput.value) || 1;
+      const hoursPerSession = parseFloat(hSelect.value) || 2;
+      totalHours = Math.round(sessions * hoursPerSession * 10) / 10;
+      thInput.value = totalHours;
+    }
+
+    const priceBase = Math.round(totalHours * 25);
+    if (btnLabel) btnLabel.innerText = `Aplicar: S/. ${priceBase}`;
   }
 
   function applyPricing() {
-    const missions = parseInt(document.getElementById('calc-missions').value) || 1;
-    const hoursPerMission = parseFloat(document.getElementById('calc-hours-per-mission').value) || 2;
-    const totalHours = missions * hoursPerMission;
+    const sInput = document.getElementById('calc-sessions');
+    const thInput = document.getElementById('calc-total-hours');
+    const sessions = parseInt(sInput ? sInput.value : 4) || 1;
+    const totalHours = parseFloat(thInput ? thInput.value : 8) || 1;
     const priceBase = Math.round(totalHours * 25);
 
-    const missionWord = missions === 1 ? 'misión intensiva' : 'misiones prácticas';
-    document.getElementById('f-duration').value = `${missions} ${missionWord} (${totalHours} hrs)`;
+    const sessionWord = sessions === 1 ? 'sesión' : 'sesiones';
+    document.getElementById('f-duration').value = `${sessions} ${sessionWord} (${totalHours} hrs en total)`;
     document.getElementById('f-price').value = `S/. ${priceBase}`;
-    showToast(`⚡ Tarifa aplicada: ${missions} misiones (${totalHours} hrs) = S/. ${priceBase}`);
+    showToast(`⚡ Tarifa aplicada: ${sessions} ${sessionWord} (${totalHours} hrs) = S/. ${priceBase}`);
   }
 
   function updateMissionCountFromSyllabus() {
-    const count = document.querySelectorAll('#syllabus-container .syllabus-row').length;
-    const cInput = document.getElementById('calc-missions');
-    if (count > 0 && cInput) {
-      cInput.value = count;
-      recalcPricing();
-    }
+    // Las misiones pedagógicas no afectan el precio por horas
   }
 
   function renderEmptySyllabusPrompt() {
@@ -1215,10 +1353,6 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     if (count === 2) {
       addMissionRow('Misión 1', 'Inmersión & Modelado CAD Rápido', 'Exploración de requerimientos técnicos, geometría 2D/3D y tolerancias.');
       addMissionRow('Misión 2', 'Fabricación CAM, Ensamble & Demo', 'Corte/impresión en máquina, ensamble y reto funcional completado.');
-      document.getElementById('calc-missions').value = 2;
-      document.getElementById('calc-hours-per-mission').value = 2;
-      recalcPricing();
-      applyPricing();
     } else if (count === 6) {
       addMissionRow('Misión 1', 'Inmersión Maker & Concept Design', 'Fundamentos técnicos, bocetería manual y selección de materiales.');
       addMissionRow('Misión 2', 'Modelado Paramétrico 3D Avanzado', 'Creación de ensambles digitales y verificación de holguras.');
@@ -1226,19 +1360,11 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       addMissionRow('Misión 4', 'Fabricación Aditiva 3D & Componentes', 'Impresión 3D de piezas complejas y post-procesado.');
       addMissionRow('Misión 5', 'Integración Electrónica / Ensamble', 'Cableado, sensorización y ensamble mecánico de precisión.');
       addMissionRow('Misión 6', 'Demo Day, Pruebas & Documentación', 'Presentación del prototipo funcional y registro open-source.');
-      document.getElementById('calc-missions').value = 6;
-      document.getElementById('calc-hours-per-mission').value = 2;
-      recalcPricing();
-      applyPricing();
     } else {
       addMissionRow('Misión 1', 'Inmersión Maker & Bocetos', 'Propiedades del material, fundamentos técnicos y boceto rápido a mano.');
       addMissionRow('Misión 2', 'Modelado Digital CAD', 'Construcción geométrica 2D/3D paramétrica y cálculo de tolerancias.');
       addMissionRow('Misión 3', 'Fabricación CAM & Calibración', 'Generación de trayectorias, calibración de máquina y fabricación de piezas.');
       addMissionRow('Misión 4', 'Ensamble Físico & Misión Cumplida', 'Post-procesado, ensamble físico sin holguras y pruebas funcionales.');
-      document.getElementById('calc-missions').value = 4;
-      document.getElementById('calc-hours-per-mission').value = 2;
-      recalcPricing();
-      applyPricing();
     }
   }
 
@@ -1263,7 +1389,6 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     `;
     container.appendChild(div);
     lucide.createIcons();
-    updateMissionCountFromSyllabus();
   }
 
   // Alias para retrocompatibilidad total
@@ -1286,6 +1411,13 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     document.getElementById('syllabus-container').innerHTML = '';
     document.getElementById('f-from-proposal-id').value = '';
     document.getElementById('ai-pedagogical-box').classList.add('hidden');
+
+    const datePicker = document.getElementById('f-date-picker');
+    if (datePicker) datePicker.value = '';
+    const badge = document.getElementById('date-collision-badge');
+    if (badge) badge.classList.add('hidden');
+    const hint = document.getElementById('date-availability-hint');
+    if (hint) hint.innerText = '';
 
     if (taller) {
       document.getElementById('modal-title-text').innerText = fromProposal ? 'Revisar Propuesta para Publicación' : (IS_ADMIN ? 'Editar Taller' : 'Editar Mi Propuesta');
@@ -1314,14 +1446,25 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       document.getElementById('f-copy-ig').value = taller.socialCopyInstagram || '';
       document.getElementById('f-copy-wa').value = taller.socialCopyWhatsapp || '';
 
+      // Parsear sesiones y horas para la calculadora
+      let sCount = 4, hTotal = 8;
+      if (taller.duration) {
+        const sMatch = taller.duration.match(/(\d+)\s*(?:sesi[oó]n|misi[oó]n)/i);
+        const hMatch = taller.duration.match(/(\d+(?:\.\d+)?)\s*hrs?/i);
+        if (sMatch) sCount = parseInt(sMatch[1]);
+        if (hMatch) hTotal = parseFloat(hMatch[1]);
+      }
+      if (document.getElementById('calc-sessions')) document.getElementById('calc-sessions').value = sCount;
+      if (document.getElementById('calc-total-hours')) document.getElementById('calc-total-hours').value = hTotal;
+      recalcPricing(true);
+
+      checkDateAvailability(taller.startDate || '', taller.id);
+
       if (taller.syllabus && Array.isArray(taller.syllabus) && taller.syllabus.length > 0) {
         taller.syllabus.forEach(s => addMissionRow(s.session, s.title, s.desc));
-        document.getElementById('calc-missions').value = taller.syllabus.length;
       } else {
         renderEmptySyllabusPrompt();
-        document.getElementById('calc-missions').value = 4;
       }
-      recalcPricing();
     } else {
       document.getElementById('modal-title-text').innerText = IS_ADMIN ? 'Nuevo Taller' : 'Nueva Propuesta de Taller';
       document.getElementById('f-id').value = '';
@@ -1342,9 +1485,11 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       document.getElementById('f-image-prompt').value = '';
       document.getElementById('f-copy-ig').value = '';
       document.getElementById('f-copy-wa').value = '';
-      document.getElementById('calc-missions').value = 4;
-      document.getElementById('calc-hours-per-mission').value = 2;
-      recalcPricing();
+
+      if (document.getElementById('calc-sessions')) document.getElementById('calc-sessions').value = 4;
+      if (document.getElementById('calc-hours-per-session')) document.getElementById('calc-hours-per-session').value = 2;
+      if (document.getElementById('calc-total-hours')) document.getElementById('calc-total-hours').value = 8;
+      recalcPricing(false);
       renderEmptySyllabusPrompt();
     }
 
@@ -1494,7 +1639,10 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
         if (w.subtitle) document.getElementById('f-subtitle').value = w.subtitle;
         if (w.category) document.getElementById('f-category').value = w.category;
         if (w.price) document.getElementById('f-price').value = w.price;
-        if (w.startDate) document.getElementById('f-startDate').value = w.startDate;
+        if (w.startDate) {
+          document.getElementById('f-startDate').value = w.startDate;
+          checkDateAvailability(w.startDate);
+        }
         if (w.schedule) document.getElementById('f-schedule').value = w.schedule;
         if (w.duration) document.getElementById('f-duration').value = w.duration;
         if (w.badge) document.getElementById('f-badge').value = w.badge;
@@ -1506,12 +1654,21 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
         if (w.socialCopyWhatsapp) document.getElementById('f-copy-wa').value = w.socialCopyWhatsapp;
         if (w.imagePrompt) document.getElementById('f-image-prompt').value = w.imagePrompt;
 
+        if (w.sessionsCount && document.getElementById('calc-sessions')) {
+          document.getElementById('calc-sessions').value = w.sessionsCount;
+        }
+        if (w.hoursPerSession && document.getElementById('calc-hours-per-session')) {
+          document.getElementById('calc-hours-per-session').value = w.hoursPerSession;
+        }
+        if (w.totalHours && document.getElementById('calc-total-hours')) {
+          document.getElementById('calc-total-hours').value = w.totalHours;
+        }
+        recalcPricing(true);
+
         if (w.syllabus && Array.isArray(w.syllabus)) {
           const container = document.getElementById('syllabus-container');
           container.innerHTML = '';
           w.syllabus.forEach(s => addMissionRow(s.session, s.title, s.desc));
-          document.getElementById('calc-missions').value = w.syllabus.length;
-          recalcPricing();
         }
 
         if (w.pedagogicalFeedback) {
@@ -1673,6 +1830,379 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       area.value = 'Taller de Bio-Materiales y Joyería Maker: síntesis de bioplásticos biodegradables a partir de almidón y cáscaras, corte láser y ensamble de aretes. 4 misiones de 2 hrs.';
     }
     area.focus();
+  }
+
+  // ============================================================
+  // GESTIÓN DE DUPLICAR TALLER & ENLACES DE WHATSAPP
+  // ============================================================
+  function duplicateWorkshop(id, isProposal = false) {
+    const item = isProposal 
+      ? state.proposals.find(p => p.id === id)
+      : state.talleres.find(t => t.id === id);
+
+    if (!item) return;
+
+    openWorkshopModal(item, false);
+    document.getElementById('f-id').value = '';
+    document.getElementById('f-title').value = '[Nueva Fecha] ' + (item.title || '');
+    document.getElementById('modal-title-text').innerText = 'Duplicar Taller (Nueva Fecha / Edición)';
+    document.getElementById('f-startDate').value = '';
+    const datePicker = document.getElementById('f-date-picker');
+    if (datePicker) datePicker.value = '';
+    checkDateAvailability('');
+    showToast('📋 Taller duplicado en formulario. Elige la nueva fecha y guarda los cambios.');
+  }
+
+  function copyWhatsAppLink(id) {
+    const taller = state.talleres.find(t => t.id === id) || state.proposals.find(p => p.id === id);
+    if (!taller) return;
+    const msg = `Hola FAB LAB Perú, deseo información e inscribirme al taller: "${taller.title}" (${taller.startDate || 'Próxima fecha'}).`;
+    const url = `https://wa.me/51989984480?text=${encodeURIComponent(msg)}`;
+    navigator.clipboard.writeText(url).then(() => {
+      showToast('✓ Enlace de WhatsApp copiado al portapapeles.');
+    });
+  }
+
+  // ============================================================
+  // DIRECCIÓN DE ARTE DE IMAGEN Y ESTILOS CINEMATOGRÁFICOS
+  // ============================================================
+  function applyImageStyle(style) {
+    const area = document.getElementById('f-image-prompt');
+    const title = document.getElementById('f-title').value || 'Maker Workshop';
+    const challenge = document.getElementById('f-challenge').value || 'physical functional object';
+    const tool = document.getElementById('f-fabTool').value || 'digital fabrication tools';
+
+    let prompt = '';
+    if (style === 'documentary') {
+      prompt = `Hyper-realistic candid documentary photograph of diverse passionate creators collaborating inside a modern FAB LAB Perú workshop, assembling ${challenge}. In the background, active 3D printers with soft amber glow and a laser cutter with subtle blue vapor, tidy wooden workbenches with precision hand tools. Warm studio lighting with natural rim light, authentic tactile materials (birch plywood, clear acrylic), shot on Sony A7R V 35mm f/1.8 lens, shallow depth of field, natural expressions of pride and curiosity, 8k resolution, photorealistic editorial photography --ar 16:9 --style raw`;
+    } else if (style === 'product') {
+      prompt = `High-end commercial hero product photograph of ${challenge}, precision fabricated using ${tool}, placed on a rustic craftsman wooden Fab Lab workbench alongside minimalist technical blueprints and raw material cutouts. Dramatic cinematic side lighting, crisp highlights on laser-cut edges and smooth 3D printed layers, soft natural shadows, shot on Hasselblad H6D-100c 50mm, 8k, hyper-detailed, clean minimalist composition --ar 16:9`;
+    } else if (style === 'render3d') {
+      prompt = `Isometric exploded-view 3D conceptual render of ${challenge}, showing precision assembly of digital fabrication parts (${tool}), technical floating layers, translucent acrylic accents and textured matte PLA components, soft ambient occlusion, Octane render aesthetic, minimalist light gray background with subtle studio shadows, crisp industrial design visualization, 8k resolution --ar 16:9`;
+    }
+
+    if (area) {
+      area.value = prompt;
+      area.focus();
+      showToast(`🎨 Estilo aplicado: ${style === 'documentary' ? 'Fotografía Documental' : style === 'product' ? 'Hero Shot Producto' : 'Render 3D Despiece'}`);
+    }
+  }
+
+  function copyPromptWithParams() {
+    const area = document.getElementById('f-image-prompt');
+    if (!area || !area.value.trim()) {
+      showToast('⚠️ No hay prompt generado aún.');
+      return;
+    }
+    let p = area.value.trim();
+    if (!p.includes('--ar')) {
+      p += ' --ar 16:9 --style raw --v 6.0';
+    }
+    navigator.clipboard.writeText(p).then(() => {
+      showToast('✓ Prompt con parámetros Midjourney copiado.');
+    });
+  }
+
+  // ============================================================
+  // SELECTOR DE FECHA Y DETECCIÓN DE COLISIONES EN FAB LAB
+  // ============================================================
+  const MONTH_NAMES = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ];
+
+  function onDatePickerChange(isoValue) {
+    if (!isoValue) return;
+    const parts = isoValue.split('-');
+    if (parts.length === 3) {
+      const year = parseInt(parts[0]);
+      const month = parseInt(parts[1]) - 1;
+      const day = parseInt(parts[2]);
+      const dateObj = new Date(year, month, day);
+      const dayName = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'][dateObj.getDay()];
+      const monthName = MONTH_NAMES[month];
+      const formatted = `${dayName} ${day} de ${monthName}`;
+      document.getElementById('f-startDate').value = formatted;
+      checkDateAvailability(formatted);
+    }
+  }
+
+  function checkDateAvailability(dateStr, excludeId = null) {
+    const badge = document.getElementById('date-collision-badge');
+    const hint = document.getElementById('date-availability-hint');
+    if (!badge || !hint || !dateStr || !dateStr.trim()) {
+      if (badge) badge.classList.add('hidden');
+      if (hint) hint.innerText = '';
+      return;
+    }
+
+    const currentId = excludeId || document.getElementById('f-id').value;
+    const cleanDate = dateStr.trim().toLowerCase();
+
+    const collisions = state.talleres.filter(t => {
+      if (t.id === currentId) return false;
+      if (!t.startDate) return false;
+      const otherDate = t.startDate.trim().toLowerCase();
+      return otherDate === cleanDate || (cleanDate.length > 5 && otherDate.includes(cleanDate));
+    });
+
+    if (collisions.length > 0) {
+      const first = collisions[0];
+      badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300';
+      badge.innerText = '⚠️ Cruce detectado';
+      badge.classList.remove('hidden');
+      hint.innerHTML = `<span class="text-amber-600 dark:text-amber-400 font-medium">Coincide con "${first.title}" (${first.schedule || 'Mismo día'} - ${first.fabTool || 'Lab'}). Verifica turnos para evitar saturar máquinas.</span>`;
+    } else {
+      badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300';
+      badge.innerText = '✓ Fecha disponible';
+      badge.classList.remove('hidden');
+      hint.innerText = 'No hay otros talleres programados en esta fecha.';
+    }
+  }
+
+  // ============================================================
+  // CALENDARIO INTERACTIVO DEL FAB LAB
+  // ============================================================
+  state.calYear = new Date().getFullYear();
+  state.calMonth = new Date().getMonth();
+  state.calSelectedDay = new Date().getDate();
+
+  function changeCalMonth(delta) {
+    if (delta === 0) {
+      const now = new Date();
+      state.calYear = now.getFullYear();
+      state.calMonth = now.getMonth();
+      state.calSelectedDay = now.getDate();
+    } else {
+      state.calMonth += delta;
+      if (state.calMonth < 0) {
+        state.calMonth = 11;
+        state.calYear--;
+      } else if (state.calMonth > 11) {
+        state.calMonth = 0;
+        state.calYear++;
+      }
+    }
+    renderCalendar();
+  }
+
+  function parseTallerDate(dateStr) {
+    if (!dateStr || typeof dateStr !== 'string') return null;
+    const clean = dateStr.trim().toLowerCase();
+
+    const isoMatch = clean.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if (isoMatch) {
+      return {
+        year: parseInt(isoMatch[1]),
+        month: parseInt(isoMatch[2]) - 1,
+        day: parseInt(isoMatch[3])
+      };
+    }
+
+    const monthRegex = /(enero|febrero|marzo|abril|mayo|junio|julio|agosto|setiembre|septiembre|octubre|noviembre|diciembre)/i;
+    const mMatch = clean.match(monthRegex);
+    const dMatch = clean.match(/\b(\d{1,2})\b/);
+
+    if (mMatch && dMatch) {
+      const mStr = mMatch[1].toLowerCase();
+      let mIdx = -1;
+      if (mStr.startsWith('ene')) mIdx = 0;
+      else if (mStr.startsWith('feb')) mIdx = 1;
+      else if (mStr.startsWith('mar')) mIdx = 2;
+      else if (mStr.startsWith('abr')) mIdx = 3;
+      else if (mStr.startsWith('may')) mIdx = 4;
+      else if (mStr.startsWith('jun')) mIdx = 5;
+      else if (mStr.startsWith('jul')) mIdx = 6;
+      else if (mStr.startsWith('ago')) mIdx = 7;
+      else if (mStr.startsWith('set') || mStr.startsWith('sep')) mIdx = 8;
+      else if (mStr.startsWith('oct')) mIdx = 9;
+      else if (mStr.startsWith('nov')) mIdx = 10;
+      else if (mStr.startsWith('dic')) mIdx = 11;
+
+      if (mIdx !== -1) {
+        return {
+          year: state.calYear || 2026,
+          month: mIdx,
+          day: parseInt(dMatch[1])
+        };
+      }
+    }
+    return null;
+  }
+
+  function renderCalendar() {
+    const titleEl = document.getElementById('cal-month-title');
+    const gridEl = document.getElementById('calendar-days-grid');
+    if (!titleEl || !gridEl) return;
+
+    titleEl.innerText = `${MONTH_NAMES[state.calMonth]} ${state.calYear}`;
+
+    const firstDayDate = new Date(state.calYear, state.calMonth, 1);
+    let startDayOfWeek = firstDayDate.getDay();
+    startDayOfWeek = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
+
+    const totalDaysInMonth = new Date(state.calYear, state.calMonth + 1, 0).getDate();
+    const prevMonthDays = new Date(state.calYear, state.calMonth, 0).getDate();
+
+    const talleresByDay = {};
+    const allItems = [...state.talleres, ...state.proposals];
+    allItems.forEach(t => {
+      const parsed = parseTallerDate(t.startDate);
+      if (parsed && parsed.month === state.calMonth && parsed.year === state.calYear) {
+        if (!talleresByDay[parsed.day]) talleresByDay[parsed.day] = [];
+        talleresByDay[parsed.day].push(t);
+      }
+    });
+
+    let cellsHtml = '';
+
+    for (let i = startDayOfWeek - 1; i >= 0; i--) {
+      const d = prevMonthDays - i;
+      cellsHtml += `
+        <div class="h-24 sm:h-28 p-1.5 rounded-2xl bg-slate-50/50 dark:bg-slate-950/30 border border-dashed border-slate-200 dark:border-slate-800 opacity-40 text-slate-400 text-[11px] font-mono">
+          <span>${d}</span>
+        </div>
+      `;
+    }
+
+    const now = new Date();
+    const isCurrentRealMonth = (now.getFullYear() === state.calYear && now.getMonth() === state.calMonth);
+
+    for (let day = 1; day <= totalDaysInMonth; day++) {
+      const isToday = isCurrentRealMonth && now.getDate() === day;
+      const isSelected = state.calSelectedDay === day;
+      const dayTalleres = talleresByDay[day] || [];
+      const hasEvents = dayTalleres.length > 0;
+
+      cellsHtml += `
+        <div onclick="selectCalendarDay(${day})" 
+             class="h-24 sm:h-28 p-2 rounded-2xl border transition flex flex-col justify-between cursor-pointer group ${
+               isSelected 
+                 ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/30 ring-2 ring-blue-500/20 shadow-sm' 
+                 : hasEvents 
+                   ? 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-blue-400' 
+                   : 'border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+             }">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold ${isToday ? 'w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center -ml-1 -mt-1 shadow-sm' : isSelected ? 'text-blue-600 dark:text-cyan-400' : 'text-slate-700 dark:text-slate-300'}">${day}</span>
+            ${hasEvents 
+              ? `<span class="w-2 h-2 rounded-full ${dayTalleres.some(t => t.status === 'published') ? 'bg-emerald-500' : 'bg-amber-500'}"></span>` 
+              : `<span class="text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition">+</span>`}
+          </div>
+
+          <div class="space-y-1 overflow-hidden">
+            ${dayTalleres.slice(0, 2).map(t => {
+              const isPub = t.status === 'published';
+              return `
+                <div class="truncate text-[10px] px-1.5 py-0.5 rounded-md font-semibold ${
+                  isPub 
+                    ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50' 
+                    : 'bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800/50'
+                }" title="${t.title} (${t.schedule || ''})">
+                  ${t.title}
+                </div>
+              `;
+            }).join('')}
+            ${dayTalleres.length > 2 ? `<span class="text-[9px] text-slate-500 font-bold block pl-1">+${dayTalleres.length - 2} más</span>` : ''}
+          </div>
+
+          <div class="text-[9px] text-slate-400 font-medium truncate">
+            ${hasEvents ? `${dayTalleres.length} taller${dayTalleres.length > 1 ? 'es' : ''}` : 'Libre'}
+          </div>
+        </div>
+      `;
+    }
+
+    gridEl.innerHTML = cellsHtml;
+    renderDayDetail(talleresByDay[state.calSelectedDay] || []);
+    lucide.createIcons();
+  }
+
+  function selectCalendarDay(day) {
+    state.calSelectedDay = day;
+    renderCalendar();
+  }
+
+  function renderDayDetail(dayTalleres) {
+    const detailEl = document.getElementById('calendar-day-detail');
+    if (!detailEl) return;
+
+    const day = state.calSelectedDay;
+    const monthName = MONTH_NAMES[state.calMonth];
+    const dateObj = new Date(state.calYear, state.calMonth, day);
+    const dayName = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'][dateObj.getDay()];
+    const dateFormatted = `${dayName} ${day} de ${monthName}`;
+    const isoDate = `${state.calYear}-${String(state.calMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+    if (dayTalleres.length === 0) {
+      detailEl.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white">${dateFormatted}</h4>
+              <span class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-0.5 rounded-full font-bold">100% Disponible</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">No hay talleres programados en esta fecha. El laboratorio y todas sus máquinas (Láser, 3D, CNC) están libres.</p>
+          </div>
+          <button type="button" onclick="createWorkshopForDate('${dateFormatted}', '${isoDate}')" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition flex items-center gap-1.5 shrink-0 shadow-sm">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Programar Taller en este día</span>
+          </button>
+        </div>
+      `;
+    } else {
+      detailEl.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white">${dateFormatted}</h4>
+              <span class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 px-2 py-0.5 rounded-full font-bold">${dayTalleres.length} Programado${dayTalleres.length > 1 ? 's' : ''}</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Verifica turnos y herramientas utilizadas para evitar cruces en el laboratorio.</p>
+          </div>
+          <button type="button" onclick="createWorkshopForDate('${dateFormatted}', '${isoDate}')" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition flex items-center gap-1.5 shrink-0">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Añadir otro taller</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+          ${dayTalleres.map(t => `
+            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 shadow-sm">
+              <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md ${t.status === 'published' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'}">
+                    ${t.status === 'published' ? 'Publicado' : 'Borrador'}
+                  </span>
+                  <span class="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">${t.schedule || 'Horario por definir'}</span>
+                </div>
+                <h5 class="text-xs font-bold text-slate-900 dark:text-white leading-tight">${t.title}</h5>
+                <div class="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400">
+                  <span>Mentor: <strong>${t.instructor || 'FAB LAB'}</strong></span>
+                  <span>•</span>
+                  <span>Máquina: <strong class="text-blue-600 dark:text-cyan-400 font-mono">${t.fabTool || 'General'}</strong></span>
+                </div>
+              </div>
+              <button type="button" onclick="editWorkshop('${t.id}')" class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:border-blue-500 text-xs font-semibold text-slate-700 dark:text-slate-300 transition shadow-sm shrink-0">
+                Editar
+              </button>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+    lucide.createIcons();
+  }
+
+  function createWorkshopForDate(dateFormatted, isoDate) {
+    openWorkshopModal();
+    const fDate = document.getElementById('f-startDate');
+    const fPicker = document.getElementById('f-date-picker');
+    if (fDate) fDate.value = dateFormatted;
+    if (fPicker && isoDate) fPicker.value = isoDate;
+    checkDateAvailability(dateFormatted);
   }
 
   window.addEventListener('keydown', (e) => {
