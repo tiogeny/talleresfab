@@ -1,6 +1,6 @@
 // Datos de Talleres Abiertos - FAB LAB Perú (edu.fab.pe)
 // Sincronizado automáticamente desde el Panel Admin de FAB LAB Perú
-// Última actualización: 2026-09-08 22:47:44
+// Última actualización: 2026-09-08 23:22:51
 
 const SITE_DATA = {
   phone: "+51 989 984 480",
@@ -23,43 +23,50 @@ var WORKSHOPS = [
         "title": "Minicuadros & Composición Mural 2.5D",
         "subtitle": "Transforma bocetos en minicuadros tridimensionales por capas en MDF con corte láser y acabados en acrílico.",
         "category": "creativos",
-        "targetAudience": "Jóvenes, Adultos, Artistas, Diseñadores y Entusiastas Maker",
+        "targetAudience": "Jóvenes y Adultos",
         "badge": "Arte & Corte Láser",
         "price": "S\/. 200",
-        "startDate": "7 de Octubre (Sesiones: 7, 14, 21 y 28 Oct)",
-        "duration": "4 sesiones (8 hrs)",
-        "schedule": "7:00 pm a 9:00 pm | 31 de Octubre: Exposición Hub Miraflores",
-        "format": "Híbrido (Teoría\/Diseño virtual + Corte y Exposición presencial en Fab Lab Miraflores)",
+        "startDate": "7 de Octubre",
+        "duration": "4 sesiones (8h)",
+        "schedule": "Martes de 7:00 pm a 9:00 pm",
+        "sessionDates": [
+            "07 Oct",
+            "14 Oct",
+            "21 Oct",
+            "28 Oct",
+            "⭐ 31 Oct · Exposición"
+        ],
+        "format": "Híbrido (Diseño virtual + Corte y Exposición presencial en Fab Lab Miraflores)",
         "fabTool": "Inkscape \/ Cuttle & Cortadora Láser CO2",
         "challenge": "Diseñar virtualmente un cuadro en relieve 2.5D en capas de MDF, fabricarlo en corte láser, aplicar acabados acrílicos y exponerlo en la Feria FABulosa.",
-        "description": "Un laboratorio práctico de 4 sesiones donde transformarás tus ilustraciones y bocetos a mano en un minicuadro tridimensional por capas en MDF. Exploraremos el diseño vectorial, la profundización por niveles (2.5D), el corte y grabado láser, y técnicas de acabado con pintura acrílica para culminar con la creación de una obra personal y una composición colectiva de gran formato en la Feria FABulosa (Exposición final el 31 de Octubre en Hub Miraflores).",
+        "description": "Un laboratorio práctico donde transformarás tus bocetos en un cuadro tridimensional por capas en MDF con corte láser y pintura acrílica, culminando en una muestra colectiva en la Feria FABulosa.",
         "syllabus": [
             {
                 "session": "Misión 1",
                 "title": "Descubrir e Ilustrar (Virtual)",
-                "desc": "Explora la lógica del arte en capas 2.5D. Concebirás una ilustración temática desglosada en un boceto estructurado por niveles (mínimo 3 capas)."
+                "desc": "Lógica del arte en capas 2.5D y boceto por niveles de profundidad."
             },
             {
                 "session": "Misión 2",
                 "title": "Vectorizar y CAM (Virtual)",
-                "desc": "Software vectorial (Inkscape\/Cuttle) para convertir tu boceto en trazados digitales limpios (corte vs. grabado), tolerancias y parámetros de máquina."
+                "desc": "Trazados digitales para corte láser, tolerancias y grabado."
             },
             {
                 "session": "Misión 3",
                 "title": "Fabricar y Pintar (Presencial)",
-                "desc": "Corte láser presencial en Fab Lab Miraflores en planchas de MDF 3mm, aplicación de pintura acrílica y ensamble estructural con adhesivo de madera."
+                "desc": "Corte láser en MDF 3mm en Fab Lab Miraflores y pintura acrílica."
             },
             {
                 "session": "Misión 4",
-                "title": "Exposición y Montaje Colectivo (Presencial)",
-                "desc": "Montaje en galería temática en Fab Lab Miraflores, diálogo del proceso creativo y exhibición pública final en la Feria FABulosa (31 de Octubre)."
+                "title": "Exposición y Montaje (Presencial)",
+                "desc": "Montaje en galería temática y presentación en la Feria FABulosa."
             }
         ],
         "highlights": [
-            "Diseño y vectorización 2.5D desglosando ilustraciones en estructuras multicapa.",
-            "Flujo CAD\/CAM completo y corte directo en la cortadora láser CO2 de Fab Lab Miraflores.",
-            "Acabados artísticos con pintura acrílica, contrastes de color y técnicas de ensamble.",
-            "Presentación de tu obra personal y colectiva en la exposición de la Feria FABulosa."
+            "Diseño y vectorización 2.5D desglosando ilustraciones en capas.",
+            "Corte directo en la cortadora láser CO2 de Fab Lab Miraflores.",
+            "Acabados artísticos con pintura acrílica y ensamblaje manual.",
+            "Exposición de tu obra en la Feria FABulosa en Hub Miraflores."
         ],
         "image": "images\/taller-minicuadros-25d.jpg",
         "instructor": "Evelyn Cuadrado",
@@ -72,58 +79,48 @@ var WORKSHOPS = [
         "title": "OPEN CIRCUITS: Robótica, IA y Videojuegos con mBlock",
         "subtitle": "Curso práctico de tecnología creativa que integra circuitos, sensores, visión artificial y diseño de videojuegos.",
         "category": "kids",
-        "targetAudience": "Niños y adolescentes de 10 a 15 años",
+        "targetAudience": "10 a 15 años",
         "badge": "Robótica & IA Kids",
         "price": "S\/. 400",
-        "startDate": "Sábado 25 de Octubre",
-        "duration": "8 sesiones (2 horas por sesión)",
-        "schedule": "Miércoles de 4:00 pm a 6:00 pm \/ Viernes de 4:00 pm a 6:00 pm",
-        "format": "Híbrido (Clases virtuales interactivas y retos prácticos de laboratorio)",
+        "startDate": "25 de Octubre",
+        "duration": "8 sesiones (16h)",
+        "schedule": "Miércoles y Viernes de 4:00 pm a 6:00 pm",
+        "sessionDates": [
+            "Inicio: Sáb 25 Oct",
+            "Mié y Vie: 4 a 6 pm",
+            "8 sesiones en vivo"
+        ],
+        "format": "Híbrido (Clases virtuales interactivas y retos de laboratorio)",
         "fabTool": "mBlock, mlink2, Sensores, Actuadores y Cámara ML",
-        "challenge": "Programar sensores y actuadores, entrenar un modelo de Machine Learning para reconocimiento de gestos y crear un videojuego funcional integrador.",
-        "description": "Curso de tecnología creativa que integra robótica, inteligencia artificial y diseño de videojuegos mediante mBlock. Los estudiantes programan sensores y actuadores, entrenan modelos simples de reconocimiento y desarrollan videojuegos. Fomenta la creatividad y el aprendizaje basado en proyectos mediante un proyecto final integrador.",
+        "challenge": "Programar sensores y actuadores, entrenar un modelo de Machine Learning para reconocimiento de gestos y crear un videojuego interactivo.",
+        "description": "Aprende robótica, inteligencia artificial y videojuegos con mBlock programando sensores, entrenando visión artificial y desarrollando un proyecto integrador.",
         "syllabus": [
             {
                 "session": "Misión 1",
-                "title": "Descubrir el Entorno mBlock",
-                "desc": "Explora mBlock y reconoce los fundamentos de robótica, sensores y actuadores mediante ejemplos prácticos."
+                "title": "Fundamentos y Sensores",
+                "desc": "Entorno mBlock y control básico de actuadores y señales."
             },
             {
                 "session": "Misión 2",
-                "title": "Digitalizar & Programar Salidas",
-                "desc": "Programa bloques para controlar LEDs, semáforos o actuadores experimentando con entradas y salidas digitales."
+                "title": "Circuitos Interactivos",
+                "desc": "Lógica de programación con entradas y salidas analógicas\/digitales."
             },
             {
                 "session": "Misión 3",
-                "title": "Modelar Circuitos Interactivos",
-                "desc": "Diseña y construye un circuito o robot interactivo que detecte una condición ambiental y genere una respuesta."
+                "title": "Inteligencia Artificial",
+                "desc": "Entrenamiento de modelos de visión por computadora y gestos."
             },
             {
                 "session": "Misión 4",
-                "title": "Elegir Tecnología de IA",
-                "desc": "Explora la inteligencia artificial y compara aplicaciones de reconocimiento de gestos para tu proyecto."
-            },
-            {
-                "session": "Misión 5",
-                "title": "Preparar y Entrenar Modelos ML",
-                "desc": "Captura muestras y entrena un modelo de machine learning en vivo, realizando pruebas y ajustes de precisión."
-            },
-            {
-                "session": "Misión 6",
-                "title": "Diseñar y Programar Videojuegos",
-                "desc": "Diseña un videojuego en mBlock incorporando personajes, escenarios, movimiento, reglas, puntaje y colisiones."
-            },
-            {
-                "session": "Misión 7",
-                "title": "Aplicar y Compartir Proyecto Final",
-                "desc": "Desarrolla un proyecto integrador de libre elección aplicando IA, robótica o videojuegos y preséntalo al grupo."
+                "title": "Videojuegos y Proyecto Final",
+                "desc": "Diseño de videojuego jugable con físicas y presentación final."
             }
         ],
         "highlights": [
-            "Programación visual y control de componentes electrónicos, sensores y motores.",
-            "Entrenamiento de modelos de visión artificial e inteligencia artificial sin código engorroso.",
-            "Desarrollo completo de videojuegos interactivos desde el diseño visual hasta las mecánicas.",
-            "Proyecto final integrador de libre elección guiado paso a paso por instructores especialistas."
+            "Programación visual intuitiva para controlar electrónica real.",
+            "Entrenamiento de modelos de visión artificial sin código complejo.",
+            "Desarrollo completo de videojuegos interactivos desde cero.",
+            "Proyecto final integrador presentado ante el grupo."
         ],
         "image": "images\/taller-open-circuits.jpg",
         "instructor": "Hayashi Mateo y Francheska Baca",
@@ -133,46 +130,52 @@ var WORKSHOPS = [
     },
     {
         "id": "digitoys-fabricacion-digital",
-        "title": "Digitoys: Creación de Personajes 2.5D, Impresión 3D & Emprendimiento Maker",
+        "title": "Digitoys: Personajes 2.5D, Impresión 3D & Emprendimiento Maker",
         "subtitle": "Diseña tu personaje 2.5D autoportante, imprímelo en 3D ecológico, simula costos con FabCoins y crea tu empaque de autor.",
         "category": "kids",
-        "targetAudience": "Niños de 7 a 13 años y familias creativas",
+        "targetAudience": "7 a 13 años",
         "badge": "Personajes 2.5D & 3D",
         "price": "S\/. 200",
-        "startDate": "Sábado 03 de Octubre (Sesiones: 3, 10, 17 y 24 Oct)",
-        "duration": "4 sesiones (6 hrs)",
-        "schedule": "Sábados de 10:00 am a 11:30 am (Fechas: 3, 10, 17 y 24 de Octubre)",
+        "startDate": "3 de Octubre",
+        "duration": "4 sesiones (6h)",
+        "schedule": "Sábados de 10:00 am a 11:30 am",
+        "sessionDates": [
+            "03 Oct",
+            "10 Oct",
+            "17 Oct",
+            "24 Oct"
+        ],
         "format": "Virtual interactivo",
         "fabTool": "Impresión 3D (PLA ecológico)",
         "challenge": "Diseñar un personaje 2.5D autoportante para impresión 3D, presupuestar la producción con FabCoins y presentar el empaque y marca con pitch de 30 segundos.",
-        "description": "Digitoys es el programa maker donde niños y niñas dan vida a personajes 2.5D mediante impresión 3D y fundan su primera mini-marca. A través de retos creativos, conciben su criatura de autor con base autoportante, aprenden a modelarla en capas para imprimirla en 3D en filamento PLA sin soportes, presupuestan insumos con FabCoins y diseñan una caja troquelada para presentar su producto al mundo.",
+        "description": "Da vida a personajes 2.5D con impresión 3D y funda tu primera mini-marca: modelado sin soportes, simulación de costos con FabCoins y caja de empaque de colección.",
         "syllabus": [
             {
                 "session": "Misión 1",
-                "title": "Concebir — La Marca y el Personaje 2.5D",
-                "desc": "Exploración visual, historia del personaje y bocetado sobre base autoportante para que se sostenga sin soportes."
+                "title": "La Marca y el Personaje 2.5D",
+                "desc": "Bocetado de criatura autoportante para sostenerse sola sin soportes."
             },
             {
                 "session": "Misión 2",
-                "title": "Modelado Digital 2.5D para Impresión 3D",
-                "desc": "Trazado digital de capas y relieves con espesor de 10 mm optimizado para impresión 3D limpia y eficiente."
+                "title": "Modelado Digital para 3D",
+                "desc": "Trazado digital en capas y relieves optimizados para impresión limpia."
             },
             {
                 "session": "Misión 3",
-                "title": "Presupuesto con FabCoins y Laminado 3D",
-                "desc": "Cálculo de consumo de filamento PLA ecológico debitando FabCoins, preparación en slicer y simulación de capas."
+                "title": "Presupuesto con FabCoins",
+                "desc": "Cálculo de filamento PLA, laminado en slicer y simulación de costos."
             },
             {
                 "session": "Misión 4",
-                "title": "Post-Proceso, Packaging y Show Pitch",
-                "desc": "Acabados de color, armado de empaque coleccionable con etiqueta de autor y pitch de 30 segundos para obtener el Pasaporte Maker."
+                "title": "Packaging y Pitch Maker",
+                "desc": "Caja troquelada de colección, etiqueta de autor y Pasaporte Maker."
             }
         ],
         "highlights": [
-            "Aprende diseño 3D y resolución espacial de forma divertida y práctica.",
-            "Vivencia del ciclo de emprendimiento: presupuesto con FabCoins, empaque y pitch.",
-            "Uso de tecnología de impresión 3D con filamento PLA ecológico biodegradable.",
-            "Cada participante se lleva su personaje 2.5D terminado y su Pasaporte Maker."
+            "Diseño 3D y resolución espacial aplicados de forma divertida.",
+            "Ciclo de emprendimiento real: presupuesto con FabCoins y empaque.",
+            "Impresión 3D con filamento PLA biodegradable.",
+            "Te llevas tu personaje 2.5D en su caja con tu Pasaporte Maker."
         ],
         "image": "images\/taller-digitoys.jpg",
         "instructor": "Henry Sánchez",
@@ -185,43 +188,49 @@ var WORKSHOPS = [
         "title": "Bio-Fabricación: Biomateriales & Diseño Sostenible",
         "subtitle": "Sintetiza bio-plásticos a partir de descartes orgánicos y crea piezas ecológicas con diseño circular.",
         "category": "profesionales",
-        "targetAudience": "Jóvenes, Diseñadores, Artistas e Investigadores",
+        "targetAudience": "Creadores & Innovadores",
         "badge": "Bio-Innovación",
         "price": "S\/. 200",
-        "startDate": "Domingo 11 de Octubre (Sesiones: 11, 18, 25 Oct y 1 Nov)",
-        "duration": "4 sesiones (8 hrs)",
+        "startDate": "11 de Octubre",
+        "duration": "4 sesiones (8h)",
         "schedule": "Domingos de 10:30 am a 12:30 pm",
+        "sessionDates": [
+            "11 Oct",
+            "18 Oct",
+            "25 Oct",
+            "01 Nov"
+        ],
         "format": "Laboratorio experimental presencial \/ híbrido",
         "fabTool": "Biopolímeros, Alginatos, Desechos Orgánicos & Moldes",
         "challenge": "Formular una lámina orgánica biodegradable a partir de residuos orgánicos locales y moldear un prototipo de producto o empaque circular.",
-        "description": "Un espacio de experimentación donde la biología, la sostenibilidad y el diseño se encuentran. Aprenderás recetas y técnicas para transformar cáscaras, almidones y alginatos en biomateriales flexibles o rígidos. Exploraremos el control de fraguado, la colorimetría con bio-tintes naturales y el diseño de objetos con ciclo de vida circular.",
+        "description": "Aprende a sintetizar bioplásticos flexibles o rígidos a partir de cáscaras, alginatos y almidones, explorando bio-tintes botánicos y diseño circular.",
         "syllabus": [
             {
                 "session": "Misión 1",
-                "title": "Recetas de Bioplásticos & Alginatos",
-                "desc": "Materias primas botánicas, plastificantes naturales, proporciones y formulación de láminas bio-degradables."
+                "title": "Recetas de Bioplásticos",
+                "desc": "Materias botánicas, plastificantes naturales y formulación básica."
             },
             {
                 "session": "Misión 2",
-                "title": "Curado, Texturas & Bio-Tintes",
-                "desc": "Control de secado ambiental, flexibilidad mecánica y pigmentación con tintes orgánicos y botánicos."
+                "title": "Texturas y Bio-Tintes",
+                "desc": "Secado, flexibilidad mecánica y pigmentación con tintes botánicos."
             },
             {
                 "session": "Misión 3",
-                "title": "Moldes & Prototipado Circular",
-                "desc": "Termoformado, corte y texturizado sobre moldes para el diseño de empaques y objetos utilitarios."
+                "title": "Moldes y Prototipado",
+                "desc": "Termoformado y corte para productos y empaques circulares."
             },
             {
                 "session": "Misión 4",
-                "title": "Pruebas de Biodegradación & Muestra Bio",
-                "desc": "Ensayos de disolución y degradación ambiental natural, junto con la presentación de la muestra bio-maker."
+                "title": "Biodegradabilidad y Muestra",
+                "desc": "Pruebas de degradación natural y presentación del muestrario bio."
             }
         ],
         "highlights": [
-            "Recetas comprobadas de bioplásticos caseros y de laboratorio sin químicos tóxicos.",
-            "Experimentación con descartes orgánicos locales y tintes botánicos naturales.",
-            "Enfoque en diseño circular y alternativas sostenibles al plástico convencional.",
-            "Muestrario físico de biomateriales y prototipo final ecológico terminado."
+            "Recetas comprobadas de bioplásticos no tóxicos.",
+            "Experimentación con descartes orgánicos y tintes botánicos.",
+            "Enfoque en diseño circular y alternativas al plástico.",
+            "Muestrario físico y prototipo ecológico funcional terminado."
         ],
         "image": "images\/taller-biomateriales.jpg",
         "instructor": "Grace Schwan",

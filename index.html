@@ -44,6 +44,23 @@
 
   <style>
     body { font-family: 'Inter', sans-serif; }
+    
+    /* Scrollbar moderna, delgada y elegante */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.45);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.75);
+    }
+
     .modal-backdrop {
       background: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(8px);
@@ -138,61 +155,18 @@
             </a>
           </div>
 
-          <!-- Pilares de Transformación con Iconos -->
-          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800 text-xs text-slate-400">
-            <div class="space-y-1">
-              <div class="flex items-center gap-1.5 text-cyan-400 font-bold text-sm">
-                <i data-lucide="zap" class="w-4 h-4"></i>
-                <span>INNOVA</span>
-              </div>
-              <p class="text-slate-300 text-xs">Crea soluciones nuevas</p>
-            </div>
-            <div class="space-y-1">
-              <div class="flex items-center gap-1.5 text-blue-400 font-bold text-sm">
-                <i data-lucide="hammer" class="w-4 h-4"></i>
-                <span>TRANSFORMA</span>
-              </div>
-              <p class="text-slate-300 text-xs">De la idea al objeto físico</p>
-            </div>
-            <div class="space-y-1">
-              <div class="flex items-center gap-1.5 text-emerald-400 font-bold text-sm">
-                <i data-lucide="globe" class="w-4 h-4"></i>
-                <span>IMPACTA</span>
-              </div>
-              <p class="text-slate-300 text-xs">Genera valor en tu entorno</p>
-            </div>
-          </div>
-
         </div>
 
         <!-- Columna Visual: Visor 3D Interactivo Limpio -->
         <div class="lg:col-span-5 relative flex items-center justify-center">
-          <div class="relative w-full aspect-square max-w-[420px] rounded-3xl bg-slate-900/85 backdrop-blur-xl border border-cyan-500/30 p-4 shadow-2xl overflow-hidden flex flex-col justify-between">
+          <div class="relative w-full aspect-square max-w-[400px] rounded-3xl bg-slate-900/60 backdrop-blur-xl border border-cyan-500/20 p-2 shadow-2xl overflow-hidden flex items-center justify-center">
             
             <!-- Línea láser animada de escaneo -->
             <div class="laser-line"></div>
 
-            <!-- Telemetría superior -->
-            <div class="flex items-center justify-between text-[11px] font-mono text-cyan-400/90 z-10">
-              <span class="flex items-center gap-1.5">
-                <i data-lucide="box" class="w-3.5 h-3.5 text-cyan-400"></i>
-                <span>VISOR DE FABRICACIÓN 3D</span>
-              </span>
-              <span class="text-slate-400 text-[10px]">ROTACIÓN LIBRE 360°</span>
-            </div>
-
             <!-- Three.js Canvas Container -->
-            <div id="three-container" class="relative w-full h-72 flex items-center justify-center cursor-grab active:cursor-grabbing" title="Arrastra para rotar el modelo">
+            <div id="three-container" class="relative w-full h-80 flex items-center justify-center cursor-grab active:cursor-grabbing" title="Arrastra para rotar el modelo">
               <!-- WebGL Canvas rendered here -->
-            </div>
-
-            <!-- Telemetría inferior limpia -->
-            <div class="bg-slate-950/90 rounded-xl px-4 py-2.5 border border-slate-800/80 text-xs font-mono flex items-center justify-between z-10">
-              <span class="text-slate-400 text-[11px] flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Laboratorio Interactivo</span>
-              </span>
-              <span class="text-cyan-400 text-[11px]">WebGL // Three.js</span>
             </div>
 
           </div>
@@ -208,18 +182,15 @@
   <section id="talleres" class="py-16 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+      <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-fabBlue border border-blue-100 text-xs font-bold uppercase tracking-wider">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>Inscripciones abiertas</span>
         </span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Talleres disponibles</h2>
-        <p class="text-sm sm:text-base text-slate-600 max-w-lg mx-auto leading-relaxed">
-          Experiencias prácticas con mentoría personalizada para experimentar, diseñar y materializar tus proyectos.
-        </p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Talleres para todos</h2>
 
         <!-- Filtros de Audiencia -->
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-2" id="category-filters">
+        <div class="pt-4 flex flex-wrap items-center justify-center gap-2" id="category-filters">
           <!-- Renderizado con JS -->
         </div>
       </div>
@@ -328,27 +299,31 @@
               <span id="modal-badge" class="absolute top-3 left-3 bg-slate-900/90 text-white text-[11px] font-bold px-3 py-1 rounded-md backdrop-blur-sm shadow"></span>
             </div>
 
-            <!-- Ficha Técnica Editorial -->
-            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 space-y-2.5 text-xs text-slate-700 shadow-sm">
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500 font-medium">Fecha de Inicio:</span>
-                <strong id="modal-startdate" class="text-slate-900 font-bold"></strong>
+            <!-- Tira de Fechas de Sesiones -->
+            <div class="space-y-1.5 pt-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Fechas de Sesiones</span>
+              <div id="modal-dates-pills" class="flex flex-wrap gap-1.5">
+                <!-- Generado por JS -->
               </div>
+            </div>
+
+            <!-- Ficha Técnica Editorial -->
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 space-y-2 text-xs text-slate-700 shadow-sm">
               <div class="flex items-center justify-between">
                 <span class="text-slate-500 font-medium">Horario:</span>
-                <strong id="modal-schedule" class="text-slate-800"></strong>
+                <strong id="modal-schedule" class="text-slate-800 text-right"></strong>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-slate-500 font-medium">Duración Total:</span>
+                <span class="text-slate-500 font-medium">Duración:</span>
                 <strong id="modal-duration" class="text-slate-800"></strong>
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-slate-500 font-medium">Herramienta:</span>
-                <strong id="modal-fabtool" class="text-fabBlue truncate max-w-[170px]"></strong>
+                <strong id="modal-fabtool" class="text-fabBlue text-right truncate max-w-[180px]"></strong>
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-slate-500 font-medium">Modalidad:</span>
-                <strong id="modal-format" class="text-slate-800 truncate max-w-[170px]"></strong>
+                <strong id="modal-format" class="text-slate-800 text-right truncate max-w-[180px]"></strong>
               </div>
             </div>
           </div>
@@ -420,13 +395,13 @@
   </div>
 
   <!-- SCRIPTS & DATOS -->
-  <script src="data.js?v=5.0"></script>
+  <script src="data.js?v=6.0"></script>
   <script>
     let activeCat = 'all';
 
     function getImgUrl(url) {
       if (!url) return '';
-      return url + (url.includes('?') ? '&' : '?') + 'v=5.0';
+      return url + (url.includes('?') ? '&' : '?') + 'v=6.0';
     }
 
     function getLiveWorkshops() {
@@ -486,7 +461,10 @@
           <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
             
             <div class="space-y-2">
-              <span class="text-[11px] font-bold text-fabBlue uppercase tracking-wide block">${w.targetAudience}</span>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-100 text-[11px] font-semibold w-fit">
+                <i data-lucide="users" class="w-3 h-3 text-blue-500"></i>
+                <span>${w.targetAudience}</span>
+              </div>
               <h3 class="text-lg font-bold text-slate-900 leading-snug line-clamp-2">${w.title}</h3>
               <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">${w.subtitle}</p>
             </div>
@@ -538,12 +516,26 @@
       document.getElementById('modal-title').innerText = w.title;
       document.getElementById('modal-desc').innerText = w.description;
       document.getElementById('modal-challenge').innerText = w.challenge;
-      document.getElementById('modal-startdate').innerText = w.startDate;
       document.getElementById('modal-schedule').innerText = w.schedule;
       document.getElementById('modal-duration').innerText = w.duration;
       document.getElementById('modal-fabtool').innerText = w.fabTool;
       document.getElementById('modal-format').innerText = w.format;
       document.getElementById('modal-price').innerText = w.price;
+
+      // Fechas en píldoras tipo calendario
+      const datesContainer = document.getElementById('modal-dates-pills');
+      if (datesContainer) {
+        const dates = w.sessionDates && w.sessionDates.length ? w.sessionDates : [w.startDate || 'Próximamente'];
+        datesContainer.innerHTML = dates.map(d => `
+          <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold font-mono tracking-tight ${
+            d.includes('⭐') || d.includes('Expo') || d.includes('Exposición')
+              ? 'bg-amber-100 text-amber-900 border border-amber-300'
+              : 'bg-white text-slate-800 border border-slate-200 shadow-xs'
+          }">
+            ${d}
+          </span>
+        `).join('');
+      }
 
       // Temario / Misiones Didácticas
       const syllabusContainer = document.getElementById('modal-syllabus');
