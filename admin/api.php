@@ -417,7 +417,7 @@ if ($action === 'ai_generate') {
     $prompt .= "  \"socialCopyWhatsapp\": \"Mensaje formateado para listas de difusión de WhatsApp con número oficial\"\n";
     $prompt .= "}";
 
-    $modelsToTry = array_unique([GEMINI_MODEL, 'gemini-flash-lite-latest', 'gemini-3.1-flash-lite']);
+    $modelsToTry = array_unique([GEMINI_MODEL, 'gemini-3.5-flash-lite', 'gemini-flash-lite-latest', 'gemini-3.1-flash-lite']);
     $response = null;
     $httpCode = 0;
     $geminiData = null;
