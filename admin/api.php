@@ -108,7 +108,16 @@ function load_talleres() {
 
 // Helper: Guardar talleres
 function save_talleres($talleres) {
-    file_put_contents(TALLERES_FILE, json_encode($talleres, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+    if (!is_dir(DATA_DIR)) {
+        @mkdir(DATA_DIR, 0755, true);
+    }
+    $json = json_encode($talleres, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    $res = @file_put_contents(TALLERES_FILE, $json, LOCK_EX);
+    if ($res === false) {
+        json_response([
+            'error' => 'Error crítico de permisos en el servidor: No se pudo guardar en ' . TALLERES_FILE . '. Asegúrate de que la carpeta data tenga permisos 755 o 777 en tu cPanel.'
+        ], 500);
+    }
     sync_to_data_js();
 }
 
@@ -139,7 +148,11 @@ function sync_to_data_js() {
     $jsContent .= "];\n\n";
     $jsContent .= "const WORKSHOPS = " . $jsonPublished . ";\n";
 
-    file_put_contents(DATA_JS_FILE, $jsContent);
+    $res = @file_put_contents(DATA_JS_FILE, $jsContent, LOCK_EX);
+    if ($res === false) {
+        error_log("Error al escribir en " . DATA_JS_FILE);
+    }
+    return $res;
 }
 
 // -------------------------------------------------------------
@@ -469,6 +482,50 @@ if ($action === 'ai_generate') {
         'success' => true,
         'workshop' => $parsedWorkshop
     ]);
+}
+
+// -------------------------------------------------------------
+// 11. AUTH ACTION: Diagnóstico del Sistema y Estado del Servidor
+// -------------------------------------------------------------
+if ($action === 'system_diagnostic') {
+    $talleresWritable = is_writable(TALLERES_FILE) || (!file_exists(TALLERES_FILE) && is_writable(DATA_DIR));
+    $dataJsWritable = is_writable(DATA_JS_FILE) || (!file_exists(DATA_JS_FILE) && is_writable(dirname(DATA_JS_FILE)));
+    $proposalsWritable = is_writable(PROPOSALS_FILE) || (!file_exists(PROPOSALS_FILE) && is_writable(DATA_DIR));
+    $uploadsWritable = is_dir(UPLOADS_DIR) ? is_writable(UPLOADS_DIR) : is_writable(dirname(UPLOADS_DIR));
+
+    $gitCommit = null;
+    if (function_exists('exec')) {
+        $out = @exec('git log -1 --format="%h - %s (%cd)"');
+        if ($out) $gitCommit = $out;
+    }
+
+    json_response([
+        'success' => true,
+        'version' => 'v2.2-maker',
+        'buildDate' => '2026-09-08',
+        'currentUser' => get_current_user_data(),
+        'gitCommit' => $gitCommit ?: 'Commit local / Despliegue directo',
+        'permissions' => [
+            'talleres_json' => $talleresWritable,
+            'data_js' => $dataJsWritable,
+            'proposals_json' => $proposalsWritable,
+            'uploads_dir' => $uploadsWritable
+        ],
+        'geminiReady' => !empty(GEMINI_API_KEY),
+        'serverTime' => date('Y-m-d H:i:s')
+    ]);
+}
+
+// -------------------------------------------------------------
+// 12. AUTH ACTION: Forzar Sincronización Web
+// -------------------------------------------------------------
+if ($action === 'force_sync') {
+    $currentUser = get_current_user_data();
+    if ($currentUser['role'] !== 'admin') {
+        json_response(['error' => 'Solo administradores pueden forzar la sincronización.'], 403);
+    }
+    sync_to_data_js();
+    json_response(['success' => true, 'message' => 'Web edu.fab.pe sincronizada con éxito.']);
 }
 
 json_response(['error' => 'Acción no reconocida.'], 404);

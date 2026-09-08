@@ -498,7 +498,7 @@
   </div>
 
   <!-- SCRIPTS & DATOS -->
-  <script src="data.js"></script>
+  <script src="data.js?v=2.2"></script>
   <script>
     let activeCat = 'all';
 
@@ -652,6 +652,23 @@
     renderFilters();
     renderWorkshops();
     lucide.createIcons();
+
+    // Sincronización en tiempo real con el backend anti-caché del navegador
+    async function syncLiveWorkshops() {
+      try {
+        const res = await fetch('data/talleres.json?_t=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const list = await res.json();
+          if (Array.isArray(list)) {
+            window.WORKSHOPS = list.filter(w => !w.status || w.status === 'published');
+            renderWorkshops();
+          }
+        }
+      } catch (err) {
+        console.log('Front alimentado desde data.js');
+      }
+    }
+    syncLiveWorkshops();
 
     // =================================================================
     // THREE.JS: MOTOR 3D LIMPIO
