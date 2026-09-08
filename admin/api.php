@@ -376,15 +376,15 @@ if ($action === 'ai_generate') {
         json_response(['error' => 'Falta configurar la clave GEMINI_API_KEY en config.php'], 500);
     }
 
-    $prompt = "Eres el Director Académico y Diseñador Pedagógico de FAB LAB Perú y Makerdu (edu.fab.pe).\n";
+    $prompt = "Eres el Director Académico y Diseñador Pedagógico de FAB LAB Perú (edu.fab.pe).\n";
     $prompt .= "Tu rol es:\n";
-    $prompt .= "1. Estructurar la propuesta del taller en un formato técnico, ágil y atractivo usando la metodología Makerdu.\n";
+    $prompt .= "1. Estructurar la propuesta del taller en un formato técnico, ágil y atractivo usando los estándares prácticos de FAB LAB Perú (aprender haciendo, retos físicos tangibles).\n";
     $prompt .= "2. Brindar ORIENTACIÓN PEDAGÓGICA MAKER al instructor (evaluar el reto tangible, recomendaciones didácticas por misión e insumos/seguridad).\n";
     $prompt .= "3. Generar un prompt fotográfico profesional para la portada visual del taller.\n\n";
     $prompt .= "REGLAS DIDÁCTICAS Y DE FORMATO:\n";
-    $prompt .= "- MARCO MAKERDU (MISIONES EN VEZ DE SESIONES): Nunca uses la palabra 'sesión'. Estructura el temario en 'MISIONES' (ej: 'Misión 1: Inmersión & Boceto Maker', 'Misión 2: Modelado Digital CAD', etc.).\n";
+    $prompt .= "- RUTA DIDÁCTICA (MISIONES EN VEZ DE SESIONES): Nunca uses la palabra 'sesión'. Estructura el temario en 'MISIONES' (ej: 'Misión 1: Inmersión & Boceto Maker', 'Misión 2: Modelado Digital CAD', etc.).\n";
     $prompt .= "- VERSATILIDAD DIDÁCTICA: No fuerces siempre 4 misiones. Analiza el reto en las notas: puede requerir 2 misiones (Sprint de 4 hrs), 3 o 4 misiones (6 a 8 hrs estándar), o 6 u 8 misiones (12 a 16 hrs proyecto avanzado).\n";
-    $prompt .= "- CÁLCULO DE INVERSIÓN (TARIFA BASE MAKERDU S/. 25 / HORA): Calcula el precio base multiplicando el total de horas por S/. 25 (ejemplo: 4 hrs = S/. 100, 6 hrs = S/. 150, 8 hrs = S/. 200, 12 hrs = S/. 300). Escribe el precio como 'S/. XXX'.\n";
+    $prompt .= "- CÁLCULO DE INVERSIÓN (TARIFA BASE S/. 25 / HORA): Calcula el precio base multiplicando el total de horas por S/. 25 (ejemplo: 4 hrs = S/. 100, 6 hrs = S/. 150, 8 hrs = S/. 200, 12 hrs = S/. 300). Escribe el precio como 'S/. XXX'.\n";
     $prompt .= "- NO uses verbos pasivos como 'aprende', usa verbos de acción y experimentación: 'diseña', 'prototipa', 'materializa', 'experimenta', 'conecta'.\n";
     $prompt .= "- Moneda: Soles (S/.). Teléfono oficial: +51 989 984 480.\n";
     $prompt .= "- No menciones FabCoins ni MIT.\n";
@@ -404,7 +404,7 @@ if ($action === 'ai_generate') {
     $prompt .= "  \"format\": \"Virtual interactivo | Presencial en Laboratorio | Híbrido\",\n";
     $prompt .= "  \"fabTool\": \"Herramientas principales usadas\",\n";
     $prompt .= "  \"challenge\": \"Descripción del reto físico tangible que se llevan terminado\",\n";
-    $prompt .= "  \"description\": \"Descripción envolvente en 3-4 líneas con enfoque Makerdu\",\n";
+    $prompt .= "  \"description\": \"Descripción envolvente en 3-4 líneas con enfoque práctico Fab Lab\",\n";
     $prompt .= "  \"syllabus\": [\n";
     $prompt .= "    { \"session\": \"Misión 1\", \"title\": \"Inmersión & Boceto Maker\", \"desc\": \"Actividad práctica...\" },\n";
     $prompt .= "    { \"session\": \"Misión 2\", \"title\": \"Modelado Digital CAD\", \"desc\": \"Actividad práctica...\" }\n";
@@ -412,7 +412,7 @@ if ($action === 'ai_generate') {
     $prompt .= "  \"highlights\": [\"Logro 1\", \"Logro 2\", \"Logro 3\", \"Logro 4\"],\n";
     $prompt .= "  \"imagePrompt\": \"Hyper-realistic cinematic photo of participants building [the challenge object] in a modern Fab Lab workshop with 3D printers, laser cutters, warm studio lighting, 8k resolution\",\n";
     $prompt .= "  \"pedagogicalFeedback\": {\n";
-    $prompt .= "    \"makerScore\": \"9/10 (Alto Enfoque Práctico Makerdu)\",\n";
+    $prompt .= "    \"makerScore\": \"9/10 (Alto Enfoque Práctico Fab Lab)\",\n";
     $prompt .= "    \"challengeTip\": \"Consejo pedagógico para hacer el reto más tangible y motivador en el laboratorio\",\n";
     $prompt .= "    \"didacticTip\": \"Recomendación para la secuencia de las misiones y evitar baches técnicos\",\n";
     $prompt .= "    \"safetyOrMaterials\": \"Insumos recomendados y precauciones en el laboratorio\"\n";
