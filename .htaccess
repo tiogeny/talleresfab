@@ -1,0 +1,17 @@
+# Desactivar caché agresivo para datos dinámicos y HTML
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|htm|js|json)$">
+    Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+  </FilesMatch>
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|jfif)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# Desactivar LiteSpeed Cache interno para recargas inmediatas
+<IfModule LiteSpeed>
+  CacheDisable public /
+  CacheDisable private /
+</IfModule>
