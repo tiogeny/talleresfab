@@ -1,6 +1,6 @@
 // Datos de Talleres Abiertos - FAB LAB Perú (edu.fab.pe)
 // Sincronizado automáticamente desde el Panel Admin de FAB LAB Perú
-// Última actualización: 2026-09-08 22:19:42
+// Última actualización: 2026-09-08 22:47:44
 
 const SITE_DATA = {
   phone: "+51 989 984 480",
@@ -26,7 +26,7 @@ var WORKSHOPS = [
         "targetAudience": "Jóvenes, Adultos, Artistas, Diseñadores y Entusiastas Maker",
         "badge": "Arte & Corte Láser",
         "price": "S\/. 200",
-        "startDate": "7 de Octubre (7, 14, 21 y 28 Oct)",
+        "startDate": "7 de Octubre (Sesiones: 7, 14, 21 y 28 Oct)",
         "duration": "4 sesiones (8 hrs)",
         "schedule": "7:00 pm a 9:00 pm | 31 de Octubre: Exposición Hub Miraflores",
         "format": "Híbrido (Teoría\/Diseño virtual + Corte y Exposición presencial en Fab Lab Miraflores)",
@@ -62,7 +62,7 @@ var WORKSHOPS = [
             "Presentación de tu obra personal y colectiva en la exposición de la Feria FABulosa."
         ],
         "image": "images\/taller-minicuadros-25d.jpg",
-        "instructor": "Evelyn Andrea Cuadrado Guerrero",
+        "instructor": "Evelyn Cuadrado",
         "instructorEmail": "contacto@fablablima.org",
         "status": "published",
         "createdAt": "2026-09-08T16:25:00.000Z"
@@ -133,53 +133,101 @@ var WORKSHOPS = [
     },
     {
         "id": "digitoys-fabricacion-digital",
-        "title": "Digitoys: Fabricación Digital de Juguetes, Autómatas & Emprendimiento Maker",
-        "subtitle": "Crea juguetes interactivos, vectoriza piezas press-fit, simula costos con FabCoins y diseña tu empaque de autor.",
+        "title": "Digitoys: Creación de Personajes 2.5D, Impresión 3D & Emprendimiento Maker",
+        "subtitle": "Diseña tu personaje 2.5D autoportante, imprímelo en 3D ecológico, simula costos con FabCoins y crea tu empaque de autor.",
         "category": "kids",
         "targetAudience": "Niños de 7 a 13 años y familias creativas",
-        "badge": "Juguetes & Emprendimiento",
+        "badge": "Personajes 2.5D & 3D",
         "price": "S\/. 200",
-        "startDate": "Sábado 03 de Octubre (3, 10, 17 y 24 Oct)",
+        "startDate": "Sábado 03 de Octubre (Sesiones: 3, 10, 17 y 24 Oct)",
         "duration": "4 sesiones (6 hrs)",
         "schedule": "Sábados de 10:00 am a 11:30 am (Fechas: 3, 10, 17 y 24 de Octubre)",
-        "format": "Virtual",
-        "fabTool": "Impresión 3D",
-        "challenge": "Fundar una mini-marca maker, diseñar un juguete o autómata autoportante con mecanismo móvil (manivelas, levas o articulaciones), costear su producción con una bolsa de FabCoins, fabricarlo en corte láser e impresión 3D, y lanzar el producto terminado con empaque de colección y pitch de 30 segundos.",
-        "description": "Digitoys es el emblemático programa maker donde niños y niñas dan vida a juguetes interactivos y fundan su primera marca de productos físicos mediante fabricación digital. A través de un ciclo completo de emprendimiento y retos manuales-digitales, los participantes descubren el fascinante mundo de la cinemática lúdica y el diseño de producto: conciben su criatura de autor, vectorizan piezas press-fit con tolerancias exactas, presupuestan su producción con FabCoins, operan la cortadora láser e impresoras 3D, y fabrican un autómata mecánico coleccionable listo para el mercado con su propio empaque de diseño.",
+        "format": "Virtual interactivo",
+        "fabTool": "Impresión 3D (PLA ecológico)",
+        "challenge": "Diseñar un personaje 2.5D autoportante para impresión 3D, presupuestar la producción con FabCoins y presentar el empaque y marca con pitch de 30 segundos.",
+        "description": "Digitoys es el programa maker donde niños y niñas dan vida a personajes 2.5D mediante impresión 3D y fundan su primera mini-marca. A través de retos creativos, conciben su criatura de autor con base autoportante, aprenden a modelarla en capas para imprimirla en 3D en filamento PLA sin soportes, presupuestan insumos con FabCoins y diseñan una caja troquelada para presentar su producto al mundo.",
         "syllabus": [
             {
                 "session": "Misión 1",
-                "title": "Concebir — La Marca, el Personaje y la Cinemática",
-                "desc": "Exploración de la mecánica del movimiento (levas, bielas, manivelas y engranajes). Creación de la historia y boceto del personaje con plumón negro aplicando la regla de oro física: base plana autoportante para sostenerse solo sin soportes."
+                "title": "Concebir — La Marca y el Personaje 2.5D",
+                "desc": "Exploración visual, historia del personaje y bocetado sobre base autoportante para que se sostenga sin soportes."
             },
             {
                 "session": "Misión 2",
-                "title": "Ingeniería Digital y Piezas Press-Fit",
-                "desc": "Digitalización vectorial del personaje y modelado con espesor de 10 mm. Trazado paramétrico de eslabones y engranajes con tolerancias precisas de encaje a presión (press-fit) y compensación de corte láser (kerf) sin uso de pegamento."
+                "title": "Modelado Digital 2.5D para Impresión 3D",
+                "desc": "Trazado digital de capas y relieves con espesor de 10 mm optimizado para impresión 3D limpia y eficiente."
             },
             {
                 "session": "Misión 3",
-                "title": "Fabricación en el Lab y Presupuesto con FabCoins",
-                "desc": "Cálculo de costos de producción en materiales (MDF, acrílico y filamento PLA ecológico) debitando de su bolsa de FabCoins. Operación segura de la cortadora láser CO2, preparación de archivos para impresión 3D y simulación de capas en el slicer."
+                "title": "Presupuesto con FabCoins y Laminado 3D",
+                "desc": "Cálculo de consumo de filamento PLA ecológico debitando FabCoins, preparación en slicer y simulación de capas."
             },
             {
                 "session": "Misión 4",
-                "title": "Post-Proceso, Packaging Coleccionable y Show Pitch",
-                "desc": "Ensamble mecánico y calibración de ejes. Armado de la caja troquelada de packaging coleccionable con etiqueta de autor de edición limitada. Presentación final ante el aula con fotografía de producto y pitch de ventas de 30 segundos para obtener el Pasaporte Maker Oficial."
+                "title": "Post-Proceso, Packaging y Show Pitch",
+                "desc": "Acabados de color, armado de empaque coleccionable con etiqueta de autor y pitch de 30 segundos para obtener el Pasaporte Maker."
             }
         ],
         "highlights": [
-            "Aprende cinemática, diseño 3D y física aplicada a través del juego y la construcción real.",
-            "Vivencia práctica del ciclo de emprendimiento: presupuesto con FabCoins, empaque y pitch comercial.",
-            "Uso directo de máquinas de fabricación digital de nivel profesional: cortadora láser CO2 e impresoras 3D.",
-            "Desarrollo del pensamiento espacial, resolución de problemas mecánicos y oratoria para presentar proyectos.",
-            "Cada participante se lleva a casa su autómata 100% funcional en su caja de empaque y su Pasaporte Maker verificado."
+            "Aprende diseño 3D y resolución espacial de forma divertida y práctica.",
+            "Vivencia del ciclo de emprendimiento: presupuesto con FabCoins, empaque y pitch.",
+            "Uso de tecnología de impresión 3D con filamento PLA ecológico biodegradable.",
+            "Cada participante se lleva su personaje 2.5D terminado y su Pasaporte Maker."
         ],
         "image": "images\/taller-digitoys.jpg",
         "instructor": "Henry Sánchez",
         "instructorEmail": "contacto@fablablima.org",
         "status": "published",
         "createdAt": "2026-09-08T16:25:00.000Z"
+    },
+    {
+        "id": "biomateriales-sostenibles",
+        "title": "Bio-Fabricación: Biomateriales & Diseño Sostenible",
+        "subtitle": "Sintetiza bio-plásticos a partir de descartes orgánicos y crea piezas ecológicas con diseño circular.",
+        "category": "profesionales",
+        "targetAudience": "Jóvenes, Diseñadores, Artistas e Investigadores",
+        "badge": "Bio-Innovación",
+        "price": "S\/. 200",
+        "startDate": "Domingo 11 de Octubre (Sesiones: 11, 18, 25 Oct y 1 Nov)",
+        "duration": "4 sesiones (8 hrs)",
+        "schedule": "Domingos de 10:30 am a 12:30 pm",
+        "format": "Laboratorio experimental presencial \/ híbrido",
+        "fabTool": "Biopolímeros, Alginatos, Desechos Orgánicos & Moldes",
+        "challenge": "Formular una lámina orgánica biodegradable a partir de residuos orgánicos locales y moldear un prototipo de producto o empaque circular.",
+        "description": "Un espacio de experimentación donde la biología, la sostenibilidad y el diseño se encuentran. Aprenderás recetas y técnicas para transformar cáscaras, almidones y alginatos en biomateriales flexibles o rígidos. Exploraremos el control de fraguado, la colorimetría con bio-tintes naturales y el diseño de objetos con ciclo de vida circular.",
+        "syllabus": [
+            {
+                "session": "Misión 1",
+                "title": "Recetas de Bioplásticos & Alginatos",
+                "desc": "Materias primas botánicas, plastificantes naturales, proporciones y formulación de láminas bio-degradables."
+            },
+            {
+                "session": "Misión 2",
+                "title": "Curado, Texturas & Bio-Tintes",
+                "desc": "Control de secado ambiental, flexibilidad mecánica y pigmentación con tintes orgánicos y botánicos."
+            },
+            {
+                "session": "Misión 3",
+                "title": "Moldes & Prototipado Circular",
+                "desc": "Termoformado, corte y texturizado sobre moldes para el diseño de empaques y objetos utilitarios."
+            },
+            {
+                "session": "Misión 4",
+                "title": "Pruebas de Biodegradación & Muestra Bio",
+                "desc": "Ensayos de disolución y degradación ambiental natural, junto con la presentación de la muestra bio-maker."
+            }
+        ],
+        "highlights": [
+            "Recetas comprobadas de bioplásticos caseros y de laboratorio sin químicos tóxicos.",
+            "Experimentación con descartes orgánicos locales y tintes botánicos naturales.",
+            "Enfoque en diseño circular y alternativas sostenibles al plástico convencional.",
+            "Muestrario físico de biomateriales y prototipo final ecológico terminado."
+        ],
+        "image": "images\/taller-biomateriales.jpg",
+        "instructor": "Grace Schwan",
+        "instructorEmail": "contacto@fablablima.org",
+        "status": "published",
+        "createdAt": "2026-09-08T17:45:00.000Z"
     }
 ];
 if (typeof window !== 'undefined') window.WORKSHOPS = WORKSHOPS;

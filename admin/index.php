@@ -1157,7 +1157,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
           
           <div>
             <div class="w-full aspect-video bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-              <img src="../${t.image || 'images/talleres_niños.jfif'}?v=4.0" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='../images/talleres_niños.jfif'">
+              <img src="../${t.image || 'images/talleres_niños.jfif'}?v=5.0" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='../images/talleres_niños.jfif'">
               <div class="absolute top-3 left-3">${statusBadge}</div>
               <div class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md text-white font-mono text-xs font-bold px-2.5 py-1 rounded-lg border border-white/10 shadow-sm">
                 ${t.price || 'S/. 150'}
