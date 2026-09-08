@@ -1,6 +1,6 @@
 // Datos de Talleres Abiertos - FAB LAB Perú (edu.fab.pe)
 // Sincronizado automáticamente desde el Panel Admin de FAB LAB Perú
-// Última actualización: 2026-09-08 02:39:06
+// Última actualización: 2026-09-08 21:26:31
 
 const SITE_DATA = {
   phone: "+51 989 984 480",
@@ -19,190 +19,166 @@ const CATEGORIES = [
 
 var WORKSHOPS = [
     {
-        "id": "corte-laser-layers",
-        "title": "Corte Láser & Composición Multicapa",
-        "subtitle": "Explora la precisión del rayo láser para crear ensambles, piezas por relieve y stencils sobre madera y cartulinas.",
+        "id": "minicuadros-mural-2-5d",
+        "title": "Minicuadros & Composición Mural 2.5D",
+        "subtitle": "Transforma bocetos en minicuadros tridimensionales por capas en MDF con corte láser y acabados en acrílico.",
         "category": "creativos",
-        "targetAudience": "Jóvenes, Diseñadores y Curiosos",
-        "badge": "Precisión Láser",
-        "price": "S\/. 180",
-        "startDate": "Jueves 23 de Octubre",
-        "duration": "3 misiones intensivas (7 hrs)",
-        "schedule": "Jueves de 7:00 pm a 9:15 pm",
-        "format": "Virtual en vivo con laboratorio láser en directo",
-        "fabTool": "Diseño Vectorial & Cortadora Láser CO2",
-        "challenge": "Diseñar una estructura en relieve o producto utilitario con sistema de ensamble por presión (sin pegamento).",
-        "description": "Trabaja con la herramienta de corte más rápida y versátil del mundo maker. Transforma vectores digitales en piezas volumétricas, cuadros decorativos en capas de MDF, plantillas caladas y ensamblajes limpios.",
+        "targetAudience": "Jóvenes, Adultos, Artistas, Diseñadores y Entusiastas Maker",
+        "badge": "Arte & Corte Láser",
+        "price": "S\/. 200",
+        "startDate": "Martes 7 de Octubre",
+        "duration": "4 sesiones (8 hrs)",
+        "schedule": "Martes de 7:00 pm a 9:00 pm",
+        "format": "Híbrido (Teoría\/Diseño virtual + Corte y Exposición presencial en Fab Lab Miraflores)",
+        "fabTool": "Inkscape \/ Cuttle & Cortadora Láser CO2",
+        "challenge": "Diseñar virtualmente un cuadro en relieve 2.5D en capas de MDF, fabricarlo en corte láser, aplicar acabados acrílicos y exponerlo en la Feria FABulosa.",
+        "description": "Un laboratorio práctico de 4 sesiones donde transformarás tus ilustraciones y bocetos a mano en un minicuadro tridimensional por capas en MDF. Exploraremos el diseño vectorial, la profundización por niveles (2.5D), el corte y grabado láser, y técnicas de acabado con pintura acrílica para culminar con la creación de una obra personal y una composición colectiva de gran formato en la Feria FABulosa (Exposición final el 31 de Octubre en Hub Miraflores).",
         "syllabus": [
             {
                 "session": "Misión 1",
-                "title": "El Lenguaje Vectorial",
-                "desc": "Líneas de corte, grabado por líneas y tramado en relieve."
+                "title": "Descubrir e Ilustrar (Virtual)",
+                "desc": "Explora la lógica del arte en capas 2.5D. Concebirás una ilustración temática desglosada en un boceto estructurado por niveles (mínimo 3 capas)."
             },
             {
                 "session": "Misión 2",
-                "title": "Encastres Press-Fit",
-                "desc": "Compensación del haz láser (kerf) y ensambles resistentes."
+                "title": "Vectorizar y CAM (Virtual)",
+                "desc": "Software vectorial (Inkscape\/Cuttle) para convertir tu boceto en trazados digitales limpios (corte vs. grabado), tolerancias y parámetros de máquina."
             },
             {
                 "session": "Misión 3",
-                "title": "Composición Multicapa",
-                "desc": "Superposición de planos, técnicas de acabado y armado."
+                "title": "Fabricar y Pintar (Presencial)",
+                "desc": "Corte láser presencial en Fab Lab Miraflores en planchas de MDF 3mm, aplicación de pintura acrílica y ensamble estructural con adhesivo de madera."
+            },
+            {
+                "session": "Misión 4",
+                "title": "Exposición y Montaje Colectivo (Presencial)",
+                "desc": "Montaje en galería temática en Fab Lab Miraflores, diálogo del proceso creativo y exhibición pública final en la Feria FABulosa (31 de Octubre)."
             }
         ],
         "highlights": [
-            "Optimiza curvas, nodos y vectores para máquinas de alta potencia.",
-            "Experimenta con cartulinas de alto gramaje, MDF y acrílicos.",
-            "Diseña sistemas de ensamblaje por presión (press-fit).",
-            "Demostración técnica de corte transmitida en alta definición."
+            "Diseño y vectorización 2.5D desglosando ilustraciones en estructuras multicapa.",
+            "Flujo CAD\/CAM completo y corte directo en la cortadora láser CO2 de Fab Lab Miraflores.",
+            "Acabados artísticos con pintura acrílica, contrastes de color y técnicas de ensamble.",
+            "Presentación de tu obra personal y colectiva en la exposición de la Feria FABulosa."
         ],
         "image": "images\/talleres_adultos.jfif",
-        "instructor": "Equipo FAB LAB",
+        "instructor": "Evelyn Andrea Cuadrado Guerrero",
         "instructorEmail": "contacto@fablablima.org",
         "status": "published",
-        "createdAt": "2026-09-08T00:25:38.572Z"
+        "createdAt": "2026-09-08T16:25:00.000Z"
     },
     {
-        "id": "patrimonio-neoartesania",
-        "title": "Neo-Artesanía: Geometría Ancestral & Tecnología",
-        "subtitle": "Conecta la iconografía prehispánica con la fabricación moderna: crea sellos, relieves y piezas utilitarias.",
-        "category": "profesionales",
-        "targetAudience": "Adultos, Familias, Artistas y Docentes",
-        "badge": "Cultura & Diseño",
-        "price": "S\/. 160",
-        "startDate": "Sábado 25 de Octubre",
-        "duration": "4 misiones (8 hrs)",
-        "schedule": "Sábados de 3:30 pm a 5:30 pm",
-        "format": "Presencial \/ Híbrido",
-        "fabTool": "Vectorizado Láser & Relieves en 3D",
-        "challenge": "Vectorizar un motivo iconográfico prehispánico y materializarlo como un objeto de diseño contemporáneo.",
-        "description": "Reinterpreta el legado visual de las culturas peruanas mediante herramientas del siglo XXI. Digitalizarás patrones textiles y geométricos ancestrales para transformarlos en rompecabezas ensamblables, posavasos en relieve y piezas decorativas.",
-        "syllabus": [
-            {
-                "session": "Misión 1",
-                "title": "Exploración de Patrones",
-                "desc": "Análisis geométrico de motivos textiles y cerámicos."
-            },
-            {
-                "session": "Misión 2",
-                "title": "Vectorización Cultural",
-                "desc": "Limpieza y estilización digital de la iconografía."
-            },
-            {
-                "session": "Misión 3",
-                "title": "Relieves 2.5D & Texturas",
-                "desc": "Conversión de trazos a mapas de relieve tridimensionales."
-            },
-            {
-                "session": "Misión 4",
-                "title": "Materialización de Pieza",
-                "desc": "Fabricación en corte láser y ensamble de la pieza final."
-            }
-        ],
-        "highlights": [
-            "Extrae y digitaliza patrones geométricos milenarios.",
-            "Combina corte láser y relieves tridimensionales.",
-            "Crea productos utilitarios con identidad cultural viva.",
-            "Constancia de participación emitida por FAB LAB Perú."
-        ],
-        "image": "images\/2e6ea2a9-ab0a-40bb-b4d5-df0cae259689.jfif",
-        "instructor": "Beno Juarez",
-        "instructorEmail": "beno@fablablima.org",
-        "status": "published",
-        "createdAt": "2026-09-08T00:25:38.572Z"
-    },
-    {
-        "id": "biomateriales-laser",
-        "title": "Bio-Fabricación: Materiales Orgánicos & Láser",
-        "subtitle": "Sintetiza bio-plásticos a partir de recursos orgánicos y experimenta con corte y grabado sostenible.",
-        "category": "profesionales",
-        "targetAudience": "Jóvenes, Arquitectos, Diseñadores e Innovadores",
-        "badge": "Eco-Innovación",
-        "price": "S\/. 220",
-        "startDate": "Sábado 25 de Octubre",
-        "duration": "4 misiones experimentales (9 hrs)",
-        "schedule": "Sábados de 3:30 pm a 5:45 pm",
-        "format": "Laboratorio Teórico-Práctico",
-        "fabTool": "Bio-Polímeros & Cortadora Láser CO2",
-        "challenge": "Formular una lámina orgánica biodegradable y procesarla en máquina láser para un prototipo utilitario.",
-        "description": "Explora la convergencia entre biología, sostenibilidad y fabricación digital. Aprende recetas para sintetizar láminas de biomateriales flexibles o rígidos a partir de residuos orgánicos y transfórmalas con corte láser en objetos circulares.",
-        "syllabus": [
-            {
-                "session": "Misión 1",
-                "title": "Recetas de Bioplásticos",
-                "desc": "Almidones, alginatos, plastificantes naturales y formulación."
-            },
-            {
-                "session": "Misión 2",
-                "title": "Curado & Texturizado",
-                "desc": "Control de secado, flexibilidad y resistencia mecánica."
-            },
-            {
-                "session": "Misión 3",
-                "title": "Calibración Láser",
-                "desc": "Parámetros de potencia para no quemar el bio-sustrato."
-            },
-            {
-                "session": "Misión 4",
-                "title": "Prototipo Ecológico",
-                "desc": "Corte de patrones y ensamble final sin pegamentos sintéticos."
-            }
-        ],
-        "highlights": [
-            "Formulación de bioplásticos biodegradables y aditivos naturales.",
-            "Pruebas mecánicas de elasticidad, textura y secado.",
-            "Corte y grabado láser calibrado para sustratos orgánicos.",
-            "Creación de prototipos ecológicos sin pegamentos químicos."
-        ],
-        "image": "images\/4b6c4ba0-3377-40c8-b924-54d58168cfbf.jfif",
-        "instructor": "Equipo FAB LAB",
-        "instructorEmail": "contacto@fablablima.org",
-        "status": "published",
-        "createdAt": "2026-09-08T00:25:38.572Z"
-    },
-    {
-        "id": "mini-telares-textil",
-        "title": "Mini-Telares Láser & Geometría Textil",
-        "subtitle": "Ensambla tu propio telar de acrílico cortado con láser y teje patrones geométricos basados en la tradición andina.",
+        "id": "open-circuits-mblock",
+        "title": "OPEN CIRCUITS: Robótica, IA y Videojuegos con mBlock",
+        "subtitle": "Curso práctico de tecnología creativa que integra circuitos, sensores, visión artificial y diseño de videojuegos.",
         "category": "kids",
-        "targetAudience": "Niños (desde 6 años), Familias y Educadores",
-        "badge": "Arte & Ensamblaje",
-        "price": "S\/. 95",
-        "startDate": "Domingo 19 de Octubre",
-        "duration": "1 misión intensiva (2 hrs)",
-        "schedule": "Domingos de 11:00 am a 1:00 pm",
-        "format": "Presencial \/ Kit a domicilio",
-        "fabTool": "Telar Didáctico de Acrílico (5mm) + Hilos",
-        "challenge": "Ensamblar el telar cortado con láser, instalar la urdimbre y culminar un tapiz geométrico propio.",
-        "description": "Una dinámica donde la fabricación digital se une con el arte textil. Los participantes arman un telar ergonómico de acrílico diseñado por encajes precisos, colocan la urdimbre y desarrollan su primer tapiz geométrico.",
+        "targetAudience": "Niños y adolescentes de 10 a 15 años",
+        "badge": "Robótica & IA Kids",
+        "price": "S\/. 400",
+        "startDate": "Sábado 25 de Octubre",
+        "duration": "8 sesiones (16 hrs)",
+        "schedule": "Sábados de 3:30 pm a 5:30 pm",
+        "format": "Híbrido (Clases virtuales interactivas y retos prácticos de laboratorio)",
+        "fabTool": "mBlock, mlink2, Sensores, Actuadores y Cámara ML",
+        "challenge": "Programar sensores y actuadores, entrenar un modelo de Machine Learning para reconocimiento de gestos y crear un videojuego funcional integrador.",
+        "description": "Curso de tecnología creativa que integra robótica, inteligencia artificial y diseño de videojuegos mediante mBlock. Los estudiantes programan sensores y actuadores, entrenan modelos simples de reconocimiento y desarrollan videojuegos. Fomenta la creatividad y el aprendizaje basado en proyectos mediante un proyecto final integrador.",
         "syllabus": [
             {
-                "session": "Fase 1",
-                "title": "Armado del Telar",
-                "desc": "Montaje intuitivo por presión de piezas de acrílico láser."
+                "session": "Misión 1",
+                "title": "Descubrir el Entorno mBlock",
+                "desc": "Explora mBlock y reconoce los fundamentos de robótica, sensores y actuadores mediante ejemplos prácticos."
             },
             {
-                "session": "Fase 2",
-                "title": "Montaje de Urdimbre",
-                "desc": "Distribución y tensión adecuada de los hilos guía."
+                "session": "Misión 2",
+                "title": "Digitalizar & Programar Salidas",
+                "desc": "Programa bloques para controlar LEDs, semáforos o actuadores experimentando con entradas y salidas digitales."
             },
             {
-                "session": "Fase 3",
-                "title": "Tejido Geométrico",
-                "desc": "Técnicas de pasada, franjas y nudos de remate final."
+                "session": "Misión 3",
+                "title": "Modelar Circuitos Interactivos",
+                "desc": "Diseña y construye un circuito o robot interactivo que detecte una condición ambiental y genere una respuesta."
+            },
+            {
+                "session": "Misión 4",
+                "title": "Elegir Tecnología de IA",
+                "desc": "Explora la inteligencia artificial y compara aplicaciones de reconocimiento de gestos para tu proyecto."
+            },
+            {
+                "session": "Misión 5",
+                "title": "Preparar y Entrenar Modelos ML",
+                "desc": "Captura muestras y entrena un modelo de machine learning en vivo, realizando pruebas y ajustes de precisión."
+            },
+            {
+                "session": "Misión 6",
+                "title": "Diseñar y Programar Videojuegos",
+                "desc": "Diseña un videojuego en mBlock incorporando personajes, escenarios, movimiento, reglas, puntaje y colisiones."
+            },
+            {
+                "session": "Misión 7",
+                "title": "Aplicar y Compartir Proyecto Final",
+                "desc": "Desarrolla un proyecto integrador de libre elección aplicando IA, robótica o videojuegos y preséntalo al grupo."
             }
         ],
         "highlights": [
-            "Montaje por encajes a presión de piezas cortadas con láser.",
-            "Desarrollo de motricidad fina y cálculo geométrico.",
-            "Kit completo de telar e hilos de colores incluido.",
-            "Te llevas tu mini-telar y tu tapiz terminado."
+            "Programación visual y control de componentes electrónicos, sensores y motores.",
+            "Entrenamiento de modelos de visión artificial e inteligencia artificial sin código engorroso.",
+            "Desarrollo completo de videojuegos interactivos desde el diseño visual hasta las mecánicas.",
+            "Proyecto final integrador de libre elección guiado paso a paso por instructores especialistas."
         ],
-        "image": "images\/804b30bd-bb28-46e5-a0f9-c84aa255f777.jfif",
-        "instructor": "Beno Juarez",
-        "instructorEmail": "beno@fablablima.org",
+        "image": "images\/talleres_adolescentes.jfif",
+        "instructor": "Hayashi Mateo y Francheska Baca",
+        "instructorEmail": "contacto@fablablima.org",
         "status": "published",
-        "createdAt": "2026-09-08T00:25:38.572Z"
+        "createdAt": "2026-09-08T16:25:00.000Z"
+    },
+    {
+        "id": "digitoys-fabricacion-digital",
+        "title": "Digitoys: Fabricación Digital de Juguetes & Autómatas",
+        "subtitle": "Diseña, corta con láser y ensambla tus propios juguetes mecánicos articulados con movimiento.",
+        "category": "kids",
+        "targetAudience": "Niños de 7 a 13 años y familias creativas",
+        "badge": "Juguetes & Autómatas",
+        "price": "S\/. 200",
+        "startDate": "Sábado 25 de Octubre",
+        "duration": "4 sesiones (6 hrs)",
+        "schedule": "Sábados de 10:00 am a 11:30 am",
+        "format": "Presencial en Fab Lab Miraflores",
+        "fabTool": "Cortadora Láser CO2, Impresión 3D y Mecanismos de Ensamble",
+        "challenge": "Idear, vectorizar y ensamblar un autómata mecánico de madera con sistema de manivela, levas y articulaciones móviles.",
+        "description": "Digitoys es el emblemático programa maker donde niños y niñas dan vida a juguetes interactivos mediante fabricación digital. A través de retos manuales y digitales, los participantes descubren el fascinante mundo de la cinemática lúdica: diseñan personajes articulados en madera y acrílico, operan la cortadora láser e impresora 3D, y calibran engranajes y levas para construir su propio autómata mecánico funcional.",
+        "syllabus": [
+            {
+                "session": "Misión 1",
+                "title": "El Mundo de los Autómatas",
+                "desc": "Exploración de la mecánica del movimiento: levas, bielas, manivelas y bocetado del personaje o criatura mecánica."
+            },
+            {
+                "session": "Misión 2",
+                "title": "Diseño Digital y Piezas Press-Fit",
+                "desc": "Trazado digital de los eslabones y engranajes con tolerancias precisas de encaje a presión sin pegamento."
+            },
+            {
+                "session": "Misión 3",
+                "title": "Corte Láser y Fabricación en el Lab",
+                "desc": "Operación segura de la máquina láser en MDF y acrílico, más piezas complementarias en impresión 3D."
+            },
+            {
+                "session": "Misión 4",
+                "title": "Calibración, Acabados y Show Digitoys",
+                "desc": "Ensamble cinemático, lubricación de ejes, personalización artística y presentación interactiva de cada juguete."
+            }
+        ],
+        "highlights": [
+            "Aprende cinemática y física aplicada a través del juego y la construcción real.",
+            "Uso práctico de máquinas de alta tecnología: cortadora láser CO2 e impresoras 3D.",
+            "Desarrollo del pensamiento espacial, motricidad fina y resolución de retos mecánicos.",
+            "Cada participante fabrica y se lleva a casa su autómata mecánico 100% funcional."
+        ],
+        "image": "images\/talleres_niños.jfif",
+        "instructor": "Henry Sánchez",
+        "instructorEmail": "contacto@fablablima.org",
+        "status": "published",
+        "createdAt": "2026-09-08T16:25:00.000Z"
     }
 ];
 if (typeof window !== 'undefined') window.WORKSHOPS = WORKSHOPS;
