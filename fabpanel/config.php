@@ -50,6 +50,16 @@ $AUTHORIZED_USERS = [
         'name' => 'Beno Juarez',
         'role' => 'instructor',
         'password' => 'FabPeru*2026',
+    ],
+    'mmejia.fa@gmail.com' => [
+        'name' => 'María Angela Mejía',
+        'role' => 'instructor',
+        'password' => 'FabPeru*2026',
+    ],
+    'estebanmiguel.valladares@gmail.com' => [
+        'name' => 'Esteban Valladares',
+        'role' => 'instructor',
+        'password' => 'FabPeru*2026',
     ]
 ];
 

@@ -251,139 +251,166 @@
   <!-- ================================================================= -->
   <!-- 6. FOOTER OFICIAL: LOGO COMPLETO ORIGINAL SOBRE NEGRO             -->
   <!-- ================================================================= -->
-  <footer class="bg-black text-slate-400 py-12 border-t border-neutral-800 text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+  <footer class="bg-black text-slate-400 py-10 border-t border-neutral-900 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       
       <!-- Logo Completo Original (Círculo + FABLABPERU) -->
       <a href="https://fab.pe/" class="flex items-center" title="FAB LAB Perú">
-        <img src="images/logo-fablabperu-white.png" alt="FAB LAB Perú" class="h-8 w-auto object-contain opacity-90 hover:opacity-100 transition" />
+        <img src="images/logo-fablabperu-white.png" alt="FAB LAB Perú" class="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition" />
       </a>
 
-      <div class="flex flex-wrap items-center justify-center gap-6 font-medium">
-        <a href="https://fab.pe/" class="hover:text-white transition">Web Principal (fab.pe)</a>
-        <a href="https://fab.pe/#projects" class="hover:text-white transition">Proyectos</a>
-        <a href="https://wa.me/51989984480" target="_blank" class="text-emerald-400 hover:underline">WhatsApp: +51 989 984 480</a>
-      </div>
-
-      <p>&copy; 2026 FAB LAB Perú. Todos los derechos reservados.</p>
+      <p class="text-neutral-500">&copy; 2026 FAB LAB Perú</p>
     </div>
   </footer>
 
   <!-- ================================================================= -->
   <!-- 7. MODAL EDITORIAL ELEGANTE: BOTÓN WHATSAPP PROPORCIONADO         -->
   <!-- ================================================================= -->
+  <!-- ================================================================= -->
+  <!-- 7. MODAL EDITORIAL ELEGANTE: CON BARRA STICKY INFERIOR Y DISEÑO PRO -->
+  <!-- ================================================================= -->
   <div id="workshop-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
     
-    <!-- Contenedor Amplio Blanco/Slate Limpio con Borde Sutil -->
-    <div class="bg-white text-slate-800 rounded-3xl max-w-5xl w-full shadow-2xl border border-slate-200 relative overflow-hidden flex flex-col max-h-[94vh] md:max-h-[86vh]">
+    <!-- Contenedor Principal del Modal con Footer Sticky -->
+    <div class="bg-white text-slate-800 rounded-3xl max-w-5xl w-full shadow-2xl border border-slate-200 relative overflow-hidden flex flex-col max-h-[92vh]">
       
-      <!-- Botón Cerrar -->
-      <button id="modal-close" class="absolute top-4 right-4 z-20 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full p-2.5 transition" title="Cerrar ventana">
+      <!-- Botón Cerrar Flotante -->
+      <button id="modal-close" class="absolute top-4 right-4 z-20 bg-slate-100/90 hover:bg-slate-200 text-slate-600 hover:text-slate-900 rounded-full p-2.5 transition backdrop-blur-sm shadow-sm" title="Cerrar ventana">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
-      <!-- Layout Split Horizontal en 2 Columnas -->
-      <div class="grid grid-cols-1 md:grid-cols-12 flex-1 overflow-y-auto md:overflow-hidden">
-        
-        <!-- Columna Izquierda: Imagen (16:9), Ficha Técnica e Inversión -->
-        <div class="md:col-span-5 bg-slate-50 p-6 sm:p-7 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-between">
+      <!-- Cuerpo Scrolleable Unificado (Desktop 2 Columnas, Mobile 1 Columna) -->
+      <div class="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          <div class="space-y-4">
-            <!-- Imagen 16:9 Nítida -->
-            <div class="w-full aspect-video rounded-2xl overflow-hidden bg-slate-200 shadow-sm relative border border-slate-200">
+          <!-- Columna Izquierda (lg:col-span-5): Multimedia, Mentor y Ficha Técnica -->
+          <div class="lg:col-span-5 space-y-4">
+            
+            <!-- Imagen 16:9 con Badge -->
+            <div class="w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 shadow-sm relative border border-slate-200 group">
               <img id="modal-img" src="" alt="" class="w-full h-full object-cover" />
-              <span id="modal-badge" class="absolute top-3 left-3 bg-slate-900/90 text-white text-[11px] font-bold px-3 py-1 rounded-md backdrop-blur-sm shadow"></span>
+              <span id="modal-badge" class="absolute top-3 left-3 bg-slate-900/90 text-white text-[11px] font-bold px-3 py-1 rounded-lg backdrop-blur-sm shadow"></span>
             </div>
 
-            <!-- Tira de Fechas de Sesiones -->
-            <div class="space-y-1.5 pt-1">
-              <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Fechas de Sesiones</span>
-              <div id="modal-dates-pills" class="flex flex-wrap gap-1.5">
+            <!-- Mentor / Instructor Responsable -->
+            <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                <i data-lucide="user-check" class="w-4 h-4"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Mentor(a) Maker</span>
+                <strong id="modal-instructor" class="text-xs text-slate-900 font-bold block truncate"></strong>
+              </div>
+            </div>
+
+            <!-- Fechas de Sesiones -->
+            <div class="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Fechas de Sesiones</span>
+                <span class="text-[11px] text-blue-600 font-medium flex items-center gap-1">
+                  <i data-lucide="calendar" class="w-3 h-3"></i>
+                  <span>Calendario</span>
+                </span>
+              </div>
+              <div id="modal-dates-pills" class="flex flex-wrap gap-1.5 pt-0.5">
                 <!-- Generado por JS -->
               </div>
             </div>
 
-            <!-- Ficha Técnica Editorial -->
-            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 space-y-2 text-xs text-slate-700 shadow-sm">
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500 font-medium">Horario:</span>
-                <strong id="modal-schedule" class="text-slate-800 text-right"></strong>
+            <!-- Ficha Técnica -->
+            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 space-y-2.5 text-xs text-slate-700">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                  <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+                  <span>Horario:</span>
+                </span>
+                <strong id="modal-schedule" class="text-slate-900 text-right font-medium"></strong>
               </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500 font-medium">Duración:</span>
-                <strong id="modal-duration" class="text-slate-800"></strong>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                  <i data-lucide="hourglass" class="w-3.5 h-3.5 text-slate-400"></i>
+                  <span>Duración:</span>
+                </span>
+                <strong id="modal-duration" class="text-slate-900 font-medium"></strong>
               </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500 font-medium">Herramienta:</span>
-                <strong id="modal-fabtool" class="text-fabBlue text-right truncate max-w-[180px]"></strong>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                  <i data-lucide="cpu" class="w-3.5 h-3.5 text-slate-400"></i>
+                  <span>Herramienta:</span>
+                </span>
+                <strong id="modal-fabtool" class="text-blue-700 text-right font-semibold truncate max-w-[170px]"></strong>
               </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500 font-medium">Modalidad:</span>
-                <strong id="modal-format" class="text-slate-800 text-right truncate max-w-[180px]"></strong>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+                  <span>Modalidad:</span>
+                </span>
+                <strong id="modal-format" class="text-slate-900 text-right font-medium truncate max-w-[170px]"></strong>
               </div>
             </div>
+
           </div>
 
-          <!-- Inversión -->
-          <div class="pt-4 border-t border-slate-200 mt-3">
-            <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Inversión del Taller</span>
-            <span id="modal-price" class="text-3xl font-extrabold text-slate-900 block font-mono"></span>
-          </div>
-
-        </div>
-
-        <!-- Columna Derecha: Título, Reto de Fabricación, Temario y Botón WhatsApp Proporcionado -->
-        <div class="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-4 overflow-y-auto">
-          
-          <div class="space-y-4">
-            <div>
-              <span id="modal-target" class="text-xs font-bold text-fabBlue uppercase tracking-wider block mb-1"></span>
+          <!-- Columna Derecha (lg:col-span-7): Título, Reto, Temario Didáctico -->
+          <div class="lg:col-span-7 space-y-5">
+            
+            <div class="space-y-2">
+              <span id="modal-target" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100 text-xs font-bold"></span>
               <h3 id="modal-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight"></h3>
+              <p id="modal-desc" class="text-xs sm:text-sm text-slate-600 leading-relaxed"></p>
             </div>
-
-            <p id="modal-desc" class="text-xs sm:text-sm text-slate-600 leading-relaxed"></p>
 
             <!-- 🎯 RETO DE FABRICACIÓN -->
-            <div class="p-4 rounded-xl bg-blue-50/80 border border-blue-200">
-              <span class="text-[10px] font-bold text-fabBlue uppercase tracking-widest block">🎯 RETO DE FABRICACIÓN</span>
-              <p id="modal-challenge" class="text-xs sm:text-sm font-semibold text-slate-900 mt-1 leading-snug"></p>
+            <div class="p-4 rounded-2xl bg-gradient-to-br from-blue-50/90 to-indigo-50/50 border border-blue-200/80 shadow-xs">
+              <span class="text-[11px] font-bold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
+                <span>🎯</span>
+                <span>Reto de Fabricación</span>
+              </span>
+              <p id="modal-challenge" class="text-xs sm:text-sm font-semibold text-slate-800 mt-1.5 leading-relaxed"></p>
             </div>
 
-            <!-- 📚 TEMARIO Y MISIONES DE APRENDIZAJE MAKER -->
-            <div>
-              <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                <i data-lucide="compass" class="w-3.5 h-3.5 text-fabBlue"></i>
-                <span>RUTA DE APRENDIZAJE Y MISIONES MAKER</span>
+            <!-- 🗺️ RUTA DE APRENDIZAJE Y MISIONES MAKER -->
+            <div class="space-y-2.5">
+              <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span>Ruta de Aprendizaje y Misiones Maker</span>
               </h4>
-              <div id="modal-syllabus" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <div id="modal-syllabus" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
                 <!-- Generado por JS -->
               </div>
             </div>
 
-            <!-- Logros del taller -->
-            <div class="pt-1">
-              <ul id="modal-highlights" class="space-y-1.5 text-xs text-slate-600">
+            <!-- Lo que incluye -->
+            <div class="pt-2 border-t border-slate-100">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider mb-2">Lo que incluye este programa</span>
+              <ul id="modal-highlights" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600">
                 <!-- Generado por JS -->
               </ul>
             </div>
-          </div>
 
-          <!-- Botón de WhatsApp Proporcionado y Elegante (Sin ocupar toda la pantalla) -->
-          <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="text-xs text-slate-500 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span>Atención directa: +51 989 984 480</span>
-            </div>
-            
-            <a id="modal-wsp-btn" href="#" target="_blank" 
-               class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow-sm hover:shadow transition transform active:scale-95">
-              <i data-lucide="message-circle" class="w-4 h-4"></i>
-              <span>Consultar vacante</span>
-            </a>
           </div>
 
         </div>
+      </div>
 
+      <!-- Barra de Acción Inferior Sticky (Siempre visible) -->
+      <div class="shrink-0 bg-slate-50/95 backdrop-blur-md border-t border-slate-200 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Inversión del Taller</span>
+            <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">Materiales incluidos</span>
+          </div>
+          <div class="flex items-baseline gap-1.5 mt-0.5">
+            <span id="modal-price" class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-sans tracking-tight"></span>
+            <span class="text-[11px] text-slate-500">PEN / programa completo</span>
+          </div>
+        </div>
+
+        <a id="modal-wsp-btn" href="#" target="_blank" 
+           class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-2xl shadow-md hover:shadow-lg hover:shadow-emerald-600/20 transition transform active:scale-95">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Inscribirme por WhatsApp</span>
+        </a>
       </div>
 
     </div>
@@ -500,7 +527,7 @@
       lucide.createIcons();
     }
 
-    // Modal Editorial Limpio
+    // Modal Editorial Limpio y Optimizado
     window.openWorkshopModal = function(id) {
       const all = getLiveWorkshops();
       const w = all.find(item => item.id === id);
@@ -517,44 +544,61 @@
       document.getElementById('modal-fabtool').innerText = w.fabTool;
       document.getElementById('modal-format').innerText = w.format;
       document.getElementById('modal-price').innerText = w.price;
+      
+      const instructorEl = document.getElementById('modal-instructor');
+      if (instructorEl) {
+        instructorEl.innerText = w.instructor || 'FAB LAB Perú';
+      }
 
-      // Fechas en píldoras tipo calendario
+      // Fechas en píldoras modernas tipo calendario
       const datesContainer = document.getElementById('modal-dates-pills');
       if (datesContainer) {
         const dates = w.sessionDates && w.sessionDates.length ? w.sessionDates : [w.startDate || 'Próximamente'];
         datesContainer.innerHTML = dates.map(d => `
-          <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold font-mono tracking-tight ${
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold ${
             d.includes('⭐') || d.includes('Expo') || d.includes('Exposición')
               ? 'bg-amber-100 text-amber-900 border border-amber-300'
-              : 'bg-white text-slate-800 border border-slate-200 shadow-xs'
+              : 'bg-white text-slate-800 border border-slate-200 shadow-2xs'
           }">
-            ${d}
+            <i data-lucide="calendar" class="w-3 h-3 ${d.includes('⭐') ? 'text-amber-600' : 'text-slate-400'}"></i>
+            <span>${d}</span>
           </span>
         `).join('');
       }
 
       // Temario / Misiones Didácticas
       const syllabusContainer = document.getElementById('modal-syllabus');
-      syllabusContainer.innerHTML = w.syllabus.map(s => {
-        const label = (s.session || s.mission || s.Fase || 'Misión').replace(/^Sesión/i, 'Misión');
-        return `
-        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
-          <span class="text-fabBlue font-bold block text-[11px]">${label}: ${s.title}</span>
-          <span class="text-slate-600 block text-[11px] leading-tight mt-0.5">${s.desc}</span>
-        </div>
-      `}).join('');
+      if (syllabusContainer) {
+        syllabusContainer.innerHTML = (w.syllabus || []).map(s => {
+          const label = (s.session || s.mission || s.Fase || 'Misión').replace(/^Sesión/i, 'Misión');
+          return `
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <span class="text-blue-700 font-bold block text-[11px]">${label}: ${s.title}</span>
+            <span class="text-slate-600 block text-[11px] leading-tight mt-0.5">${s.desc}</span>
+          </div>
+        `}).join('');
+      }
 
-      // Highlights
+      // Lo que incluye / Highlights
       const highlightsContainer = document.getElementById('modal-highlights');
-      highlightsContainer.innerHTML = w.highlights.slice(0, 2).map(h => `
-        <li class="flex items-center gap-2 text-slate-600">
-          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-          <span>${h}</span>
-        </li>
-      `).join('');
+      if (highlightsContainer) {
+        const defaultHighlights = [
+          'Materiales e insumos de fabricación incluidos',
+          'Acceso guiado a maquinaria del Fab Lab',
+          'Acompañamiento y mentoría paso a paso',
+          'Certificado emitido por FAB LAB Perú'
+        ];
+        const items = (w.highlights && w.highlights.length) ? w.highlights : defaultHighlights;
+        highlightsContainer.innerHTML = items.slice(0, 4).map(h => `
+          <li class="flex items-start gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200/70">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+            <span class="text-[11px] leading-tight text-slate-700">${h}</span>
+          </li>
+        `).join('');
+      }
 
-      const wspMessage = `Hola FAB LAB Perú, deseo información sobre el taller: ${encodeURIComponent(w.title)} (${w.price})`;
-      document.getElementById('modal-wsp-btn').href = `https://wa.me/${SITE_DATA.whatsappBase}?text=${wspMessage}`;
+      const wspMessage = `Hola FAB LAB Perú, deseo información e inscribirme al taller: "${w.title}" (${w.price})`;
+      document.getElementById('modal-wsp-btn').href = `https://wa.me/${SITE_DATA.whatsappBase}?text=${encodeURIComponent(wspMessage)}`;
 
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -572,6 +616,13 @@
         modal.classList.remove('flex');
       }
     };
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
 
     // Inicializar Catálogo
     renderFilters();
