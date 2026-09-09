@@ -456,87 +456,6 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       <!-- Contenido scrolleable -->
       <div class="p-6 overflow-y-auto custom-scroll space-y-6 flex-1 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
         
-        <!-- ========================================================= -->
-        <!-- SECCIÓN DESTACADA: GENERADOR & ESTRUCTURADOR CON GEMINI IA -->
-        <!-- ========================================================= -->
-        <div class="relative overflow-hidden rounded-2xl border-2 border-blue-500/40 dark:border-cyan-500/40 bg-gradient-to-br from-blue-50/90 via-indigo-50/40 to-cyan-50/70 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/30 p-5 sm:p-6 shadow-md space-y-4">
-          
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-blue-200/60 dark:border-slate-800">
-            <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-md">
-                <i data-lucide="sparkles" class="w-5 h-5 animate-pulse"></i>
-              </div>
-              <div>
-                <h4 class="text-sm font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-                  <span>CO-PILOT IA: ESTRUCTURADOR INTELIGENTE DE TALLERES</span>
-                </h4>
-                <p class="text-xs text-slate-600 dark:text-slate-400">Impulsado por Google Gemini Flash (FAB LAB Perú)</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-[11px] font-mono font-bold bg-blue-100 text-blue-800 dark:bg-cyan-500/20 dark:text-cyan-300 px-2.5 py-1 rounded-lg border border-blue-200 dark:border-cyan-500/30 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Asistente Activo</span>
-              </span>
-            </div>
-          </div>
-          
-          <div class="space-y-2">
-            <label class="block text-xs font-bold text-slate-800 dark:text-slate-200">
-              ¿De qué trata tu taller? Pega tus notas libres, apuntes o la idea general:
-            </label>
-            <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
-              La IA formulará el <strong>reto tangible</strong>, la progresión en <strong>misiones prácticas</strong>, la inversión automática sugerida (S/. 25/hora) y el prompt fotográfico para la portada:
-            </p>
-
-            <textarea id="ai-raw-notes" rows="3" 
-                      placeholder="Ej: Taller de Bio-Joyería: usaremos almidón de yuca y cáscaras para hacer bioplásticos, luego corte láser para armar aretes y collares. Para jóvenes de 15 a 25 años. Sábados de 3 a 5pm..." 
-                      class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 shadow-inner transition"></textarea>
-          </div>
-
-          <!-- Sugerencias rápidas y Botón de Acción -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
-            <div class="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 flex-wrap">
-              <span class="font-semibold">💡 Ejemplos:</span>
-              <button type="button" onclick="setQuickAiPrompt('lampara')" class="px-2 py-0.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-blue-500 text-[10px] text-slate-700 dark:text-slate-300 transition shadow-sm">Lámpara Láser</button>
-              <button type="button" onclick="setQuickAiPrompt('mecanismo')" class="px-2 py-0.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-blue-500 text-[10px] text-slate-700 dark:text-slate-300 transition shadow-sm">Robot 3D</button>
-              <button type="button" onclick="setQuickAiPrompt('biomaterial')" class="px-2 py-0.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-blue-500 text-[10px] text-slate-700 dark:text-slate-300 transition shadow-sm">Bio-Materiales</button>
-            </div>
-
-            <button type="button" id="btn-ai-generate" onclick="callGeminiAI()" 
-                    class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg shadow-blue-500/25 dark:shadow-cyan-500/20 transition transform active:scale-95">
-              <i data-lucide="wand-2" class="w-4 h-4"></i>
-              <span>Auto-Estructurar Taller con IA</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- FEEDBACK PEDAGÓGICO DE LA IA (Visible si se generó con Gemini) -->
-        <div id="ai-pedagogical-box" class="hidden bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-500/40 rounded-2xl p-4 sm:p-5 space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-xs">
-              <i data-lucide="award" class="w-4 h-4"></i>
-              <span>DIAGNÓSTICO PEDAGÓGICO DEL TALLER (Evaluación Maker)</span>
-            </div>
-            <span id="ai-maker-score" class="text-xs font-bold font-mono bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-500/40"></span>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div class="bg-white dark:bg-slate-950/60 p-3 rounded-xl border border-emerald-200 dark:border-slate-800/80 space-y-1">
-              <strong class="text-amber-600 dark:text-amber-400 block text-[11px] uppercase">🎯 Reto Tangible</strong>
-              <p id="ai-challenge-tip" class="text-slate-700 dark:text-slate-300 leading-relaxed"></p>
-            </div>
-            <div class="bg-white dark:bg-slate-950/60 p-3 rounded-xl border border-emerald-200 dark:border-slate-800/80 space-y-1">
-              <strong class="text-blue-600 dark:text-cyan-400 block text-[11px] uppercase">📚 Progresión Didáctica</strong>
-              <p id="ai-didactic-tip" class="text-slate-700 dark:text-slate-300 leading-relaxed"></p>
-            </div>
-            <div class="bg-white dark:bg-slate-950/60 p-3 rounded-xl border border-emerald-200 dark:border-slate-800/80 space-y-1">
-              <strong class="text-purple-600 dark:text-purple-400 block text-[11px] uppercase">⚙️ Insumos & Laboratorio</strong>
-              <p id="ai-safety-tip" class="text-slate-700 dark:text-slate-300 leading-relaxed"></p>
-            </div>
-          </div>
-        </div>
-
         <!-- FORMULARIO DETALLADO -->
         <form id="taller-form" onsubmit="saveWorkshop(event)" class="space-y-6">
           <input type="hidden" id="f-id">
@@ -702,9 +621,9 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
             </div>
           </div>
 
-          <!-- 5. CATEGORÍA, INSTRUCTOR Y PRECIO -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="space-y-1.5">
+          <!-- 5. CATEGORÍA, INSTRUCTORES Y PRECIO -->
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+            <div class="sm:col-span-3 space-y-1.5">
               <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Público / Categoría</label>
               <select id="f-category" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition">
                 <option value="kids">Niños y Adolescentes (8 a 15 años)</option>
@@ -713,13 +632,21 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
               </select>
             </div>
 
-            <div class="space-y-1.5">
-              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Instructor / Mentor</label>
-              <input type="text" id="f-instructor" placeholder="Ej: Beno Juarez" 
+            <div class="sm:col-span-4 space-y-1.5">
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Nombre del Instructor(es) *</label>
+              <input type="text" id="f-instructor" placeholder="Ej: Hayashi Mateo y Francheska Baca" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition">
+              <p class="text-[10px] text-slate-500 dark:text-slate-400">Texto que figurará públicamente en el catálogo.</p>
             </div>
 
-            <div class="space-y-1.5">
+            <div class="sm:col-span-3 space-y-1.5">
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Co-Talleristas (Emails)</label>
+              <input type="text" id="f-instructors" placeholder="ej: hayashi@fablablima.org, baca.francheska@gmail.com" 
+                     class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition font-mono">
+              <p class="text-[10px] text-slate-500 dark:text-slate-400">Cuentas con permiso para co-editar.</p>
+            </div>
+
+            <div class="sm:col-span-2 space-y-1.5">
               <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">Inversión (S/.) *</label>
               <input type="text" id="f-price" required placeholder="Ej: S/. 200" 
                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-blue-500 dark:focus:border-cyan-400 transition font-mono font-bold">
@@ -808,39 +735,14 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
               </div>
             </div>
 
-            <!-- PROMPT VISUAL GENERADO POR IA (Para Midjourney / Flux / DALL-E) -->
+            <!-- NOTAS DE PORTADA O CONCEPTO VISUAL -->
             <div class="pt-3 border-t border-slate-200 dark:border-slate-800/80 space-y-2">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <label class="text-[11px] font-bold text-amber-700 dark:text-amber-400 uppercase flex items-center gap-1.5">
-                  <i data-lucide="wand-2" class="w-3.5 h-3.5 text-amber-500"></i>
-                  <span>Prompt Visual Cinematográfico para Portada (Midjourney / Flux / DALL-E)</span>
-                </label>
-                <div class="flex items-center gap-1.5">
-                  <button type="button" onclick="copyPromptWithParams()" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-[10px] font-bold flex items-center gap-1 transition">
-                    <i data-lucide="copy" class="w-3 h-3"></i> Copiar con Parámetros (--ar 16:9)
-                  </button>
-                  <button type="button" onclick="copyToClipboard('f-image-prompt', '¡Prompt copiado!')" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-[10px] font-semibold flex items-center gap-1 hover:bg-slate-200 transition">
-                    <i data-lucide="copy" class="w-3 h-3"></i> Texto Limpio
-                  </button>
-                </div>
-              </div>
-
-              <!-- Selector de Estilos de Portada -->
-              <div class="flex flex-wrap items-center gap-1.5 pt-0.5">
-                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1">Estilos de Dirección de Arte:</span>
-                <button type="button" onclick="applyImageStyle('documentary')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-blue-500 text-[11px] text-slate-700 dark:text-slate-300 transition flex items-center gap-1 shadow-sm">
-                  <span>📸</span> <span>Fotografía Documental Maker</span>
-                </button>
-                <button type="button" onclick="applyImageStyle('product')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-amber-500 text-[11px] text-slate-700 dark:text-slate-300 transition flex items-center gap-1 shadow-sm">
-                  <span>💡</span> <span>Hero Shot de Producto</span>
-                </button>
-                <button type="button" onclick="applyImageStyle('render3d')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-purple-500 text-[11px] text-slate-700 dark:text-slate-300 transition flex items-center gap-1 shadow-sm">
-                  <span>🎨</span> <span>Despiece Render 3D</span>
-                </button>
-              </div>
-
-              <textarea id="f-image-prompt" rows="3" placeholder="La IA generará aquí un prompt fotográfico profesional ultra detallado optimizado para Midjourney v6, Flux.1 y DALL-E..." 
-                        class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-[11px] text-slate-800 dark:text-slate-300 font-mono focus:outline-none focus:border-amber-500"></textarea>
+              <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase flex items-center gap-1.5">
+                <i data-lucide="image" class="w-3.5 h-3.5 text-blue-500"></i>
+                <span>Notas de la Imagen de Portada (Opcional)</span>
+              </label>
+              <textarea id="f-image-prompt" rows="2" placeholder="Notas sobre la composición, estilo fotográfico o autor de la fotografía..." 
+                        class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-[11px] text-slate-800 dark:text-slate-300 font-mono focus:outline-none focus:border-blue-500"></textarea>
             </div>
           </div>
 
@@ -1044,6 +946,21 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     }
   }
 
+  function isUserInstructorOf(t, user) {
+    if (!t || !user || !user.email) return false;
+    const uEmail = (user.email || '').toLowerCase().trim();
+    const uName = (user.name || '').toLowerCase().trim();
+    if ((t.instructorEmail || '').toLowerCase().trim() === uEmail) return true;
+    if (uName && (t.instructor || '').toLowerCase().includes(uName)) return true;
+    if (Array.isArray(t.instructors)) {
+      return t.instructors.some(inst => {
+        const email = typeof inst === 'string' ? inst : (inst && inst.email ? inst.email : '');
+        return email.toLowerCase().trim() === uEmail;
+      });
+    }
+    return false;
+  }
+
   function updateStats() {
     const published = state.talleres.filter(t => t.status === 'published').length;
     
@@ -1051,7 +968,8 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     if (IS_ADMIN) {
       drafts = state.talleres.filter(t => t.status === 'draft').length;
     } else {
-      drafts = state.talleres.filter(t => t.status === 'draft' && (t.instructorEmail === state.currentUser.email || t.instructor === state.currentUser.name)).length;
+      // Para instructores, mostramos en el badge el conteo de sus talleres
+      drafts = state.talleres.filter(t => isUserInstructorOf(t, state.currentUser)).length;
     }
     
     const proposals = state.proposals.length;
@@ -1117,7 +1035,8 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     } else {
       // INSTRUCTOR VIEW
       if (state.activeTab === 'drafts') {
-        items = state.talleres.filter(t => t.status === 'draft' && (t.instructorEmail === state.currentUser.email || t.instructor === state.currentUser.name));
+        // En "Mis Talleres & Borradores", mostramos todos los talleres asociados a su cuenta (co-dictados o principales)
+        items = state.talleres.filter(t => isUserInstructorOf(t, state.currentUser));
       } else {
         // Catálogo público de referencia
         items = state.talleres.filter(t => t.status === 'published');
@@ -1144,7 +1063,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
     grid.innerHTML = items.map(t => {
       const isProp = t.isProposal;
-      const isMyWorkshop = !isProp && (t.instructorEmail === state.currentUser.email || t.instructor === state.currentUser.name);
+      const isMyWorkshop = !isProp && (IS_ADMIN || isUserInstructorOf(t, state.currentUser));
 
       const statusBadge = isProp 
         ? '<span class="bg-blue-50 text-blue-700 dark:bg-cyan-500/20 dark:text-cyan-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-blue-200 dark:border-cyan-500/30">Propuesta Externa</span>'
@@ -1446,6 +1365,16 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       document.getElementById('f-copy-ig').value = taller.socialCopyInstagram || '';
       document.getElementById('f-copy-wa').value = taller.socialCopyWhatsapp || '';
 
+      let instList = [];
+      if (Array.isArray(taller.instructors)) {
+        instList = taller.instructors.map(i => typeof i === 'string' ? i : (i.email || ''));
+      } else if (taller.instructorEmail) {
+        instList = [taller.instructorEmail];
+      }
+      if (document.getElementById('f-instructors')) {
+        document.getElementById('f-instructors').value = instList.join(', ');
+      }
+
       // Parsear sesiones y horas para la calculadora
       let sCount = 4, hTotal = 8;
       if (taller.duration) {
@@ -1471,6 +1400,9 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       document.getElementById('f-title').value = '';
       document.getElementById('f-subtitle').value = '';
       document.getElementById('f-instructor').value = state.currentUser.name;
+      if (document.getElementById('f-instructors')) {
+        document.getElementById('f-instructors').value = state.currentUser.email || '';
+      }
       document.getElementById('f-price').value = '';
       document.getElementById('f-startDate').value = '';
       document.getElementById('f-schedule').value = '';
@@ -1525,6 +1457,8 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     });
 
     const statusVal = document.getElementById('f-status') ? document.getElementById('f-status').value : 'draft';
+    const rawInstructors = document.getElementById('f-instructors') ? document.getElementById('f-instructors').value : '';
+    const instructorsList = rawInstructors.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
 
     const payload = {
       id: document.getElementById('f-id').value,
@@ -1535,6 +1469,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       category: document.getElementById('f-category').value,
       instructor: document.getElementById('f-instructor').value,
       instructorEmail: state.currentUser.email,
+      instructors: instructorsList,
       price: document.getElementById('f-price').value,
       startDate: document.getElementById('f-startDate').value,
       schedule: document.getElementById('f-schedule').value,
@@ -1559,7 +1494,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        showToast(IS_ADMIN ? '¡Taller guardado y sincronizado en edu.fab.pe!' : '¡Propuesta guardada para revisión!');
+        showToast(IS_ADMIN ? '¡Taller guardado y sincronizado en edu.fab.pe!' : (data.workshop && data.workshop.status === 'published' ? '¡Cambios actualizados en vivo en edu.fab.pe!' : '¡Propuesta guardada para revisión de Administración!'));
         closeWorkshopModal();
         await loadData();
       } else {
@@ -1613,85 +1548,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     }
   }
 
-  async function callGeminiAI() {
-    const rawNotes = document.getElementById('ai-raw-notes').value.trim();
-    if (!rawNotes) {
-      alert('Por favor escribe algunas notas o ideas para que Gemini pueda trabajar.');
-      return;
-    }
 
-    const btn = document.getElementById('btn-ai-generate');
-    btn.disabled = true;
-    btn.innerHTML = '<i data-lucide="loader" class="w-3.5 h-3.5 animate-spin"></i><span>Estructurando propuesta con IA...</span>';
-    lucide.createIcons();
-
-    try {
-      const res = await fetch('api.php?action=ai_generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rawNotes })
-      });
-      const data = await res.json();
-      
-      if (res.ok && data.success && data.workshop) {
-        const w = data.workshop;
-        if (w.title) document.getElementById('f-title').value = w.title;
-        if (w.subtitle) document.getElementById('f-subtitle').value = w.subtitle;
-        if (w.category) document.getElementById('f-category').value = w.category;
-        if (w.price) document.getElementById('f-price').value = w.price;
-        if (w.startDate) {
-          document.getElementById('f-startDate').value = w.startDate;
-          checkDateAvailability(w.startDate);
-        }
-        if (w.schedule) document.getElementById('f-schedule').value = w.schedule;
-        if (w.duration) document.getElementById('f-duration').value = w.duration;
-        if (w.badge) document.getElementById('f-badge').value = w.badge;
-        if (w.fabTool) document.getElementById('f-fabTool').value = w.fabTool;
-        if (w.format) document.getElementById('f-format').value = w.format;
-        if (w.challenge) document.getElementById('f-challenge').value = w.challenge;
-        if (w.description) document.getElementById('f-description').value = w.description;
-        if (w.socialCopyInstagram) document.getElementById('f-copy-ig').value = w.socialCopyInstagram;
-        if (w.socialCopyWhatsapp) document.getElementById('f-copy-wa').value = w.socialCopyWhatsapp;
-        if (w.imagePrompt) document.getElementById('f-image-prompt').value = w.imagePrompt;
-
-        if (w.sessionsCount && document.getElementById('calc-sessions')) {
-          document.getElementById('calc-sessions').value = w.sessionsCount;
-        }
-        if (w.hoursPerSession && document.getElementById('calc-hours-per-session')) {
-          document.getElementById('calc-hours-per-session').value = w.hoursPerSession;
-        }
-        if (w.totalHours && document.getElementById('calc-total-hours')) {
-          document.getElementById('calc-total-hours').value = w.totalHours;
-        }
-        recalcPricing(true);
-
-        if (w.syllabus && Array.isArray(w.syllabus)) {
-          const container = document.getElementById('syllabus-container');
-          container.innerHTML = '';
-          w.syllabus.forEach(s => addMissionRow(s.session, s.title, s.desc));
-        }
-
-        if (w.pedagogicalFeedback) {
-          const pBox = document.getElementById('ai-pedagogical-box');
-          document.getElementById('ai-maker-score').innerText = w.pedagogicalFeedback.makerScore || 'Maker Verified';
-          document.getElementById('ai-challenge-tip').innerText = w.pedagogicalFeedback.challengeTip || 'Reto físico validado.';
-          document.getElementById('ai-didactic-tip').innerText = w.pedagogicalFeedback.didacticTip || 'Secuencia didáctica organizada.';
-          document.getElementById('ai-safety-tip').innerText = w.pedagogicalFeedback.safetyOrMaterials || 'Protocolo de laboratorio estándar.';
-          pBox.classList.remove('hidden');
-        }
-
-        showToast('✨ ¡Taller estructurado con éxito por Gemini!');
-      } else {
-        alert(data.error || 'Gemini no pudo procesar la solicitud.');
-      }
-    } catch (err) {
-      alert('Error conectando con la IA de Gemini.');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = '<i data-lucide="wand-2" class="w-3.5 h-3.5"></i><span>Auto-Estructurar Taller con IA</span>';
-      lucide.createIcons();
-    }
-  }
 
   async function uploadImageFile(input) {
     if (!input.files || !input.files[0]) return;
@@ -1863,45 +1720,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     });
   }
 
-  // ============================================================
-  // DIRECCIÓN DE ARTE DE IMAGEN Y ESTILOS CINEMATOGRÁFICOS
-  // ============================================================
-  function applyImageStyle(style) {
-    const area = document.getElementById('f-image-prompt');
-    const title = document.getElementById('f-title').value || 'Maker Workshop';
-    const challenge = document.getElementById('f-challenge').value || 'physical functional object';
-    const tool = document.getElementById('f-fabTool').value || 'digital fabrication tools';
 
-    let prompt = '';
-    if (style === 'documentary') {
-      prompt = `Hyper-realistic candid documentary photograph of diverse passionate creators collaborating inside a modern FAB LAB Perú workshop, assembling ${challenge}. In the background, active 3D printers with soft amber glow and a laser cutter with subtle blue vapor, tidy wooden workbenches with precision hand tools. Warm studio lighting with natural rim light, authentic tactile materials (birch plywood, clear acrylic), shot on Sony A7R V 35mm f/1.8 lens, shallow depth of field, natural expressions of pride and curiosity, 8k resolution, photorealistic editorial photography --ar 16:9 --style raw`;
-    } else if (style === 'product') {
-      prompt = `High-end commercial hero product photograph of ${challenge}, precision fabricated using ${tool}, placed on a rustic craftsman wooden Fab Lab workbench alongside minimalist technical blueprints and raw material cutouts. Dramatic cinematic side lighting, crisp highlights on laser-cut edges and smooth 3D printed layers, soft natural shadows, shot on Hasselblad H6D-100c 50mm, 8k, hyper-detailed, clean minimalist composition --ar 16:9`;
-    } else if (style === 'render3d') {
-      prompt = `Isometric exploded-view 3D conceptual render of ${challenge}, showing precision assembly of digital fabrication parts (${tool}), technical floating layers, translucent acrylic accents and textured matte PLA components, soft ambient occlusion, Octane render aesthetic, minimalist light gray background with subtle studio shadows, crisp industrial design visualization, 8k resolution --ar 16:9`;
-    }
-
-    if (area) {
-      area.value = prompt;
-      area.focus();
-      showToast(`🎨 Estilo aplicado: ${style === 'documentary' ? 'Fotografía Documental' : style === 'product' ? 'Hero Shot Producto' : 'Render 3D Despiece'}`);
-    }
-  }
-
-  function copyPromptWithParams() {
-    const area = document.getElementById('f-image-prompt');
-    if (!area || !area.value.trim()) {
-      showToast('⚠️ No hay prompt generado aún.');
-      return;
-    }
-    let p = area.value.trim();
-    if (!p.includes('--ar')) {
-      p += ' --ar 16:9 --style raw --v 6.0';
-    }
-    navigator.clipboard.writeText(p).then(() => {
-      showToast('✓ Prompt con parámetros Midjourney copiado.');
-    });
-  }
 
   // ============================================================
   // SELECTOR DE FECHA Y DETECCIÓN DE COLISIONES EN FAB LAB

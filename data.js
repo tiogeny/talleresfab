@@ -1,6 +1,6 @@
 // Datos de Talleres Abiertos - FAB LAB Perú (edu.fab.pe)
 // Sincronizado automáticamente desde el Panel Admin de FAB LAB Perú
-// Última actualización: 2026-09-08 23:22:51
+// Última actualización: 2026-09-09 00:09:58
 
 const SITE_DATA = {
   phone: "+51 989 984 480",
@@ -70,7 +70,10 @@ var WORKSHOPS = [
         ],
         "image": "images\/taller-minicuadros-25d.jpg",
         "instructor": "Evelyn Cuadrado",
-        "instructorEmail": "contacto@fablablima.org",
+        "instructorEmail": "evkusi@gmail.com",
+        "instructors": [
+            "evkusi@gmail.com"
+        ],
         "status": "published",
         "createdAt": "2026-09-08T16:25:00.000Z"
     },
@@ -124,7 +127,11 @@ var WORKSHOPS = [
         ],
         "image": "images\/taller-open-circuits.jpg",
         "instructor": "Hayashi Mateo y Francheska Baca",
-        "instructorEmail": "contacto@fablablima.org",
+        "instructorEmail": "hayashi@fablablima.org",
+        "instructors": [
+            "hayashi@fablablima.org",
+            "baca.francheska@gmail.com"
+        ],
         "status": "published",
         "createdAt": "2026-09-08T16:25:00.000Z"
     },
@@ -179,7 +186,10 @@ var WORKSHOPS = [
         ],
         "image": "images\/taller-digitoys.jpg",
         "instructor": "Henry Sánchez",
-        "instructorEmail": "contacto@fablablima.org",
+        "instructorEmail": "henry@fablablima.org",
+        "instructors": [
+            "henry@fablablima.org"
+        ],
         "status": "published",
         "createdAt": "2026-09-08T16:25:00.000Z"
     },
@@ -233,8 +243,12 @@ var WORKSHOPS = [
             "Muestrario físico y prototipo ecológico funcional terminado."
         ],
         "image": "images\/taller-biomateriales.jpg",
-        "instructor": "Grace Schwan",
-        "instructorEmail": "contacto@fablablima.org",
+        "instructor": "Grace Schwan y Carmen Gutiérrez",
+        "instructorEmail": "graceschwan@fablablima.org",
+        "instructors": [
+            "graceschwan@fablablima.org",
+            "carmengu1997@gmail.com"
+        ],
         "status": "published",
         "createdAt": "2026-09-08T17:45:00.000Z"
     }

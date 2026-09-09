@@ -164,10 +164,35 @@ if ($action === 'get_all') {
     $proposals = file_exists(PROPOSALS_FILE) ? json_decode(file_get_contents(PROPOSALS_FILE), true) : [];
     if (!is_array($proposals)) $proposals = [];
 
+    $currentUser = get_current_user_data();
+    if ($currentUser['role'] === 'instructor') {
+        $userEmail = strtolower($currentUser['email'] ?? '');
+        $talleres = array_values(array_filter($talleres, function($t) use ($userEmail) {
+            // Un taller publicado es visible para todos en el catálogo público
+            if (isset($t['status']) && $t['status'] === 'published') return true;
+
+            // Si es borrador o privado, solo es visible si es el instructor o co-instructor asignado
+            $mainEmail = strtolower($t['instructorEmail'] ?? '');
+            if ($mainEmail === $userEmail) return true;
+            if (!empty($t['instructors']) && is_array($t['instructors'])) {
+                foreach ($t['instructors'] as $inst) {
+                    if (is_string($inst) && strtolower(trim($inst)) === $userEmail) return true;
+                    if (is_array($inst) && strtolower(trim($inst['email'] ?? '')) === $userEmail) return true;
+                }
+            }
+            return false;
+        }));
+
+        $proposals = array_values(array_filter($proposals, function($p) use ($userEmail) {
+            $mainEmail = strtolower($p['instructorEmail'] ?? '');
+            return $mainEmail === $userEmail;
+        }));
+    }
+
     json_response([
         'talleres' => $talleres,
         'proposals' => $proposals,
-        'currentUser' => get_current_user_data()
+        'currentUser' => $currentUser
     ]);
 }
 
@@ -195,12 +220,54 @@ if ($action === 'save_taller') {
 
     $currentUser = get_current_user_data();
     $isInstructor = ($currentUser['role'] === 'instructor');
+    $userEmail = strtolower($currentUser['email'] ?? '');
+    $existingWorkshop = ($foundIndex >= 0) ? $talleres[$foundIndex] : null;
 
-    // Los instructores guardan en estado borrador para revisión del administrador
-    $targetStatus = in_array($data['status'] ?? '', ['published', 'draft', 'archived']) ? $data['status'] : 'published';
-    if ($isInstructor) {
-        $targetStatus = 'draft';
+    // Si un instructor intenta editar un taller existente, verificar permisos
+    if ($isInstructor && $existingWorkshop) {
+        $existingMain = strtolower($existingWorkshop['instructorEmail'] ?? '');
+        $isAuthorized = ($existingMain === $userEmail);
+        if (!$isAuthorized && !empty($existingWorkshop['instructors']) && is_array($existingWorkshop['instructors'])) {
+            foreach ($existingWorkshop['instructors'] as $inst) {
+                $checkEmail = is_string($inst) ? strtolower(trim($inst)) : strtolower(trim($inst['email'] ?? ''));
+                if ($checkEmail === $userEmail) {
+                    $isAuthorized = true;
+                    break;
+                }
+            }
+        }
+        if (!$isAuthorized) {
+            json_response(['error' => 'No tienes permiso para editar este taller.'], 403);
+        }
     }
+
+    // Determinar estado de publicación
+    if ($isInstructor) {
+        // Si ya estaba publicado, permitir que las mejoras del tallerista mantengan el estado publicado y se sincronicen en vivo
+        if ($existingWorkshop && ($existingWorkshop['status'] ?? '') === 'published') {
+            $targetStatus = 'published';
+        } else {
+            $targetStatus = 'draft';
+        }
+    } else {
+        $targetStatus = in_array($data['status'] ?? '', ['published', 'draft', 'archived']) ? $data['status'] : 'published';
+    }
+
+    // Normalizar lista de instructores y co-instructores
+    $instructors = [];
+    if (!empty($data['instructors'])) {
+        $rawInst = is_array($data['instructors']) ? $data['instructors'] : explode(',', (string)$data['instructors']);
+        foreach ($rawInst as $item) {
+            $val = is_string($item) ? trim($item) : trim($item['email'] ?? '');
+            if ($val !== '') $instructors[] = strtolower($val);
+        }
+    }
+
+    $mainInstructorEmail = strtolower(trim($data['instructorEmail'] ?? ($existingWorkshop['instructorEmail'] ?? $currentUser['email'])));
+    if ($mainInstructorEmail && !in_array($mainInstructorEmail, $instructors)) {
+        array_unshift($instructors, $mainInstructorEmail);
+    }
+    $instructors = array_values(array_unique($instructors));
 
     $workshop = [
         'id' => $id,
@@ -217,8 +284,9 @@ if ($action === 'save_taller') {
         'fabTool' => trim($data['fabTool'] ?? 'Fabricación Digital'),
         'challenge' => trim($data['challenge'] ?? ''),
         'description' => trim($data['description'] ?? ''),
-        'instructor' => trim($data['instructor'] ?? $currentUser['name']),
-        'instructorEmail' => trim($data['instructorEmail'] ?? $currentUser['email']),
+        'instructor' => trim($data['instructor'] ?? ($existingWorkshop['instructor'] ?? $currentUser['name'])),
+        'instructorEmail' => $mainInstructorEmail,
+        'instructors' => $instructors,
         'status' => $targetStatus,
         'syllabus' => is_array($data['syllabus'] ?? null) ? $data['syllabus'] : [],
         'highlights' => is_array($data['highlights'] ?? null) ? $data['highlights'] : [],
@@ -250,8 +318,35 @@ if ($action === 'save_taller') {
         }
     }
 
-    $successMsg = $isInstructor 
-        ? 'Taller guardado como borrador. La Administración lo revisará para publicarlo.' 
+    // Notificación por correo al Administrador si un instructor propone un nuevo taller
+    if ($isInstructor && $foundIndex < 0) {
+        $adminTo = defined('ADMIN_EMAIL') ? ADMIN_EMAIL : 'contacto@fablablima.org';
+        $subject = "=?UTF-8?B?" . base64_encode("Nueva Propuesta de Taller: " . $workshop['title']) . "?=";
+        $messageBody = "Hola Administración de FAB LAB Perú,\r\n\r\n"
+            . "El instructor " . ($currentUser['name'] ?? 'Tallerista') . " (" . ($currentUser['email'] ?? '') . ") ha creado una nueva propuesta de taller en el panel:\r\n\r\n"
+            . "• Título: " . $workshop['title'] . "\r\n"
+            . "• Subtítulo: " . $workshop['subtitle'] . "\r\n"
+            . "• Categoría: " . $workshop['category'] . "\r\n"
+            . "• Inversión: " . $workshop['price'] . "\r\n"
+            . "• Reto Maker: " . $workshop['challenge'] . "\r\n"
+            . "• Fecha propuesta: " . $workshop['startDate'] . "\r\n\r\n"
+            . "Puedes revisar y publicar el taller en:\r\n"
+            . "https://edu.fab.pe/fabpanel/\r\n\r\n"
+            . "--\r\n"
+            . "FAB LAB Perú - Panel de Gestión";
+        
+        $fromEmail = defined('SITE_EMAIL') ? SITE_EMAIL : 'contacto@fablablima.org';
+        $replyTo = !empty($currentUser['email']) ? $currentUser['email'] : $fromEmail;
+        $headers = "From: " . $fromEmail . "\r\n"
+            . "Reply-To: " . $replyTo . "\r\n"
+            . "Content-Type: text/plain; charset=UTF-8\r\n"
+            . "X-Mailer: PHP/" . phpversion();
+
+        @mail($adminTo, $subject, $messageBody, $headers);
+    }
+
+    $successMsg = ($isInstructor && $targetStatus === 'draft')
+        ? 'Taller guardado como borrador. La Administración ha recibido una notificación para revisarlo y publicarlo.' 
         : ($targetStatus === 'published' ? '¡Taller guardado y publicado en la web en vivo!' : 'Taller guardado.');
 
     json_response(['success' => true, 'message' => $successMsg, 'workshop' => $workshop]);

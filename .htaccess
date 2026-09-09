@@ -15,3 +15,21 @@
   CacheDisable public /
   CacheDisable private /
 </IfModule>
+
+# Seguridad y Protección
+# 1. Proteger archivos JSON internos, logs y datos del acceso web directo
+<FilesMatch "\.(json|lock|log|md)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# 2. Despistar escáneres y bots hacia /admin (simular que no existe con 404)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^admin(/.*)?$ - [R=404,L]
+</IfModule>

@@ -24,15 +24,17 @@ function attempt_login($email, $password) {
     global $AUTHORIZED_USERS;
     $email = strtolower(trim($email));
     
-    if (isset($AUTHORIZED_USERS[$email])) {
-        $userData = $AUTHORIZED_USERS[$email];
-        if ($password === $userData['password']) {
-            $_SESSION['user'] = [
-                'email' => $email,
-                'name' => $userData['name'],
-                'role' => $userData['role']
-            ];
-            return true;
+    foreach ($AUTHORIZED_USERS as $userEmail => $userData) {
+        if (strtolower($userEmail) === $email) {
+            $stored = $userData['password'];
+            if ($password === $stored || password_verify($password, $stored)) {
+                $_SESSION['user'] = [
+                    'email' => $email,
+                    'name' => $userData['name'],
+                    'role' => $userData['role']
+                ];
+                return true;
+            }
         }
     }
     return false;

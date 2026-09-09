@@ -1,2 +1,3 @@
-﻿admin/secrets.php
+fabpanel/secrets.php
+admin/secrets.php
 .env
