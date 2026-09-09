@@ -189,7 +189,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
         <div class="h-5 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
 
         <div class="hidden sm:flex items-center gap-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Editor Makerdu</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Editor de Talleres</span>
           <span class="text-xs text-slate-300 dark:text-slate-700">/</span>
           <span class="text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[240px] truncate"><?= htmlspecialchars($currentTaller['title'] ?? ($isNew ? 'Nuevo taller' : 'Sin título')) ?></span>
         </div>
@@ -285,7 +285,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
       </div>
     <?php endif; ?>
 
-    <!-- Formulario Principal Makerdu (6 Bloques Esenciales) -->
+    <!-- Formulario Principal de Taller (6 Bloques) -->
     <form id="editor-form" onsubmit="event.preventDefault(); submitForm();" class="space-y-6">
 
       <input type="hidden" id="f-id" value="<?= htmlspecialchars($currentTaller['id'] ?? '') ?>">
@@ -334,9 +334,9 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
               <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Nivel didáctico</label>
               <?php $curLevel = $currentTaller['level'] ?? 'Iniciación (Sin experiencia previa)'; ?>
               <select id="f-level" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
-                <option value="Iniciación (Sin experiencia previa)" <?= (stripos($curLevel, 'Iniciación') !== false) ? 'selected' : '' ?>>Iniciación (Sin experiencia previa)</option>
-                <option value="Intermedio (Maker activo)" <?= (stripos($curLevel, 'Intermedio') !== false) ? 'selected' : '' ?>>Intermedio (Maker activo)</option>
-                <option value="Avanzado (Especialización)" <?= (stripos($curLevel, 'Avanzado') !== false) ? 'selected' : '' ?>>Avanzado (Especialización)</option>
+                <option value="Básico" <?= ($curLevel === 'Básico' || stripos($curLevel, 'Iniciación') !== false) ? 'selected' : '' ?>>Básico</option>
+                <option value="Intermedio" <?= ($curLevel === 'Intermedio') ? 'selected' : '' ?>>Intermedio</option>
+                <option value="Avanzado" <?= ($curLevel === 'Avanzado') ? 'selected' : '' ?>>Avanzado</option>
               </select>
               <p class="text-[10px] text-slate-400 mt-1">Aparece en la ficha del modal interactivo.</p>
             </div>
@@ -469,7 +469,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
         <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-3">
           <div class="flex items-center gap-2.5">
             <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">3</span>
-            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Formato de Dictado & Sede</h3>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Modalidad de Dictado</h3>
           </div>
           <span class="text-[11px] text-slate-400 font-medium">Virtual / Presencial / Híbrido</span>
         </div>
@@ -610,16 +610,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
                        class="w-full px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold text-slate-800 dark:text-slate-200 text-xs mt-0.5 border border-transparent">
               </div>
 
-              <!-- Entrada manual para etiquetas especiales -->
-              <div>
-                <span class="text-slate-500 block text-[11px] mb-1">Añadir sesión especial con hito:</span>
-                <div class="flex gap-1.5">
-                  <input type="text" id="custom-date-input" placeholder="Ej. ⭐ 31 Oct · Exposición" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs">
-                  <button type="button" onclick="addCustomDate()" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-bold transition shrink-0">
-                    Añadir
-                  </button>
-                </div>
-              </div>
+
             </div>
 
           </div>
@@ -690,15 +681,15 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
       </div>
 
       <!-- ======================================================== -->
-      <!-- BLOQUE 6: RUTA DE MISIONES MAKERDU (TEMARIO DIDÁCTICO)   -->
+      <!-- BLOQUE 6: RUTA DE APRENDIZAJE (TEMARIO DIDÁCTICO)   -->
       <!-- ======================================================== -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800/80 pb-3">
           <div class="flex items-center gap-2.5">
             <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">6</span>
             <div>
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Ruta de Misiones Makerdu (Temario Didáctico)</h3>
-              <p class="text-[11px] text-slate-500">2 columnas por misión: <strong>Acción Makerdu</strong> + <strong>Entregable / Micro-reto</strong></p>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Ruta de Aprendizaje (Temario Didáctico)</h3>
+              <p class="text-[11px] text-slate-500">2 columnas por sesión: <strong>Acción del Taller</strong> + <strong>Entregable / Micro-reto</strong></p>
             </div>
           </div>
 
@@ -720,7 +711,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
           </div>
         </div>
 
-        <!-- Sugerencias de verbos Makerdu (Datalist) -->
+        <!-- Sugerencias de verbos didácticos (Datalist) -->
         <datalist id="maker-actions-list">
           <option value="Descubrir & Bocetar">
           <option value="Exploración de Materiales">
@@ -736,7 +727,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
 
         <!-- Cabecera de 2 Columnas para Misiones -->
         <div class="hidden sm:grid grid-cols-12 gap-3 px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-          <div class="col-span-4">1. Acción Didáctica Makerdu</div>
+          <div class="col-span-4">1. Acción Didáctica</div>
           <div class="col-span-7">2. Entregable / Micro-reto Tangible</div>
           <div class="col-span-1 text-center">Quitar</div>
         </div>
@@ -1214,7 +1205,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
     }
 
     // -------------------------------------------------------------
-    // 5. Misiones Makerdu (2 Columnas: Acción + Entregable)
+    // 5. Ruta de Aprendizaje (2 Columnas: Acción + Entregable)
     // -------------------------------------------------------------
     function addMissionRow(action = '', deliverable = '') {
       const container = document.getElementById('syllabus-container');

@@ -264,163 +264,176 @@
   </footer>
 
   <!-- ================================================================= -->
-  <!-- 7. MODAL EDITORIAL ELEGANTE: BOTÓN WHATSAPP PROPORCIONADO         -->
   <!-- ================================================================= -->
-  <!-- ================================================================= -->
-  <!-- 7. MODAL EDITORIAL ELEGANTE: ARQUITECTURA DIDÁCTICA MAKERDU       -->
+  <!-- 7. MODAL EDITORIAL ELEGANTE: OPCIÓN C (FICHA LATERAL STICKY)      -->
   <!-- ================================================================= -->
   <div id="workshop-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
     
-    <!-- Contenedor Principal del Modal con Footer Sticky -->
+    <!-- Contenedor Principal del Modal -->
     <div class="bg-white text-slate-800 rounded-3xl max-w-5xl w-full shadow-2xl border border-slate-200 relative overflow-hidden flex flex-col max-h-[92vh]">
       
       <!-- Botón Cerrar Flotante -->
-      <button id="modal-close" class="absolute top-4 right-4 z-30 bg-slate-100/90 hover:bg-slate-200 text-slate-600 hover:text-slate-900 rounded-full p-2.5 transition backdrop-blur-sm shadow-sm" title="Cerrar ventana">
+      <button id="modal-close" class="absolute top-4 right-4 z-30 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 rounded-full p-2.5 transition shadow-sm" title="Cerrar ventana">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
-      <!-- 1. ENCABEZADO SUPERIOR: TÍTULO EN LA CIMA ABSOLUTA -->
-      <div class="shrink-0 p-5 sm:p-7 pb-3 sm:pb-4 border-b border-slate-100 pr-14 space-y-2 bg-gradient-to-r from-slate-50 via-white to-white">
-        <div class="flex flex-wrap items-center gap-2">
-          <span id="modal-target" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200/80 text-xs font-bold shadow-2xs"></span>
-          <span id="modal-badge" class="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-2xs"></span>
-          <span id="modal-level" class="px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-2xs"></span>
-        </div>
-        <h2 id="modal-title" class="text-2xl sm:text-3xl font-black text-slate-900 leading-tight tracking-tight"></h2>
-      </div>
-
-      <!-- 2. CUERPO SCROLLEABLE (Desktop 2 Columnas, Mobile 1 Columna) -->
-      <div class="flex-1 overflow-y-auto p-5 sm:p-7 space-y-6">
+      <!-- Cuerpo Scrolleable con Layout Opción C -->
+      <div class="flex-1 overflow-y-auto p-5 sm:p-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          <!-- Columna Izquierda (lg:col-span-5): Portada, Tags y Logística -->
-          <div class="lg:col-span-5 space-y-4">
+          <!-- COLUMNA IZQUIERDA (lg:col-span-7): Reto, Ruta de Aprendizaje, Proyecto Final -->
+          <div class="lg:col-span-7 space-y-6">
             
-            <!-- Imagen 16:9 -->
-            <div class="w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 shadow-sm relative border border-slate-200 group">
-              <img id="modal-img" src="" alt="" class="w-full h-full object-cover" />
+            <!-- Metadata & Título -->
+            <div class="space-y-2.5 pr-6 sm:pr-8">
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span id="modal-target" class="text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-lg font-bold"></span>
+                <span class="text-slate-300">·</span>
+                <span class="text-slate-500 font-semibold">Nivel:</span>
+                <span id="modal-level" class="text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md font-bold"></span>
+                <span id="modal-badge" class="text-xs font-bold text-slate-400"></span>
+              </div>
+              <h2 id="modal-title" class="text-2xl sm:text-3xl font-black text-slate-900 leading-tight tracking-tight"></h2>
             </div>
 
-            <!-- Tecnologías Maker (Píldoras) -->
-            <div class="space-y-1.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80">
-              <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Tecnologías Maker</span>
-              <div id="modal-technologies" class="flex flex-wrap gap-1.5 pt-0.5">
-                <!-- Generado por JS -->
-              </div>
-            </div>
-
-            <!-- Ficha Logística Rápida -->
-            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 space-y-2.5 text-xs text-slate-700">
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-slate-500 font-medium flex items-center gap-1.5">
-                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
-                  <span>Modalidad & Sede:</span>
-                </span>
-                <strong id="modal-format-venue" class="text-slate-900 text-right font-semibold"></strong>
-              </div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-slate-500 font-medium flex items-center gap-1.5">
-                  <i data-lucide="hourglass" class="w-3.5 h-3.5 text-slate-400"></i>
-                  <span>Duración:</span>
-                </span>
-                <strong id="modal-duration" class="text-slate-900 font-medium"></strong>
-              </div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-slate-500 font-medium flex items-center gap-1.5">
-                  <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
-                  <span>Horario:</span>
-                </span>
-                <strong id="modal-schedule" class="text-slate-900 text-right font-medium"></strong>
-              </div>
-              <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/60">
-                <span class="text-slate-500 font-medium flex items-center gap-1.5">
-                  <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-600"></i>
-                  <span>Mentor(a):</span>
-                </span>
-                <strong id="modal-instructor" class="text-blue-700 text-right font-bold truncate max-w-[190px]"></strong>
-              </div>
-            </div>
-
-            <!-- Fechas de Sesiones -->
-            <div class="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Fechas de Sesiones</span>
-                <span class="text-[11px] text-blue-600 font-medium flex items-center gap-1">
-                  <i data-lucide="calendar" class="w-3 h-3"></i>
-                  <span>Calendario</span>
-                </span>
-              </div>
-              <div id="modal-dates-pills" class="flex flex-wrap gap-1.5 pt-0.5">
-                <!-- Generado por JS -->
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Columna Derecha (lg:col-span-7): Reto Maker y Roadmap Didáctico -->
-          <div class="lg:col-span-7 space-y-5">
-            
-            <!-- 🎯 RETO MAKER (EJE CENTRAL) -->
-            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-blue-50/90 via-indigo-50/40 to-cyan-50/50 border border-blue-200/90 shadow-xs space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="text-[11px] font-extrabold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <span class="text-base">🎯</span>
-                  <span>Reto Maker</span>
-                </span>
-                <span class="text-[10px] font-bold text-blue-700 bg-blue-100/80 px-2 py-0.5 rounded-full">Meta Tangible</span>
-              </div>
+            <!-- 🎯 RETO DEL TALLER -->
+            <div class="p-5 rounded-2xl bg-blue-50/80 border border-blue-200/90 shadow-xs space-y-2">
+              <span class="text-[11px] font-extrabold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
+                <span class="text-base">🎯</span>
+                <span>Reto del Taller</span>
+              </span>
               <p id="modal-challenge" class="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed"></p>
             </div>
 
-            <!-- 🗺️ RUTA DE MISIONES MAKERDU (ROADMAP GAMIFICADO) -->
-            <div class="space-y-3 pt-1">
+            <!-- 🗺️ RUTA DE APRENDIZAJE -->
+            <div class="space-y-3.5 pt-1">
               <div class="flex items-center justify-between">
                 <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                  <i data-lucide="map" class="w-3.5 h-3.5 text-blue-600"></i>
-                  <span>Ruta de Misiones Makerdu</span>
+                  <i data-lucide="compass" class="w-4 h-4 text-blue-600"></i>
+                  <span>Ruta de Aprendizaje</span>
                 </h4>
-                <span class="text-[10px] text-slate-400 uppercase font-semibold">Progresión por Fases</span>
+                <span class="text-[11px] text-slate-400 font-medium">Paso a paso didáctico</span>
               </div>
 
-              <!-- Roadmap visual tipo skill tree con línea de circuito -->
-              <div id="modal-roadmap" class="space-y-2 relative before:absolute before:left-3.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-gradient-to-b before:from-blue-500 before:via-cyan-400 before:to-purple-500">
+              <!-- Timeline con barra vertical más gruesa y estilizada (w-1 = 4px) -->
+              <div id="modal-roadmap" class="space-y-3 relative before:absolute before:left-4 before:top-3 before:bottom-3 before:w-1 before:rounded-full before:bg-gradient-to-b before:from-blue-500 before:via-cyan-400 before:to-indigo-500">
                 <!-- Nodos generados por JS -->
               </div>
 
-              <!-- Nodo Culminante: ¡Reto Logrado! -->
-              <div id="modal-final-box" class="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-purple-900 via-indigo-950 to-slate-900 text-white border border-purple-500/40 shadow-md flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center shrink-0 text-xl shadow-inner">
+              <!-- Proyecto Final Terminado -->
+              <div id="modal-final-box" class="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white border border-slate-700 shadow-md flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-400/40 text-amber-300 flex items-center justify-center shrink-0 text-xl shadow-inner">
                   🏆
                 </div>
                 <div class="min-w-0 flex-1">
-                  <span class="text-[10px] uppercase font-bold text-purple-300 block tracking-widest">¡Reto Logrado! · Meta Final</span>
+                  <span class="text-[10px] uppercase font-bold text-amber-300 block tracking-wider">Proyecto Final Terminado</span>
                   <strong id="modal-final-text" class="text-xs sm:text-sm font-extrabold text-white block mt-0.5"></strong>
                 </div>
               </div>
             </div>
 
+            <!-- Tecnologías y Herramientas Digitales -->
+            <div class="pt-2 border-t border-slate-100">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider mb-2">Herramientas & Tecnologías</span>
+              <div id="modal-technologies" class="flex flex-wrap gap-1.5">
+                <!-- Generado por JS -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- COLUMNA DERECHA (lg:col-span-5): Ficha Lateral de Inscripción (Sticky) -->
+          <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-0">
+            <div class="bg-slate-50 rounded-3xl p-5 border border-slate-200/90 shadow-sm space-y-4">
+              
+              <!-- Imagen de Portada 16:9 -->
+              <div class="w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 shadow-xs relative border border-slate-200">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover" />
+              </div>
+
+              <!-- Ficha Logística Rápida -->
+              <div class="space-y-2.5 text-xs text-slate-700 pt-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+                    <span>Modalidad:</span>
+                  </span>
+                  <strong id="modal-format-venue" class="text-slate-900 text-right font-semibold"></strong>
+                </div>
+
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+                    <span>Duración:</span>
+                  </span>
+                  <strong id="modal-duration" class="text-slate-900 font-semibold"></strong>
+                </div>
+
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                    <i data-lucide="calendar-clock" class="w-3.5 h-3.5 text-slate-400"></i>
+                    <span>Horario:</span>
+                  </span>
+                  <strong id="modal-schedule" class="text-slate-900 text-right font-semibold"></strong>
+                </div>
+
+                <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/60">
+                  <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                    <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-600"></i>
+                    <span>Facilitador(a):</span>
+                  </span>
+                  <strong id="modal-instructor" class="text-blue-700 text-right font-bold truncate max-w-[190px]"></strong>
+                </div>
+              </div>
+
+              <!-- Fechas de Sesiones -->
+              <div class="pt-2 border-t border-slate-200/60 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Fechas de Sesiones</span>
+                  <span class="text-[11px] text-blue-600 font-medium flex items-center gap-1">
+                    <i data-lucide="calendar" class="w-3 h-3"></i>
+                    <span>Calendario</span>
+                  </span>
+                </div>
+                <div id="modal-dates-pills" class="flex flex-wrap gap-1.5 pt-0.5"></div>
+              </div>
+
+              <!-- Inversión y Botón de Inscripción Directo en la Ficha -->
+              <div class="pt-3 border-t border-slate-200 space-y-3">
+                <div class="flex items-baseline justify-between">
+                  <div>
+                    <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Inversión Total</span>
+                    <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">Materiales incluidos</span>
+                  </div>
+                  <div class="text-right">
+                    <span id="modal-price" class="text-2xl sm:text-3xl font-black text-slate-900 font-sans tracking-tight"></span>
+                    <span class="text-[11px] text-slate-500 block">PEN / completo</span>
+                  </div>
+                </div>
+
+                <a id="modal-wsp-btn" href="#" target="_blank" 
+                   class="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm py-3 px-4 rounded-2xl shadow-md hover:shadow-lg hover:shadow-emerald-600/20 transition transform active:scale-95">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  <span>Inscribirme por WhatsApp</span>
+                </a>
+              </div>
+
+            </div>
           </div>
 
         </div>
       </div>
 
-      <!-- Barra de Acción Inferior Sticky (Siempre visible) -->
-      <div class="shrink-0 bg-slate-50/95 backdrop-blur-md border-t border-slate-200 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <!-- Barra de Acción Inferior para Celulares (Visible solo en mobile: lg:hidden) -->
+      <div class="lg:hidden shrink-0 bg-slate-50/95 backdrop-blur-md border-t border-slate-200 px-5 py-3 flex items-center justify-between gap-3">
         <div>
-          <div class="flex items-center gap-2">
-            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Inversión del Taller</span>
-            <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">Materiales incluidos</span>
-          </div>
-          <div class="flex items-baseline gap-1.5 mt-0.5">
-            <span id="modal-price" class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-sans tracking-tight"></span>
-            <span class="text-[11px] text-slate-500">PEN / programa completo</span>
-          </div>
+          <span class="text-[10px] text-slate-400 block font-bold uppercase">Total</span>
+          <span id="modal-price-mobile" class="text-xl font-black text-slate-900"></span>
         </div>
-
-        <a id="modal-wsp-btn" href="#" target="_blank" 
-           class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-2xl shadow-md hover:shadow-lg hover:shadow-emerald-600/20 transition transform active:scale-95">
+        <a id="modal-wsp-btn-mobile" href="#" target="_blank" 
+           class="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white font-bold text-xs py-2.5 px-5 rounded-xl shadow-md">
           <i data-lucide="message-circle" class="w-4 h-4"></i>
-          <span>Sumarme al Reto por WhatsApp</span>
+          <span>Inscribirme</span>
         </a>
       </div>
 
@@ -429,7 +442,7 @@
   </div>
 
   <!-- SCRIPTS & DATOS -->
-  <script src="data.js?v=7.0"></script>
+  <script src="data.js?v=8.0"></script>
   <script>
     let activeCat = 'all';
 
@@ -518,7 +531,7 @@
               
               <!-- Reto Maker como descripción clave -->
               <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                <strong class="text-slate-800 font-semibold">Reto:</strong> ${w.challenge || w.subtitle || w.description}
+                ${w.challenge || w.subtitle || w.description}
               </p>
             </div>
 
@@ -544,7 +557,7 @@
                 onclick="openWorkshopModal('${w.id}')"
                 class="inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 transition active:scale-95"
               >
-                <span>Ver Reto Maker</span>
+                <span>Explorar taller</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </button>
             </div>
@@ -557,16 +570,16 @@
       lucide.createIcons();
     }
 
-    // Modal Editorial Limpio y Optimizado con Arquitectura Makerdu
+    // Modal Editorial Limpio y Optimizado FAB LAB Perú
     window.openWorkshopModal = function(id) {
       const all = getLiveWorkshops();
       const w = all.find(item => item.id === id);
       if (!w) return;
 
       document.getElementById('modal-title').innerText = w.title;
-      document.getElementById('modal-badge').innerText = w.badge || 'Maker';
+      document.getElementById('modal-badge').innerText = w.badge || 'Taller Maker';
       document.getElementById('modal-target').innerText = w.targetAudience || 'Abierto';
-      document.getElementById('modal-level').innerText = w.level || 'Iniciación Maker';
+      document.getElementById('modal-level').innerText = w.level || 'Básico';
       document.getElementById('modal-img').src = getImgUrl(w.image);
 
       const formatVenue = `${w.format || 'Presencial'}${w.venue ? ' · ' + w.venue : ''}`;
@@ -582,7 +595,7 @@
           ? w.technologies 
           : (w.fabTool ? w.fabTool.split(',').map(s => s.trim()) : ['Fabricación Digital']);
         techContainer.innerHTML = techs.map(t => `
-          <span class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-800 text-[11px] font-semibold shadow-2xs">
+          <span class="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-800 text-[11px] font-semibold">
             ${t}
           </span>
         `).join('');
@@ -604,14 +617,14 @@
         `).join('');
       }
 
-      // Reto Maker
+      // Reto del Taller
       document.getElementById('modal-challenge').innerText = w.challenge || w.description;
 
-      // Roadmap de Misiones Makerdu
+      // Ruta de Aprendizaje (Línea más gruesa y estilizada)
       const roadmapContainer = document.getElementById('modal-roadmap');
       if (roadmapContainer) {
         const missions = Array.isArray(w.syllabus) ? w.syllabus : [];
-        roadmapContainer.innerHTML = missions.map((s) => {
+        roadmapContainer.innerHTML = missions.map((s, idx) => {
           let action = s.action;
           let deliverable = s.deliverable;
           if (!action) {
@@ -620,36 +633,43 @@
               action = parts[0].trim();
               deliverable = parts.slice(1).join(':').trim();
             } else {
-              action = s.session ? s.session.replace(/^Sesión\s*/i, 'Fase ') : 'Misión';
+              action = s.session || `Paso ${idx + 1}`;
               deliverable = s.title || s.desc || '';
             }
           }
           if (!deliverable) deliverable = s.desc || '';
 
           return `
-            <div class="relative flex items-start gap-3 pl-8 group">
-              <div class="absolute left-3.5 top-3 -translate-x-1/2 w-3 h-3 rounded-full bg-white border-2 border-blue-600 shadow-sm z-10 group-hover:scale-125 group-hover:border-cyan-400 transition"></div>
-              <div class="flex-1 bg-slate-50 hover:bg-white p-3 rounded-xl border border-slate-200/80 hover:border-blue-300 transition shadow-2xs">
-                <span class="inline-flex items-center gap-1 text-[11px] font-extrabold text-blue-700 uppercase tracking-wide">
+            <div class="relative flex items-start gap-3.5 pl-9 group">
+              <div class="absolute left-4 top-3.5 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-[3px] border-blue-600 shadow-sm z-10 group-hover:scale-110 group-hover:border-cyan-400 transition"></div>
+              <div class="flex-1 bg-slate-50 hover:bg-white p-3.5 rounded-2xl border border-slate-200/80 hover:border-blue-300 transition shadow-2xs">
+                <span class="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-blue-700 uppercase tracking-wide">
                   <i data-lucide="check-circle" class="w-3 h-3 text-emerald-500"></i>
                   <span>${action}</span>
                 </span>
-                <p class="text-xs font-semibold text-slate-800 mt-0.5 leading-snug">${deliverable}</p>
+                <p class="text-xs font-semibold text-slate-800 mt-1 leading-snug">${deliverable}</p>
               </div>
             </div>
           `;
         }).join('');
       }
 
-      // Meta Final / Reto Logrado
-      const finalDeliverable = w.finalDeliverable || 'Presentación y entrega del proyecto físico terminado';
+      // Proyecto Final Terminado
+      const finalDeliverable = w.finalDeliverable || 'Prototipo físico terminado y catálogo digital de autor';
       const finalTextEl = document.getElementById('modal-final-text');
       if (finalTextEl) finalTextEl.innerText = finalDeliverable;
 
-      // Precio y WhatsApp
+      // Precios y Enlace de WhatsApp
       document.getElementById('modal-price').innerText = w.price;
-      const wspMessage = `Hola FAB LAB Perú, quiero sumarme al reto: "${w.title}" (${w.price}). ¿Me comparten los detalles para asegurar mi cupo?`;
-      document.getElementById('modal-wsp-btn').href = `https://wa.me/${SITE_DATA.whatsappBase}?text=${encodeURIComponent(wspMessage)}`;
+      const priceMobile = document.getElementById('modal-price-mobile');
+      if (priceMobile) priceMobile.innerText = w.price;
+
+      const wspMessage = `Hola FAB LAB Perú, quiero inscribirme en el taller: "${w.title}" (${w.price}). ¿Me comparten los detalles para asegurar mi cupo?`;
+      const wspUrl = `https://wa.me/${SITE_DATA.whatsappBase}?text=${encodeURIComponent(wspMessage)}`;
+      
+      document.getElementById('modal-wsp-btn').href = wspUrl;
+      const wspMobile = document.getElementById('modal-wsp-btn-mobile');
+      if (wspMobile) wspMobile.href = wspUrl;
 
       modal.classList.remove('hidden');
       modal.classList.add('flex');

@@ -294,7 +294,7 @@ if ($action === 'save_taller') {
         'highlights' => is_array($data['highlights'] ?? null) ? $data['highlights'] : [],
         'technologies' => is_array($data['technologies'] ?? null) ? $data['technologies'] : (!empty($data['technologies']) ? array_map('trim', explode(',', (string)$data['technologies'])) : ($existingWorkshop['technologies'] ?? [])),
         'venue' => trim($data['venue'] ?? ($existingWorkshop['venue'] ?? '')),
-        'level' => trim($data['level'] ?? ($existingWorkshop['level'] ?? 'Iniciación (Sin experiencia previa)')),
+        'level' => trim($data['level'] ?? ($existingWorkshop['level'] ?? 'Básico')),
         'finalDeliverable' => trim($data['finalDeliverable'] ?? ($existingWorkshop['finalDeliverable'] ?? '')),
         'image' => trim($data['image'] ?? 'images/talleres_adolescentes.jfif'),
         'imagePrompt' => trim($data['imagePrompt'] ?? ''),

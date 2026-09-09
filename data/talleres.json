@@ -1,261 +1,279 @@
 [
-    {
-        "id": "minicuadros-mural-2-5d",
-        "title": "Minicuadros & Composición Mural 2.5D",
-        "category": "creativos",
-        "targetAudience": "Jóvenes y Adultos",
-        "badge": "Arte & Corte Láser",
-        "level": "Iniciación (Sin experiencia previa)",
-        "price": "S/. 200",
-        "startDate": "7 de Octubre",
-        "duration": "4 misiones (8h)",
-        "schedule": "Martes de 7:00 pm a 9:00 pm",
-        "sessionDates": [
-            "07 Oct · Inicio",
-            "14 Oct",
-            "21 Oct",
-            "28 Oct",
-            "⭐ 31 Oct · Exposición"
-        ],
-        "format": "Híbrido",
-        "venue": "Fab Lab Miraflores",
-        "technologies": [
-            "Corte Láser",
-            "Diseño Digital"
-        ],
-        "challenge": "Diseña un cuadro en relieve 2.5D en capas de MDF, fabrica tus piezas con corte láser de alta precisión, aplica acabados acrílicos y expón tu obra en la Feria FABulosa.",
-        "syllabus": [
-            {
-                "action": "Descubrir",
-                "deliverable": "Ilustración y capas de profundidad 2.5D",
-                "title": "Ilustración en capas",
-                "desc": "Lógica del arte 2.5D y boceto por niveles de profundidad."
-            },
-            {
-                "action": "Digitalizar",
-                "deliverable": "Vectorización CAM, tolerancias y encajes",
-                "title": "Vectorización para corte",
-                "desc": "Trazados digitales para láser, tolerancias y grabado."
-            },
-            {
-                "action": "Fabricar",
-                "deliverable": "Corte láser en MDF 3mm y pintura acrílica",
-                "title": "Fabricación en laboratorio",
-                "desc": "Corte en cortadora láser CO2 en Fab Lab Miraflores."
-            },
-            {
-                "action": "Montar",
-                "deliverable": "Ensamble artístico y preparación de galería",
-                "title": "Montaje y exposición",
-                "desc": "Montaje en galería y presentación colectiva."
-            }
-        ],
-        "finalDeliverable": "Exposición de tu obra en la Feria FABulosa (Hub Miraflores)",
-        "image": "images/taller-minicuadros-25d.jpg",
-        "instructor": "Evelyn Cuadrado",
-        "instructorEmail": "evkusi@gmail.com",
-        "instructors": [
-            "evkusi@gmail.com"
-        ],
-        "status": "published",
-        "createdAt": "2026-09-08T16:25:00.000Z"
-    },
-    {
-        "id": "open-circuits-mblock",
-        "title": "OPEN CIRCUITS: Robótica, IA y Videojuegos con mBlock",
-        "category": "kids",
-        "targetAudience": "10 a 15 años",
-        "badge": "Robótica & IA Kids",
-        "level": "Iniciación creativa",
-        "price": "S/. 400",
-        "startDate": "25 de Octubre",
-        "duration": "8 misiones (16h)",
-        "schedule": "Miércoles y Viernes de 4:00 pm a 6:00 pm",
-        "sessionDates": [
-            "25 Oct · Inicio",
-            "28 Oct",
-            "30 Oct",
-            "04 Nov",
-            "06 Nov",
-            "11 Nov",
-            "13 Nov",
-            "⭐ 18 Nov · Demo Day"
-        ],
-        "format": "Híbrido",
-        "venue": "Virtual + Fab Lab",
-        "technologies": [
-            "Robótica & IA",
-            "Electrónica"
-        ],
-        "challenge": "Programa sensores y actuadores, entrena modelos de visión artificial con Machine Learning y construye un videojuego interactivo con control físico.",
-        "syllabus": [
-            {
-                "action": "Explorar",
-                "deliverable": "Sensores interactivos y señales en mBlock",
-                "title": "Entorno mBlock y sensores",
-                "desc": "Control básico de actuadores, señales y entradas lógicas."
-            },
-            {
-                "action": "Conectar",
-                "deliverable": "Circuitos interactivos analógicos y digitales",
-                "title": "Circuitos e interactividad",
-                "desc": "Conexión de hardware con programación por bloques."
-            },
-            {
-                "action": "Entrenar",
-                "deliverable": "Modelo de visión artificial y reconocimiento de gestos",
-                "title": "Inteligencia Artificial práctica",
-                "desc": "Entrenamiento de cámara ML sin código complejo."
-            },
-            {
-                "action": "Programar",
-                "deliverable": "Lógica y físicas de videojuego jugable",
-                "title": "Desarrollo de videojuego",
-                "desc": "Integración del videojuego con el mando físico fabricado."
-            }
-        ],
-        "finalDeliverable": "Presentación interactiva en el Demo Day Maker",
-        "image": "images/taller-open-circuits.jpg",
-        "instructor": "Hayashi Mateo y Francheska Baca",
-        "instructorEmail": "hayashi@fablablima.org",
-        "instructors": [
-            "hayashi@fablablima.org",
-            "baca.francheska@gmail.com"
-        ],
-        "status": "published",
-        "createdAt": "2026-09-08T16:25:00.000Z"
-    },
-    {
-        "id": "digitoys-fabricacion-digital",
-        "title": "Digitoys: Personajes 2.5D, Impresión 3D & Emprendimiento Maker",
-        "category": "kids",
-        "targetAudience": "7 a 13 años",
-        "badge": "Personajes 2.5D & 3D",
-        "level": "Iniciación (Sin experiencia previa)",
-        "price": "S/. 200",
-        "startDate": "3 de Octubre",
-        "duration": "4 misiones (6h)",
-        "schedule": "Sábados de 10:00 am a 11:30 am",
-        "sessionDates": [
-            "03 Oct · Inicio",
-            "10 Oct",
-            "17 Oct",
-            "⭐ 24 Oct · Pitch Maker"
-        ],
-        "format": "Virtual interactivo",
-        "venue": "",
-        "technologies": [
-            "Impresión 3D",
-            "Diseño Digital"
-        ],
-        "challenge": "Diseña tu personaje 2.5D autoportante, imprímelo en 3D en filamento biodegradable, simula costos con FabCoins y crea su empaque troquelado con tu propia marca.",
-        "syllabus": [
-            {
-                "action": "Descubrir",
-                "deliverable": "Boceto de autor de criatura autoportante",
-                "title": "Bocetado de autor",
-                "desc": "Diseño de silueta sin soportes que se sostiene sola."
-            },
-            {
-                "action": "Digitalizar",
-                "deliverable": "Silueta Bezier y relieves vectoriales",
-                "title": "Trazado digital CAD",
-                "desc": "Modelado 2.5D en capas optimizadas para impresión 3D limpia."
-            },
-            {
-                "action": "Modelar",
-                "deliverable": "Volumen Z 10mm y tolerancias de ensamble",
-                "title": "Volumen 3D y extrusión",
-                "desc": "Configuración en slicer, densidad de relleno y tiempo."
-            },
-            {
-                "action": "Presupuestar",
-                "deliverable": "Simulación de costos reales con FabCoins",
-                "title": "Economía Maker",
-                "desc": "Cálculo de peso en gramos PLA y simulación de producción."
-            },
-            {
-                "action": "Fabricar",
-                "deliverable": "Impresión 3D en PLA ecológico y acabados",
-                "title": "Fabricación aditiva",
-                "desc": "Impresión 3D física de tu personaje terminado."
-            },
-            {
-                "action": "Empacar",
-                "deliverable": "Caja troquelada de autor y pitch de 30 segundos",
-                "title": "Packaging y presentación",
-                "desc": "Empaque de colección y presentación de tu marca."
-            }
-        ],
-        "finalDeliverable": "Lanzamiento de tu personaje coleccionable y Pasaporte Maker",
-        "image": "images/taller-digitoys.jpg",
-        "instructor": "Henry Sánchez",
-        "instructorEmail": "henry@fablablima.org",
-        "instructors": [
-            "henry@fablablima.org"
-        ],
-        "status": "published",
-        "createdAt": "2026-09-08T16:25:00.000Z"
-    },
-    {
-        "id": "biomateriales-sostenibles",
-        "title": "Bio-Fabricación: Biomateriales & Diseño Sostenible",
-        "category": "profesionales",
-        "targetAudience": "Creadores & Innovadores",
-        "badge": "Bio-Innovación",
-        "level": "Laboratorio experimental",
-        "price": "S/. 200",
-        "startDate": "11 de Octubre",
-        "duration": "4 misiones (8h)",
-        "schedule": "Domingos de 10:30 am a 12:30 pm",
-        "sessionDates": [
-            "11 Oct · Inicio",
-            "18 Oct",
-            "25 Oct",
-            "⭐ 01 Nov · Muestrario Bio"
-        ],
-        "format": "Presencial",
-        "venue": "Fab Lab Miraflores",
-        "technologies": [
-            "Biomateriales",
-            "Diseño Digital"
-        ],
-        "challenge": "Sintetiza bioplásticos a partir de descartes orgánicos y alginatos, formula bio-tintes botánicos y moldea un prototipo de producto o empaque circular.",
-        "syllabus": [
-            {
-                "action": "Formular",
-                "deliverable": "Recetas botánicas y biopolímeros naturales",
-                "title": "Química botánica en el lab",
-                "desc": "Materias orgánicas, plastificantes y formulación básica."
-            },
-            {
-                "action": "Pigmentar",
-                "deliverable": "Bio-tintes botánicos y texturas flexibles",
-                "title": "Tintes naturales y curado",
-                "desc": "Técnicas de secado, flexibilidad mecánica y extracción vegetal."
-            },
-            {
-                "action": "Moldear",
-                "deliverable": "Termoformado para producto o empaque circular",
-                "title": "Moldeo y prototipado circular",
-                "desc": "Corte y termoformado para aplicaciones de diseño sostenible."
-            },
-            {
-                "action": "Testear",
-                "deliverable": "Pruebas de biodegradabilidad y muestrario final",
-                "title": "Validación ecológica",
-                "desc": "Registro de degradación natural y muestra colectiva."
-            }
-        ],
-        "finalDeliverable": "Muestrario físico y prototipo de empaque circular terminado",
-        "image": "images/taller-biomateriales.jpg",
-        "instructor": "Grace Schwan y Carmen Gutiérrez",
-        "instructorEmail": "graceschwan@fablablima.org",
-        "instructors": [
-            "graceschwan@fablablima.org",
-            "carmengu1997@gmail.com"
-        ],
-        "status": "published",
-        "createdAt": "2026-09-08T17:45:00.000Z"
-    }
+  {
+    "id": "minicuadros-mural-2-5d",
+    "title": "Minicuadros & Composición Mural 2.5D",
+    "category": "creativos",
+    "targetAudience": "Jóvenes y Adultos",
+    "badge": "Arte & Corte Láser",
+    "level": "Básico",
+    "price": "S/. 200",
+    "startDate": "7 de Octubre",
+    "duration": "4 sesiones (8h)",
+    "schedule": "Martes de 7:00 pm a 9:00 pm",
+    "sessionDates": [
+      "07 Oct · Inicio",
+      "14 Oct",
+      "21 Oct",
+      "28 Oct",
+      "⭐ 31 Oct · Exposición"
+    ],
+    "format": "Híbrido",
+    "venue": "Fab Lab Miraflores",
+    "technologies": [
+      "Corte Láser",
+      "Diseño Digital"
+    ],
+    "challenge": "Diseña un cuadro en relieve 2.5D en capas de MDF, fabrica tus piezas con corte láser de alta precisión, aplica acabados acrílicos y expón tu obra en la Feria FABulosa.",
+    "syllabus": [
+      {
+        "action": "Descubrir",
+        "deliverable": "Ilustración y capas de profundidad 2.5D",
+        "title": "Ilustración en capas",
+        "desc": "Lógica del arte 2.5D y boceto por niveles de profundidad.",
+        "session": "Sesión 1"
+      },
+      {
+        "action": "Digitalizar",
+        "deliverable": "Vectorización CAM, tolerancias y encajes",
+        "title": "Vectorización para corte",
+        "desc": "Trazados digitales para láser, tolerancias y grabado.",
+        "session": "Sesión 2"
+      },
+      {
+        "action": "Fabricar",
+        "deliverable": "Corte láser en MDF 3mm y pintura acrílica",
+        "title": "Fabricación en laboratorio",
+        "desc": "Corte en cortadora láser CO2 en Fab Lab Miraflores.",
+        "session": "Sesión 3"
+      },
+      {
+        "action": "Montar",
+        "deliverable": "Ensamble artístico y preparación de galería",
+        "title": "Montaje y exposición",
+        "desc": "Montaje en galería y presentación colectiva.",
+        "session": "Sesión 4"
+      }
+    ],
+    "finalDeliverable": "Exposición de tu obra en la Feria FABulosa (Hub Miraflores)",
+    "image": "images/taller-minicuadros-25d.jpg",
+    "instructor": "Evelyn Cuadrado",
+    "instructorEmail": "evkusi@gmail.com",
+    "instructors": [
+      "evkusi@gmail.com"
+    ],
+    "status": "published",
+    "createdAt": "2026-09-08T16:25:00.000Z"
+  },
+  {
+    "id": "open-circuits-mblock",
+    "title": "OPEN CIRCUITS: Robótica, IA y Videojuegos con mBlock",
+    "category": "kids",
+    "targetAudience": "10 a 15 años",
+    "badge": "Robótica & IA Kids",
+    "level": "Básico",
+    "price": "S/. 400",
+    "startDate": "25 de Octubre",
+    "duration": "8 sesiones (16h)",
+    "schedule": "Miércoles y Viernes de 4:00 pm a 6:00 pm",
+    "sessionDates": [
+      "25 Oct · Inicio",
+      "28 Oct",
+      "30 Oct",
+      "04 Nov",
+      "06 Nov",
+      "11 Nov",
+      "13 Nov",
+      "⭐ 18 Nov · Demo Day"
+    ],
+    "format": "Híbrido",
+    "venue": "Virtual + Fab Lab",
+    "technologies": [
+      "Robótica & IA",
+      "Electrónica"
+    ],
+    "challenge": "Programa sensores y actuadores, entrena modelos de visión artificial con Machine Learning y construye un videojuego interactivo con control físico.",
+    "syllabus": [
+      {
+        "action": "Explorar",
+        "deliverable": "Sensores interactivos y señales en mBlock",
+        "title": "Entorno mBlock y sensores",
+        "desc": "Control básico de actuadores, señales y entradas lógicas.",
+        "session": "Sesión 1"
+      },
+      {
+        "action": "Conectar",
+        "deliverable": "Circuitos interactivos analógicos y digitales",
+        "title": "Circuitos e interactividad",
+        "desc": "Conexión de hardware con programación por bloques.",
+        "session": "Sesión 2"
+      },
+      {
+        "action": "Entrenar",
+        "deliverable": "Modelo de visión artificial y reconocimiento de gestos",
+        "title": "Inteligencia Artificial práctica",
+        "desc": "Entrenamiento de cámara ML sin código complejo.",
+        "session": "Sesión 3"
+      },
+      {
+        "action": "Programar",
+        "deliverable": "Lógica y físicas de videojuego jugable",
+        "title": "Desarrollo de videojuego",
+        "desc": "Integración del videojuego con el mando físico fabricado.",
+        "session": "Sesión 4"
+      }
+    ],
+    "finalDeliverable": "Presentación interactiva en el Demo Day Maker",
+    "image": "images/taller-open-circuits.jpg",
+    "instructor": "Hayashi Mateo y Francheska Baca",
+    "instructorEmail": "hayashi@fablablima.org",
+    "instructors": [
+      "hayashi@fablablima.org",
+      "baca.francheska@gmail.com"
+    ],
+    "status": "published",
+    "createdAt": "2026-09-08T16:25:00.000Z"
+  },
+  {
+    "id": "digitoys-fabricacion-digital",
+    "title": "Digitoys: Personajes 2.5D, Impresión 3D & Emprendimiento Maker",
+    "category": "kids",
+    "targetAudience": "7 a 13 años",
+    "badge": "Personajes 2.5D & 3D",
+    "level": "Básico",
+    "price": "S/. 200",
+    "startDate": "3 de Octubre",
+    "duration": "4 sesiones (6h)",
+    "schedule": "Sábados de 10:00 am a 11:30 am",
+    "sessionDates": [
+      "03 Oct · Inicio",
+      "10 Oct",
+      "17 Oct",
+      "⭐ 24 Oct · Pitch Maker"
+    ],
+    "format": "Virtual interactivo",
+    "venue": "",
+    "technologies": [
+      "Impresión 3D",
+      "Diseño Digital"
+    ],
+    "challenge": "Diseña tu personaje 2.5D autoportante, imprímelo en 3D en filamento biodegradable, simula costos con FabCoins y crea su empaque troquelado con tu propia marca.",
+    "syllabus": [
+      {
+        "action": "Descubrir",
+        "deliverable": "Boceto de autor de criatura autoportante",
+        "title": "Bocetado de autor",
+        "desc": "Diseño de silueta sin soportes que se sostiene sola.",
+        "session": "Sesión 1"
+      },
+      {
+        "action": "Digitalizar",
+        "deliverable": "Silueta Bezier y relieves vectoriales",
+        "title": "Trazado digital CAD",
+        "desc": "Modelado 2.5D en capas optimizadas para impresión 3D limpia.",
+        "session": "Sesión 2"
+      },
+      {
+        "action": "Modelar",
+        "deliverable": "Volumen Z 10mm y tolerancias de ensamble",
+        "title": "Volumen 3D y extrusión",
+        "desc": "Configuración en slicer, densidad de relleno y tiempo.",
+        "session": "Sesión 3"
+      },
+      {
+        "action": "Presupuestar",
+        "deliverable": "Simulación de costos reales con FabCoins",
+        "title": "Economía Maker",
+        "desc": "Cálculo de peso en gramos PLA y simulación de producción.",
+        "session": "Sesión 4"
+      },
+      {
+        "action": "Fabricar",
+        "deliverable": "Impresión 3D en PLA ecológico y acabados",
+        "title": "Fabricación aditiva",
+        "desc": "Impresión 3D física de tu personaje terminado.",
+        "session": "Sesión 5"
+      },
+      {
+        "action": "Empacar",
+        "deliverable": "Caja troquelada de autor y pitch de 30 segundos",
+        "title": "Packaging y presentación",
+        "desc": "Empaque de colección y presentación de tu marca.",
+        "session": "Sesión 6"
+      }
+    ],
+    "finalDeliverable": "Lanzamiento de tu personaje coleccionable y Pasaporte Maker",
+    "image": "images/taller-digitoys.jpg",
+    "instructor": "Henry Sánchez",
+    "instructorEmail": "henry@fablablima.org",
+    "instructors": [
+      "henry@fablablima.org"
+    ],
+    "status": "published",
+    "createdAt": "2026-09-08T16:25:00.000Z"
+  },
+  {
+    "id": "biomateriales-sostenibles",
+    "title": "Bio-Fabricación: Biomateriales & Diseño Sostenible",
+    "category": "profesionales",
+    "targetAudience": "Creadores & Innovadores",
+    "badge": "Bio-Innovación",
+    "level": "Intermedio",
+    "price": "S/. 200",
+    "startDate": "11 de Octubre",
+    "duration": "4 sesiones (8h)",
+    "schedule": "Domingos de 10:30 am a 12:30 pm",
+    "sessionDates": [
+      "11 Oct · Inicio",
+      "18 Oct",
+      "25 Oct",
+      "⭐ 01 Nov · Muestrario Bio"
+    ],
+    "format": "Presencial",
+    "venue": "Fab Lab Miraflores",
+    "technologies": [
+      "Biomateriales",
+      "Diseño Digital"
+    ],
+    "challenge": "Sintetiza bioplásticos a partir de descartes orgánicos y alginatos, formula bio-tintes botánicos y moldea un prototipo de producto o empaque circular.",
+    "syllabus": [
+      {
+        "action": "Formular",
+        "deliverable": "Recetas botánicas y biopolímeros naturales",
+        "title": "Química botánica en el lab",
+        "desc": "Materias orgánicas, plastificantes y formulación básica.",
+        "session": "Sesión 1"
+      },
+      {
+        "action": "Pigmentar",
+        "deliverable": "Bio-tintes botánicos y texturas flexibles",
+        "title": "Tintes naturales y curado",
+        "desc": "Técnicas de secado, flexibilidad mecánica y extracción vegetal.",
+        "session": "Sesión 2"
+      },
+      {
+        "action": "Moldear",
+        "deliverable": "Termoformado para producto o empaque circular",
+        "title": "Moldeo y prototipado circular",
+        "desc": "Corte y termoformado para aplicaciones de diseño sostenible.",
+        "session": "Sesión 3"
+      },
+      {
+        "action": "Testear",
+        "deliverable": "Pruebas de biodegradabilidad y muestrario final",
+        "title": "Validación ecológica",
+        "desc": "Registro de degradación natural y muestra colectiva.",
+        "session": "Sesión 4"
+      }
+    ],
+    "finalDeliverable": "Muestrario físico y prototipo de empaque circular terminado",
+    "image": "images/taller-biomateriales.jpg",
+    "instructor": "Grace Schwan y Carmen Gutiérrez",
+    "instructorEmail": "graceschwan@fablablima.org",
+    "instructors": [
+      "graceschwan@fablablima.org",
+      "carmengu1997@gmail.com"
+    ],
+    "status": "published",
+    "createdAt": "2026-09-08T17:45:00.000Z"
+  }
 ]
