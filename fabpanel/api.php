@@ -278,6 +278,7 @@ if ($action === 'save_taller') {
         'badge' => trim($data['badge'] ?? 'Maker'),
         'price' => trim($data['price'] ?? 'S/. 150'),
         'startDate' => trim($data['startDate'] ?? 'Próximamente'),
+        'sessionDates' => is_array($data['sessionDates'] ?? null) ? $data['sessionDates'] : ($existingWorkshop['sessionDates'] ?? []),
         'duration' => trim($data['duration'] ?? '4 sesiones (8 hrs)'),
         'schedule' => trim($data['schedule'] ?? 'A coordinar'),
         'format' => trim($data['format'] ?? 'Virtual interactivo'),
