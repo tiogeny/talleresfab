@@ -152,15 +152,18 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
           <span id="theme-label" class="hidden md:inline font-medium text-[11px]">Tema</span>
         </button>
 
-        <button onclick="openSystemDiagnostic()" class="hidden md:inline-flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition" title="Verificar estado de base de datos y sincronización">
-          <i data-lucide="activity" class="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400"></i>
-          <span>Diagnóstico</span>
-        </button>
-
+        <!-- Ver edu.fab.pe y Sincronizar -->
         <a href="../index.html" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition">
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           <span>Ver edu.fab.pe</span>
         </a>
+
+        <?php if ($isAdmin): ?>
+          <button onclick="forceSync()" class="hidden md:inline-flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition" title="Sincronizar web en vivo">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
+            <span>Sincronizar</span>
+          </button>
+        <?php endif; ?>
 
         <button onclick="openWorkshopModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-md transition transform active:scale-95">
           <i data-lucide="plus-circle" class="w-4 h-4"></i>
@@ -168,11 +171,15 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
         </button>
 
         <!-- Usuario & Logout -->
-        <div class="flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-800">
-          <div class="w-8 h-8 rounded-full <?= $isAdmin ? 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-cyan-500/20 dark:text-cyan-400 dark:border-cyan-500/30' : 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/20 dark:text-amber-400 dark:border-amber-500/30' ?> flex items-center justify-center font-bold text-xs border" title="<?= htmlspecialchars($currentUser['email']) ?>">
+        <div class="flex items-center gap-2.5 pl-3 border-l border-slate-200 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl <?= $isAdmin ? 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-cyan-500/20 dark:text-cyan-400 dark:border-cyan-500/30' : 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/20 dark:text-amber-400 dark:border-amber-500/30' ?> flex items-center justify-center font-extrabold text-xs border shrink-0">
             <?= strtoupper(substr($currentUser['name'], 0, 1)) ?>
           </div>
-          <button onclick="handleLogout()" class="text-slate-400 hover:text-rose-500 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Cerrar Sesión">
+          <div class="hidden sm:block text-left leading-tight">
+            <span class="text-xs font-bold text-slate-900 dark:text-white block"><?= htmlspecialchars($currentUser['name']) ?></span>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono block"><?= htmlspecialchars($currentUser['email']) ?></span>
+          </div>
+          <button onclick="handleLogout()" class="text-slate-400 hover:text-rose-500 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition ml-1" title="Cerrar Sesión">
             <i data-lucide="log-out" class="w-4 h-4"></i>
           </button>
         </div>
@@ -183,54 +190,6 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
   <!-- CUERPO PRINCIPAL DEL PANEL -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-6">
-    
-    <!-- BANNER DE ROL ACTIVO -->
-    <?php if ($isAdmin): ?>
-      <div class="bg-gradient-to-r from-blue-50 via-sky-50 to-indigo-50 dark:from-blue-950/60 dark:via-slate-900 dark:to-indigo-950/50 border border-blue-200 dark:border-blue-500/30 rounded-3xl p-5 shadow-sm dark:shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors">
-        <div class="flex items-start sm:items-center gap-3.5">
-          <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-cyan-400 flex items-center justify-center font-bold shrink-0 border border-blue-200 dark:border-blue-500/30">
-            <i data-lucide="shield-check" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border border-blue-200 dark:border-blue-500/40">Modo Administrador General</span>
-              <span class="text-xs text-slate-500 dark:text-slate-400 font-mono"><?= htmlspecialchars($currentUser['email']) ?></span>
-            </div>
-            <h2 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Control de Publicación & Aprobación en edu.fab.pe</h2>
-            <p class="text-xs text-slate-600 dark:text-slate-300">Tienes permisos completos para publicar en vivo, revisar propuestas de mentores y gestionar talleres.</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <button onclick="forceSync()" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-300 dark:border-slate-700 transition flex items-center gap-1.5 shadow-sm" title="Sincronizar data.js y JSON en el servidor">
-            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
-            <span>Sincronizar Web</span>
-          </button>
-        </div>
-      </div>
-    <?php else: ?>
-      <div class="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50/60 dark:from-amber-950/40 dark:via-slate-900 dark:to-cyan-950/40 border border-amber-200 dark:border-amber-500/30 rounded-3xl p-5 shadow-sm dark:shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors">
-        <div class="flex items-start sm:items-center gap-3.5">
-          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400 flex items-center justify-center font-bold shrink-0 border border-amber-200 dark:border-amber-500/30">
-            <i data-lucide="sparkles" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-500/40">Modo Instructor / Mentor Maker</span>
-              <span class="text-xs text-slate-900 dark:text-white font-bold"><?= htmlspecialchars($currentUser['name']) ?></span>
-              <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">(<?= htmlspecialchars($currentUser['email']) ?>)</span>
-            </div>
-            <h2 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Espacio de Creación de Talleres & Pedagogía Fab Lab</h2>
-            <p class="text-xs text-slate-600 dark:text-slate-300">Diseña tus talleres con orientación pedagógica maker e IA. Tus propuestas se guardan como borradores para aprobación de Administración.</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <button onclick="openWorkshopModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 text-slate-950 text-xs font-extrabold shadow-md transition transform active:scale-95 flex items-center gap-1.5">
-            <i data-lucide="plus-circle" class="w-4 h-4"></i>
-            <span>Nueva Propuesta</span>
-          </button>
-        </div>
-      </div>
-    <?php endif; ?>
 
     <!-- Banner de Métricas -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -283,24 +242,24 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
         <?php if ($isAdmin): ?>
           <button onclick="switchTab('published')" id="tab-published" class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-slate-800 dark:text-white border border-slate-900 dark:border-slate-700 flex items-center gap-1.5 transition shadow-sm">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Publicados en Vivo</span>
+            <span>Talleres Publicados</span>
             <span id="badge-tab-published" class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-1.5 py-0.2 rounded font-mono">0</span>
-          </button>
-
-          <button onclick="switchTab('proposals')" id="tab-proposals" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-            <span>Propuestas de la Web</span>
-            <span id="badge-tab-proposals" class="text-[10px] bg-blue-100 text-blue-800 dark:bg-cyan-950 dark:text-cyan-300 px-1.5 py-0.2 rounded font-mono">0</span>
           </button>
 
           <button onclick="switchTab('drafts')" id="tab-drafts" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
             <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-            <span>Borradores & Propuestas</span>
+            <span>Borradores / En Revisión</span>
             <span id="badge-tab-drafts" class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 px-1.5 py-0.2 rounded font-mono">0</span>
           </button>
 
+          <button onclick="switchTab('proposals')" id="tab-proposals" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+            <span>Propuestas Web</span>
+            <span id="badge-tab-proposals" class="text-[10px] bg-blue-100 text-blue-800 dark:bg-cyan-950 dark:text-cyan-300 px-1.5 py-0.2 rounded font-mono">0</span>
+          </button>
+
           <button onclick="switchTab('all')" id="tab-all" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <span>Ver Todos</span>
+            <span>Todos los Talleres</span>
           </button>
 
           <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
@@ -308,16 +267,21 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
             <span>Calendario del Lab</span>
           </button>
         <?php else: ?>
-          <button onclick="switchTab('drafts')" id="tab-drafts" class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-slate-800 dark:text-white border border-slate-900 dark:border-slate-700 flex items-center gap-1.5 transition shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-            <span>Mis Talleres & Borradores</span>
+          <button onclick="switchTab('published')" id="tab-published" class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-slate-800 dark:text-white border border-slate-900 dark:border-slate-700 flex items-center gap-1.5 transition shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Talleres Publicados</span>
+            <span id="badge-tab-published" class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-1.5 py-0.2 rounded font-mono">0</span>
+          </button>
+
+          <button onclick="switchTab('drafts')" id="tab-drafts" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span>Borradores / En Revisión</span>
             <span id="badge-tab-drafts" class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 px-1.5 py-0.2 rounded font-mono">0</span>
           </button>
 
-          <button onclick="switchTab('published')" id="tab-published" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Catálogo Público (Referencia)</span>
-            <span id="badge-tab-published" class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-1.5 py-0.2 rounded font-mono">0</span>
+          <button onclick="switchTab('all')" id="tab-all" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
+            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            <span>Catálogo General</span>
           </button>
 
           <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
@@ -785,77 +749,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL 2: DIAGNÓSTICO DEL SISTEMA (SERVER & GIT COMMIT)   -->
-  <!-- ========================================================= -->
-  <div id="diagnostic-modal" onclick="if(event.target === this) closeSystemDiagnostic()" class="fixed inset-0 z-50 bg-slate-900/60 dark:bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4 transition-colors">
-    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-lg w-full shadow-2xl p-6 space-y-5 text-slate-800 dark:text-slate-200">
-      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
-        <div class="flex items-center gap-2 text-blue-600 dark:text-cyan-400 font-bold text-sm">
-          <i data-lucide="activity" class="w-4 h-4"></i>
-          <span>Diagnóstico del Sistema & Servidor</span>
-        </div>
-        <button type="button" onclick="closeSystemDiagnostic()" class="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
 
-      <div id="diagnostic-loading" class="py-8 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
-        <i data-lucide="loader" class="w-5 h-5 mx-auto animate-spin text-blue-600 dark:text-cyan-400"></i>
-        <p>Verificando estado del servidor cPanel...</p>
-      </div>
-
-      <div id="diagnostic-content" class="hidden space-y-4 text-xs">
-        <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2 font-mono">
-          <div class="flex justify-between text-slate-700 dark:text-slate-300">
-            <span class="text-slate-400 dark:text-slate-500">Versión:</span>
-            <span id="diag-version" class="text-blue-600 dark:text-cyan-400 font-bold"></span>
-          </div>
-          <div class="flex justify-between text-slate-700 dark:text-slate-300">
-            <span class="text-slate-400 dark:text-slate-500">Último Commit:</span>
-            <span id="diag-commit" class="text-slate-900 dark:text-white font-bold text-right text-[11px] max-w-[240px] truncate"></span>
-          </div>
-          <div class="flex justify-between text-slate-700 dark:text-slate-300">
-            <span class="text-slate-400 dark:text-slate-500">Usuario Activo:</span>
-            <span id="diag-user" class="text-amber-700 dark:text-amber-300 font-bold"></span>
-          </div>
-          <div class="flex justify-between text-slate-700 dark:text-slate-300">
-            <span class="text-slate-400 dark:text-slate-500">IA Gemini Flash:</span>
-            <span id="diag-gemini" class="text-emerald-600 dark:text-emerald-400 font-bold"></span>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <h5 class="font-bold text-slate-700 dark:text-slate-300 uppercase text-[11px]">Permisos de Almacenamiento JSON:</h5>
-          <div class="grid grid-cols-2 gap-2 text-[11px] font-mono">
-            <div id="perm-talleres" class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-              <span>talleres.json</span>
-              <span class="status-chip">...</span>
-            </div>
-            <div id="perm-datajs" class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-              <span>data.js</span>
-              <span class="status-chip">...</span>
-            </div>
-            <div id="perm-proposals" class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-              <span>proposals.json</span>
-              <span class="status-chip">...</span>
-            </div>
-            <div id="perm-uploads" class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-              <span>images/uploads/</span>
-              <span class="status-chip">...</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <span class="text-[11px] text-slate-500 dark:text-slate-400">Web en vivo: <strong class="text-blue-600 dark:text-cyan-400">edu.fab.pe</strong></span>
-          <button onclick="forceSync()" class="px-3 py-1.5 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/40 text-xs font-bold hover:bg-emerald-200 dark:hover:bg-emerald-500/30 transition">
-            Forzar Sincronización Web
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Toast de Notificaciones Flotante -->
   <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-white dark:bg-slate-900 border border-blue-500/40 dark:border-cyan-500/50 text-slate-900 dark:text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs">
@@ -875,7 +769,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
   let state = {
     talleres: [],
     proposals: [],
-    activeTab: IS_ADMIN ? 'published' : 'drafts',
+    activeTab: 'published',
     currentUser: CURRENT_USER
   };
 
@@ -962,22 +856,27 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
   }
 
   function updateStats() {
-    const published = state.talleres.filter(t => t.status === 'published').length;
-    
+    let published = 0;
     let drafts = 0;
-    if (IS_ADMIN) {
-      drafts = state.talleres.filter(t => t.status === 'draft').length;
-    } else {
-      // Para instructores, mostramos en el badge el conteo de sus talleres
-      drafts = state.talleres.filter(t => isUserInstructorOf(t, state.currentUser)).length;
-    }
-    
     const proposals = state.proposals.length;
 
-    document.getElementById('stat-total').innerText = state.talleres.length;
-    document.getElementById('stat-published').innerText = published;
-    document.getElementById('stat-drafts').innerText = drafts;
-    document.getElementById('stat-proposals').innerText = IS_ADMIN ? proposals : published;
+    if (IS_ADMIN) {
+      published = state.talleres.filter(t => t.status === 'published').length;
+      drafts = state.talleres.filter(t => t.status !== 'published').length;
+    } else {
+      published = state.talleres.filter(t => t.status === 'published' && isUserInstructorOf(t, state.currentUser)).length;
+      drafts = state.talleres.filter(t => t.status !== 'published' && isUserInstructorOf(t, state.currentUser)).length + proposals;
+    }
+
+    const totalTalleres = state.talleres.length;
+    const statTot = document.getElementById('stat-total');
+    if (statTot) statTot.innerText = totalTalleres;
+    const statPub = document.getElementById('stat-published');
+    if (statPub) statPub.innerText = published;
+    const statDra = document.getElementById('stat-drafts');
+    if (statDra) statDra.innerText = drafts;
+    const statPro = document.getElementById('stat-proposals');
+    if (statPro) statPro.innerText = IS_ADMIN ? proposals : totalTalleres;
 
     const bPub = document.getElementById('badge-tab-published');
     if (bPub) bPub.innerText = published;
@@ -1028,17 +927,22 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       } else if (state.activeTab === 'published') {
         items = state.talleres.filter(t => t.status === 'published');
       } else if (state.activeTab === 'drafts') {
-        items = state.talleres.filter(t => t.status === 'draft');
+        items = state.talleres.filter(t => t.status !== 'published');
       } else {
         items = state.talleres;
       }
     } else {
       // INSTRUCTOR VIEW
-      if (state.activeTab === 'drafts') {
-        // En "Mis Talleres & Borradores", mostramos todos los talleres asociados a su cuenta (co-dictados o principales)
-        items = state.talleres.filter(t => isUserInstructorOf(t, state.currentUser));
+      if (state.activeTab === 'published') {
+        // Talleres publicados donde participa como mentor principal o co-dictado
+        items = state.talleres.filter(t => t.status === 'published' && isUserInstructorOf(t, state.currentUser));
+      } else if (state.activeTab === 'drafts') {
+        // Borradores o propuestas en revisión del instructor
+        const myDrafts = state.talleres.filter(t => t.status !== 'published' && isUserInstructorOf(t, state.currentUser));
+        const myProps = state.proposals.map(p => ({ ...p, isProposal: true }));
+        items = [...myDrafts, ...myProps];
       } else {
-        // Catálogo público de referencia
+        // Catálogo General (todos los talleres publicados del Fab Lab)
         items = state.talleres.filter(t => t.status === 'published');
       }
     }
@@ -1130,7 +1034,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
               ${(IS_ADMIN || isMyWorkshop) ? `
                 <button onclick="editWorkshop('${t.id}', ${isProp})" class="px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-cyan-500/20 dark:text-cyan-400 dark:hover:bg-cyan-500/30 text-xs font-bold transition flex items-center gap-1 border border-blue-200 dark:border-transparent">
                   <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                  <span>${IS_ADMIN ? 'Editar' : 'Editar Propuesta'}</span>
+                  <span>${isProp ? 'Editar Propuesta' : 'Editar Taller'}</span>
                 </button>
               ` : `
                 <button onclick="viewWorkshopStructure('${t.id}')" class="px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 text-xs font-semibold transition flex items-center gap-1">
@@ -1329,7 +1233,6 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
     document.getElementById('syllabus-container').innerHTML = '';
     document.getElementById('f-from-proposal-id').value = '';
-    document.getElementById('ai-pedagogical-box').classList.add('hidden');
 
     const datePicker = document.getElementById('f-date-picker');
     if (datePicker) datePicker.value = '';
@@ -1339,7 +1242,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     if (hint) hint.innerText = '';
 
     if (taller) {
-      document.getElementById('modal-title-text').innerText = fromProposal ? 'Revisar Propuesta para Publicación' : (IS_ADMIN ? 'Editar Taller' : 'Editar Mi Propuesta');
+      document.getElementById('modal-title-text').innerText = fromProposal ? 'Revisar Propuesta para Publicación' : 'Editar Taller';
       document.getElementById('f-id').value = fromProposal ? '' : taller.id;
       if (fromProposal) document.getElementById('f-from-proposal-id').value = taller.id;
 
@@ -1395,7 +1298,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
         renderEmptySyllabusPrompt();
       }
     } else {
-      document.getElementById('modal-title-text').innerText = IS_ADMIN ? 'Nuevo Taller' : 'Nueva Propuesta de Taller';
+      document.getElementById('modal-title-text').innerText = IS_ADMIN ? 'Nuevo Taller' : 'Proponer Taller';
       document.getElementById('f-id').value = '';
       document.getElementById('f-title').value = '';
       document.getElementById('f-subtitle').value = '';
@@ -1580,51 +1483,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     }
   }
 
-  async function openSystemDiagnostic() {
-    const modal = document.getElementById('diagnostic-modal');
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    document.getElementById('diagnostic-loading').classList.remove('hidden');
-    document.getElementById('diagnostic-content').classList.add('hidden');
 
-    try {
-      const res = await fetch('api.php?action=system_diagnostic&_t=' + Date.now());
-      const data = await res.json();
-
-      document.getElementById('diag-version').innerText = data.version || 'v2.2';
-      document.getElementById('diag-commit').innerText = data.gitCommit || 'Activo';
-      document.getElementById('diag-user').innerText = (data.currentUser.name || '') + ' (' + (data.currentUser.role || '') + ')';
-      document.getElementById('diag-gemini').innerText = data.geminiReady ? '✓ Conectado (Flash)' : '✗ Sin API Key';
-
-      const updateChip = (id, writable) => {
-        const el = document.querySelector('#' + id + ' .status-chip');
-        if (el) {
-          el.innerText = writable ? '✓ Escribible' : '✗ Bloqueado';
-          el.className = 'status-chip font-bold ' + (writable ? 'text-emerald-400' : 'text-rose-400');
-        }
-      };
-
-      if (data.permissions) {
-        updateChip('perm-talleres', data.permissions.talleres_json);
-        updateChip('perm-datajs', data.permissions.data_js);
-        updateChip('perm-proposals', data.permissions.proposals_json);
-        updateChip('perm-uploads', data.permissions.uploads_dir);
-      }
-
-      document.getElementById('diagnostic-loading').classList.add('hidden');
-      document.getElementById('diagnostic-content').classList.remove('hidden');
-      lucide.createIcons();
-    } catch (err) {
-      alert('No se pudo obtener el diagnóstico del servidor.');
-      closeSystemDiagnostic();
-    }
-  }
-
-  function closeSystemDiagnostic() {
-    const modal = document.getElementById('diagnostic-modal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-  }
 
   async function forceSync() {
     try {
@@ -1676,18 +1535,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     }
   }
 
-  function setQuickAiPrompt(type) {
-    const area = document.getElementById('ai-raw-notes');
-    if (!area) return;
-    if (type === 'lampara') {
-      area.value = 'Taller de Lámparas Geométricas en Corte Láser: diseño de piezas encastrables a presión en MDF/acrílico sin pegamento y circuito LED. 4 misiones de 2 hrs. Jóvenes de 15 a 25 años.';
-    } else if (type === 'mecanismo') {
-      area.value = 'Taller de Robótica y Mecanismos 3D: modelado paramétrico de engranajes y pinzas funcionales impresas en 3D en una sola pieza. 4 misiones de 2 hrs.';
-    } else if (type === 'biomaterial') {
-      area.value = 'Taller de Bio-Materiales y Joyería Maker: síntesis de bioplásticos biodegradables a partir de almidón y cáscaras, corte láser y ensamble de aretes. 4 misiones de 2 hrs.';
-    }
-    area.focus();
-  }
+
 
   // ============================================================
   // GESTIÓN DE DUPLICAR TALLER & ENLACES DE WHATSAPP
@@ -1756,14 +1604,16 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     }
 
     const currentId = excludeId || document.getElementById('f-id').value;
-    const cleanDate = dateStr.trim().toLowerCase();
+    const parsedTarget = parseDateToken(dateStr);
 
-    const collisions = state.talleres.filter(t => {
-      if (t.id === currentId) return false;
-      if (!t.startDate) return false;
-      const otherDate = t.startDate.trim().toLowerCase();
-      return otherDate === cleanDate || (cleanDate.length > 5 && otherDate.includes(cleanDate));
-    });
+    let collisions = [];
+    if (parsedTarget) {
+      collisions = state.talleres.filter(t => {
+        if (t.id === currentId) return false;
+        const allDates = parseAllTallerDates(t);
+        return allDates.some(d => d.year === parsedTarget.year && d.month === parsedTarget.month && d.day === parsedTarget.day);
+      });
+    }
 
     if (collisions.length > 0) {
       const first = collisions[0];
@@ -1782,16 +1632,15 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
   // ============================================================
   // CALENDARIO INTERACTIVO DEL FAB LAB
   // ============================================================
-  state.calYear = new Date().getFullYear();
-  state.calMonth = new Date().getMonth();
-  state.calSelectedDay = new Date().getDate();
+  state.calYear = 2026;
+  state.calMonth = 9; // Octubre (índice 9 en JavaScript)
+  state.calSelectedDay = 7;
 
   function changeCalMonth(delta) {
     if (delta === 0) {
-      const now = new Date();
-      state.calYear = now.getFullYear();
-      state.calMonth = now.getMonth();
-      state.calSelectedDay = now.getDate();
+      state.calYear = 2026;
+      state.calMonth = 9;
+      state.calSelectedDay = 7;
     } else {
       state.calMonth += delta;
       if (state.calMonth < 0) {
@@ -1805,10 +1654,11 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     renderCalendar();
   }
 
-  function parseTallerDate(dateStr) {
-    if (!dateStr || typeof dateStr !== 'string') return null;
-    const clean = dateStr.trim().toLowerCase();
+  function parseDateToken(str) {
+    if (!str || typeof str !== 'string') return null;
+    const clean = str.trim().toLowerCase();
 
+    // 1. Formato ISO: YYYY-MM-DD
     const isoMatch = clean.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
     if (isoMatch) {
       return {
@@ -1818,35 +1668,69 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       };
     }
 
-    const monthRegex = /(enero|febrero|marzo|abril|mayo|junio|julio|agosto|setiembre|septiembre|octubre|noviembre|diciembre)/i;
-    const mMatch = clean.match(monthRegex);
+    // 2. Detección de mes
+    let mIdx = -1;
+    if (clean.includes('ene')) mIdx = 0;
+    else if (clean.includes('feb')) mIdx = 1;
+    else if (clean.includes('mar')) mIdx = 2;
+    else if (clean.includes('abr')) mIdx = 3;
+    else if (clean.includes('may')) mIdx = 4;
+    else if (clean.includes('jun')) mIdx = 5;
+    else if (clean.includes('jul')) mIdx = 6;
+    else if (clean.includes('ago')) mIdx = 7;
+    else if (clean.includes('set') || clean.includes('sep')) mIdx = 8;
+    else if (clean.includes('oct')) mIdx = 9;
+    else if (clean.includes('nov')) mIdx = 10;
+    else if (clean.includes('dic')) mIdx = 11;
+
+    // 3. Detección de día: número de 1 o 2 dígitos
     const dMatch = clean.match(/\b(\d{1,2})\b/);
-
-    if (mMatch && dMatch) {
-      const mStr = mMatch[1].toLowerCase();
-      let mIdx = -1;
-      if (mStr.startsWith('ene')) mIdx = 0;
-      else if (mStr.startsWith('feb')) mIdx = 1;
-      else if (mStr.startsWith('mar')) mIdx = 2;
-      else if (mStr.startsWith('abr')) mIdx = 3;
-      else if (mStr.startsWith('may')) mIdx = 4;
-      else if (mStr.startsWith('jun')) mIdx = 5;
-      else if (mStr.startsWith('jul')) mIdx = 6;
-      else if (mStr.startsWith('ago')) mIdx = 7;
-      else if (mStr.startsWith('set') || mStr.startsWith('sep')) mIdx = 8;
-      else if (mStr.startsWith('oct')) mIdx = 9;
-      else if (mStr.startsWith('nov')) mIdx = 10;
-      else if (mStr.startsWith('dic')) mIdx = 11;
-
-      if (mIdx !== -1) {
-        return {
-          year: state.calYear || 2026,
-          month: mIdx,
-          day: parseInt(dMatch[1])
-        };
-      }
+    if (mIdx !== -1 && dMatch) {
+      let year = 2026;
+      const yMatch = clean.match(/\b(202[5-9])\b/);
+      if (yMatch) year = parseInt(yMatch[1]);
+      return {
+        year: year,
+        month: mIdx,
+        day: parseInt(dMatch[1])
+      };
     }
     return null;
+  }
+
+  function parseAllTallerDates(t) {
+    const dates = [];
+    const seen = new Set();
+
+    if (Array.isArray(t.sessionDates)) {
+      t.sessionDates.forEach(sd => {
+        const p = parseDateToken(sd);
+        if (p) {
+          const key = `${p.year}-${p.month}-${p.day}`;
+          if (!seen.has(key)) {
+            seen.add(key);
+            dates.push(p);
+          }
+        }
+      });
+    }
+
+    if (t.startDate) {
+      const p = parseDateToken(t.startDate);
+      if (p) {
+        const key = `${p.year}-${p.month}-${p.day}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          dates.push(p);
+        }
+      }
+    }
+
+    return dates;
+  }
+
+  function parseTallerDate(dateStr) {
+    return parseDateToken(dateStr);
   }
 
   function renderCalendar() {
@@ -1866,11 +1750,15 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     const talleresByDay = {};
     const allItems = [...state.talleres, ...state.proposals];
     allItems.forEach(t => {
-      const parsed = parseTallerDate(t.startDate);
-      if (parsed && parsed.month === state.calMonth && parsed.year === state.calYear) {
-        if (!talleresByDay[parsed.day]) talleresByDay[parsed.day] = [];
-        talleresByDay[parsed.day].push(t);
-      }
+      const dates = parseAllTallerDates(t);
+      dates.forEach(parsed => {
+        if (parsed.month === state.calMonth && parsed.year === state.calYear) {
+          if (!talleresByDay[parsed.day]) talleresByDay[parsed.day] = [];
+          if (!talleresByDay[parsed.day].some(x => x.id === t.id)) {
+            talleresByDay[parsed.day].push(t);
+          }
+        }
+      });
     });
 
     let cellsHtml = '';
@@ -2004,9 +1892,15 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
                   <span>Máquina: <strong class="text-blue-600 dark:text-cyan-400 font-mono">${t.fabTool || 'General'}</strong></span>
                 </div>
               </div>
-              <button type="button" onclick="editWorkshop('${t.id}')" class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:border-blue-500 text-xs font-semibold text-slate-700 dark:text-slate-300 transition shadow-sm shrink-0">
-                Editar
-              </button>
+              ${(IS_ADMIN || isUserInstructorOf(t, state.currentUser)) ? `
+                <button type="button" onclick="editWorkshop('${t.id}')" class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:border-blue-500 text-xs font-bold text-blue-700 dark:text-cyan-400 transition shadow-sm shrink-0">
+                  Editar Taller
+                </button>
+              ` : `
+                <button type="button" onclick="viewWorkshopStructure('${t.id}')" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold transition shrink-0">
+                  Ver Estructura
+                </button>
+              `}
             </div>
           `).join('')}
         </div>
@@ -2027,7 +1921,6 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeWorkshopModal();
-      closeSystemDiagnostic();
     }
   });
 

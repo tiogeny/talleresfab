@@ -1,6 +1,6 @@
 // Datos de Talleres Abiertos - FAB LAB Perú (edu.fab.pe)
 // Sincronizado automáticamente desde el Panel Admin de FAB LAB Perú
-// Última actualización: 2026-09-09 00:09:58
+// Última actualización: 2026-09-09 00:33:21
 
 const SITE_DATA = {
   phone: "+51 989 984 480",
@@ -89,9 +89,14 @@ var WORKSHOPS = [
         "duration": "8 sesiones (16h)",
         "schedule": "Miércoles y Viernes de 4:00 pm a 6:00 pm",
         "sessionDates": [
-            "Inicio: Sáb 25 Oct",
-            "Mié y Vie: 4 a 6 pm",
-            "8 sesiones en vivo"
+            "25 Oct · Inicio",
+            "28 Oct",
+            "30 Oct",
+            "04 Nov",
+            "06 Nov",
+            "11 Nov",
+            "13 Nov",
+            "18 Nov · Demo Day"
         ],
         "format": "Híbrido (Clases virtuales interactivas y retos de laboratorio)",
         "fabTool": "mBlock, mlink2, Sensores, Actuadores y Cámara ML",

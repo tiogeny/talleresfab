@@ -61,7 +61,7 @@
     "startDate": "25 de Octubre",
     "duration": "8 sesiones (16h)",
     "schedule": "Miércoles y Viernes de 4:00 pm a 6:00 pm",
-    "sessionDates": ["Inicio: Sáb 25 Oct", "Mié y Vie: 4 a 6 pm", "8 sesiones en vivo"],
+    "sessionDates": ["25 Oct · Inicio", "28 Oct", "30 Oct", "04 Nov", "06 Nov", "11 Nov", "13 Nov", "18 Nov · Demo Day"],
     "format": "Híbrido (Clases virtuales interactivas y retos de laboratorio)",
     "fabTool": "mBlock, mlink2, Sensores, Actuadores y Cámara ML",
     "challenge": "Programar sensores y actuadores, entrenar un modelo de Machine Learning para reconocimiento de gestos y crear un videojuego interactivo.",
