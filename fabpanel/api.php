@@ -142,9 +142,10 @@ function sync_to_data_js() {
     $jsContent .= "};\n\n";
     $jsContent .= "const CATEGORIES = [\n";
     $jsContent .= "  { id: \"all\", name: \"Todos los Talleres\" },\n";
-    $jsContent .= "  { id: \"kids\", name: \"Niños y Adolescentes\" },\n";
+    $jsContent .= "  { id: \"kids\", name: \"Niños & Familias\" },\n";
     $jsContent .= "  { id: \"creativos\", name: \"Jóvenes & Creativos\" },\n";
-    $jsContent .= "  { id: \"profesionales\", name: \"Adultos & Profesionales\" }\n";
+    $jsContent .= "  { id: \"profesionales\", name: \"Adultos & Emprendedores\" },\n";
+    $jsContent .= "  { id: \"educadores\", name: \"Educadores & Docentes\" }\n";
     $jsContent .= "];\n\n";
     $jsContent .= "var WORKSHOPS = " . $jsonPublished . ";\n";
     $jsContent .= "if (typeof window !== 'undefined') window.WORKSHOPS = WORKSHOPS;\n";
@@ -291,6 +292,10 @@ if ($action === 'save_taller') {
         'status' => $targetStatus,
         'syllabus' => is_array($data['syllabus'] ?? null) ? $data['syllabus'] : [],
         'highlights' => is_array($data['highlights'] ?? null) ? $data['highlights'] : [],
+        'technologies' => is_array($data['technologies'] ?? null) ? $data['technologies'] : (!empty($data['technologies']) ? array_map('trim', explode(',', (string)$data['technologies'])) : ($existingWorkshop['technologies'] ?? [])),
+        'venue' => trim($data['venue'] ?? ($existingWorkshop['venue'] ?? '')),
+        'level' => trim($data['level'] ?? ($existingWorkshop['level'] ?? 'Iniciación (Sin experiencia previa)')),
+        'finalDeliverable' => trim($data['finalDeliverable'] ?? ($existingWorkshop['finalDeliverable'] ?? '')),
         'image' => trim($data['image'] ?? 'images/talleres_adolescentes.jfif'),
         'imagePrompt' => trim($data['imagePrompt'] ?? ''),
         'pedagogicalFeedback' => is_array($data['pedagogicalFeedback'] ?? null) ? $data['pedagogicalFeedback'] : null,

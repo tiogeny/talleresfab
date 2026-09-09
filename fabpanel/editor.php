@@ -92,6 +92,56 @@ if ($isInstructor && $currentTaller && !$isViewOnly) {
 
 $isPublished = ($currentTaller && ($currentTaller['status'] ?? '') === 'published' && !$isProposal);
 $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isAdmin ? 'Crear nuevo taller' : 'Proponer taller maker') : ($isPublished ? 'Editar taller en vivo' : 'Editar propuesta de taller'));
+
+// Lista de instructores autorizados para multi-selección
+$authorizedInstructors = [];
+foreach ($AUTHORIZED_USERS as $email => $u) {
+    $authorizedInstructors[] = [
+        'email' => strtolower(trim($email)),
+        'name' => $u['name'],
+        'role' => $u['role']
+    ];
+}
+
+// Emails de instructores actualmente asignados
+$currentInstructorsList = [];
+if (!empty($currentTaller['instructors']) && is_array($currentTaller['instructors'])) {
+    foreach ($currentTaller['instructors'] as $item) {
+        $val = is_string($item) ? trim($item) : trim($item['email'] ?? '');
+        if ($val) $currentInstructorsList[] = strtolower($val);
+    }
+} elseif (!empty($currentTaller['instructorEmail'])) {
+    $currentInstructorsList[] = strtolower(trim($currentTaller['instructorEmail']));
+} else {
+    $currentInstructorsList[] = strtolower(trim($currentUser['email'] ?? ''));
+}
+$currentInstructorsList = array_values(array_unique(array_filter($currentInstructorsList)));
+
+// Opciones canónicas de tecnologías
+$canonicalTechs = ['Diseño Digital', 'Impresión 3D', 'Corte Láser', 'CNC Fresado', 'Biomateriales', 'Electrónica', 'Robótica & IA'];
+$activeTechs = [];
+if (!empty($currentTaller['technologies']) && is_array($currentTaller['technologies'])) {
+    $activeTechs = $currentTaller['technologies'];
+} elseif (!empty($currentTaller['fabTool'])) {
+    $ft = $currentTaller['fabTool'];
+    foreach ($canonicalTechs as $ct) {
+        if (stripos($ft, str_replace(['Diseño ', ' & IA', ' Fresado'], '', $ct)) !== false) {
+            $activeTechs[] = $ct;
+        }
+    }
+}
+if (empty($activeTechs)) $activeTechs = ['Diseño Digital', 'Fabricación Digital'];
+
+// Normalización de formato y sede
+$rawFormat = $currentTaller['format'] ?? 'Presencial';
+if (stripos($rawFormat, 'Híbrido') !== false || stripos($rawFormat, 'Hibrido') !== false) {
+    $cleanFormat = 'Híbrido';
+} elseif (stripos($rawFormat, 'Virtual') !== false) {
+    $cleanFormat = 'Virtual';
+} else {
+    $cleanFormat = 'Presencial';
+}
+$cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual (Zoom interactivo)' : 'Fab Lab Miraflores');
 ?>
 <!DOCTYPE html>
 <html lang="es" class="h-full">
@@ -123,10 +173,10 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
     }
   </script>
 </head>
-<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-full font-sans antialiased transition-colors pb-20">
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-full font-sans antialiased transition-colors pb-24">
 
   <!-- Cabecera Superior Fija -->
-  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       
       <!-- Volver al panel & Logo -->
@@ -139,9 +189,9 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
         <div class="h-5 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
 
         <div class="hidden sm:flex items-center gap-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Editor de taller</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Editor Makerdu</span>
           <span class="text-xs text-slate-300 dark:text-slate-700">/</span>
-          <span class="text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[200px] truncate"><?= htmlspecialchars($currentTaller['title'] ?? ($isNew ? 'Nuevo taller' : 'Sin título')) ?></span>
+          <span class="text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[240px] truncate"><?= htmlspecialchars($currentTaller['title'] ?? ($isNew ? 'Nuevo taller' : 'Sin título')) ?></span>
         </div>
       </div>
 
@@ -165,7 +215,7 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
         <?php if (!$isViewOnly): ?>
           <button type="button" onclick="submitForm()" class="btn-save-header inline-flex items-center gap-1.5 px-4 py-2 rounded-xl <?= $isPublished ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-blue-600 hover:bg-blue-500' ?> text-white text-xs font-extrabold shadow-sm transition">
             <i data-lucide="<?= $isPublished ? 'check' : ($isAdmin ? 'check' : 'send') ?>" class="w-4 h-4"></i>
-            <span><?= $isPublished ? 'Guardar cambios' : ($isAdmin ? 'Guardar taller' : 'Enviar propuesta') ?></span>
+            <span><?= $isPublished ? 'Guardar cambios' : ($isAdmin ? 'Publicar taller' : 'Enviar propuesta') ?></span>
           </button>
         <?php else: ?>
           <a href="index.php" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold transition">
@@ -190,7 +240,7 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
         <div class="space-y-0.5">
           <h3 class="text-sm font-bold text-blue-900 dark:text-blue-200">Estructura didáctica del taller (Modo consulta)</h3>
           <p class="text-xs text-blue-800/80 dark:text-blue-300/80">
-            Estás consultando el temario, retos, turnos y herramientas de este taller en modo de lectura como referencia didáctica.
+            Estás consultando el temario didáctico, reto maker y misiones de este taller en modo de lectura.
           </p>
         </div>
       </div>
@@ -205,7 +255,7 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
             <span class="text-[10px] bg-emerald-200/60 text-emerald-900 dark:bg-emerald-900 dark:text-emerald-300 px-2 py-0.5 rounded-full font-bold">En catálogo público</span>
           </div>
           <p class="text-xs text-emerald-800/80 dark:text-emerald-300/80">
-            Este taller está visible para todos los visitantes. Cualquier cambio que guardes (fechas, precios, temario o herramientas) se actualizará de inmediato en la web pública.
+            Los cambios en retos, misiones, fechas o tecnologías se sincronizan de inmediato con el catálogo público y el modal interactivo.
           </p>
         </div>
       </div>
@@ -215,9 +265,9 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
           <i data-lucide="sparkles" class="w-5 h-5"></i>
         </div>
         <div class="space-y-0.5">
-          <h3 class="text-sm font-bold text-blue-900 dark:text-blue-200"><?= $isAdmin ? 'Nuevo taller para el Fab Lab' : 'Nueva propuesta de taller maker' ?></h3>
+          <h3 class="text-sm font-bold text-blue-900 dark:text-blue-200"><?= $isAdmin ? 'Nuevo taller Maker para el Fab Lab' : 'Nueva propuesta de taller maker' ?></h3>
           <p class="text-xs text-blue-800/80 dark:text-blue-300/80">
-            <?= $isAdmin ? 'Completa los campos para publicar directamente el taller o guardarlo en borrador.' : 'Completa la ficha pedagógica de tu taller. Al enviarlo, la administración lo revisará para coordinar máquinas y publicarlo en vivo.' ?>
+            <?= $isAdmin ? 'Diseña la ruta pedagógica del taller, define el reto tangible y asígnalo al equipo de facilitadores.' : 'Estructura la propuesta de tu taller maker. La administración coordinará disponibilidad de máquinas y fechas.' ?>
           </p>
         </div>
       </div>
@@ -227,15 +277,15 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
           <i data-lucide="file-edit" class="w-5 h-5"></i>
         </div>
         <div class="space-y-0.5">
-          <h3 class="text-sm font-bold text-amber-900 dark:text-amber-200"><?= $isProposal ? 'Propuesta en revisión' : 'Taller en borrador' ?></h3>
+          <h3 class="text-sm font-bold text-amber-900 dark:text-amber-200"><?= $isProposal ? 'Propuesta en revisión pedagógica' : 'Taller en borrador' ?></h3>
           <p class="text-xs text-amber-800/80 dark:text-amber-300/80">
-            <?= $isAdmin ? 'Puedes activar y publicar este taller cuando los contenidos y fechas estén listos.' : 'Tus cambios quedarán registrados para revisión por parte de la administración antes de su publicación pública.' ?>
+            Puedes afinar las misiones y entregables antes de lanzarlo al catálogo público.
           </p>
         </div>
       </div>
     <?php endif; ?>
 
-    <!-- Formulario Principal -->
+    <!-- Formulario Principal Makerdu (6 Bloques Esenciales) -->
     <form id="editor-form" onsubmit="event.preventDefault(); submitForm();" class="space-y-6">
 
       <input type="hidden" id="f-id" value="<?= htmlspecialchars($currentTaller['id'] ?? '') ?>">
@@ -243,15 +293,19 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       <input type="hidden" id="f-status" value="<?= $isPublished ? 'published' : ($isAdmin ? ($currentTaller['status'] ?? 'published') : 'draft') ?>">
 
       <!-- ======================================================== -->
-      <!-- SECCIÓN 1: INFORMACIÓN BÁSICA Y AUDIENCIA                -->
+      <!-- BLOQUE 1: IDENTIDAD & ENFOQUE MAKER                      -->
       <!-- ======================================================== -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
-        <div class="flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-800/80 pb-3">
-          <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">1</span>
-          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Información del taller y público</h3>
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">1</span>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Identidad & Enfoque Didáctico</h3>
+          </div>
+          <span class="text-[11px] text-slate-400 font-medium">Información pública del programa</span>
         </div>
 
         <div class="space-y-4">
+          <!-- Título -->
           <div>
             <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Título del taller *</label>
             <input type="text" id="f-title" required placeholder="Ej. Minicuadros & Composición Mural 2.5D" 
@@ -259,73 +313,87 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
           </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Subtítulo o síntesis breve *</label>
-            <textarea id="f-subtitle" rows="2" placeholder="Resumen directo en una o dos líneas que capture la esencia de la experiencia..."
-                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500"><?= htmlspecialchars($currentTaller['subtitle'] ?? ($currentTaller['description'] ?? '')) ?></textarea>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Filtro Canónico & Nivel Didáctico -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             
-            <!-- Categoría principal (para el filtro de la web) -->
+            <!-- Categoría Canónica del Landing (5 opciones oficiales) -->
             <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Categoría (filtro del landing) *</label>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Categoría (Filtro del catálogo) *</label>
+              <?php $curCat = $currentTaller['category'] ?? 'creativos'; ?>
               <select id="f-category" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
-                <option value="creativos" <?= (($currentTaller['category'] ?? '') === 'creativos') ? 'selected' : '' ?>>Jóvenes & creativos</option>
-                <option value="kids" <?= (($currentTaller['category'] ?? '') === 'kids') ? 'selected' : '' ?>>Niños y adolescentes (7 a 15 años)</option>
-                <option value="profesionales" <?= (($currentTaller['category'] ?? '') === 'profesionales') ? 'selected' : '' ?>>Adultos & profesionales</option>
+                <option value="kids" <?= ($curCat === 'kids') ? 'selected' : '' ?>>Niños y Familias Maker</option>
+                <option value="creativos" <?= ($curCat === 'creativos') ? 'selected' : '' ?>>Jóvenes & Creativos</option>
+                <option value="profesionales" <?= ($curCat === 'profesionales') ? 'selected' : '' ?>>Adultos & Profesionales</option>
+                <option value="educadores" <?= ($curCat === 'educadores') ? 'selected' : '' ?>>Educadores & Docentes Maker</option>
               </select>
-              <p class="text-[11px] text-slate-500 mt-1">Determina en qué botón del landing aparecerá tu taller.</p>
+              <p class="text-[10px] text-slate-400 mt-1">Ubicación en los botones de filtro de la web.</p>
             </div>
 
-            <!-- Público objetivo específico -->
+            <!-- Nivel didáctico -->
             <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Público objetivo detallado</label>
-              <input type="text" id="f-targetAudience" placeholder="Ej. Niños de 7 a 13 años y familias creativas"
-                     value="<?= htmlspecialchars($currentTaller['targetAudience'] ?? '') ?>"
-                     list="audience-suggestions"
-                     class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
-              <datalist id="audience-suggestions">
-                <option value="Niños de 7 a 13 años y familias creativas">
-                <option value="Niños y adolescentes de 10 a 15 años">
-                <option value="Jóvenes y adultos">
-                <option value="Jóvenes, artistas y diseñadores">
-                <option value="Adultos, emprendedores e innovadores">
-              </datalist>
-              <p class="text-[11px] text-slate-500 mt-1">Texto descriptivo para la tarjeta informativa.</p>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Nivel didáctico</label>
+              <?php $curLevel = $currentTaller['level'] ?? 'Iniciación (Sin experiencia previa)'; ?>
+              <select id="f-level" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+                <option value="Iniciación (Sin experiencia previa)" <?= (stripos($curLevel, 'Iniciación') !== false) ? 'selected' : '' ?>>Iniciación (Sin experiencia previa)</option>
+                <option value="Intermedio (Maker activo)" <?= (stripos($curLevel, 'Intermedio') !== false) ? 'selected' : '' ?>>Intermedio (Maker activo)</option>
+                <option value="Avanzado (Especialización)" <?= (stripos($curLevel, 'Avanzado') !== false) ? 'selected' : '' ?>>Avanzado (Especialización)</option>
+              </select>
+              <p class="text-[10px] text-slate-400 mt-1">Aparece en la ficha del modal interactivo.</p>
+            </div>
+
+            <!-- Badge / Insignia -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Insignia visual (Badge)</label>
+              <input type="text" id="f-badge" placeholder="Ej. Reto Maker 2.5D"
+                     value="<?= htmlspecialchars($currentTaller['badge'] ?? 'Taller Maker') ?>"
+                     class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+              <p class="text-[10px] text-slate-400 mt-1">Etiqueta destacada en la tarjeta.</p>
             </div>
 
           </div>
 
-          <!-- Mentores e Instructores -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Nombre visible del tallerista o equipo *</label>
-              <input type="text" id="f-instructor" required placeholder="Ej. Evelyn Cuadrado o Hayashi Mateo y Francheska Baca"
-                     value="<?= htmlspecialchars($currentTaller['instructor'] ?? ($currentUser['name'] ?? '')) ?>"
-                     class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+          <!-- Público Objetivo Detallado -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Público objetivo detallado (Edad y perfil)</label>
+            <input type="text" id="f-targetAudience" placeholder="Ej. Niños de 7 a 13 años y familias creativas"
+                   value="<?= htmlspecialchars($currentTaller['targetAudience'] ?? '') ?>"
+                   list="audience-suggestions"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+            <datalist id="audience-suggestions">
+              <option value="Niños de 7 a 13 años y familias creativas">
+              <option value="Niños y adolescentes de 10 a 15 años">
+              <option value="Jóvenes, artistas y diseñadores">
+              <option value="Docentes de inicial, primaria o secundaria">
+              <option value="Adultos, emprendedores e innovadores">
+              <option value="Público general con curiosidad tecnológica">
+            </datalist>
+          </div>
+
+          <!-- Tecnologías y Herramientas Digitales (Selector de Chips) -->
+          <div class="pt-2">
+            <div class="flex items-center justify-between mb-2">
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">Tecnologías & Herramientas didácticas (Multi-selección) *</label>
+              <span class="text-[11px] text-slate-400">Haz clic para activar o desactivar</span>
+            </div>
+            
+            <!-- Contenedor de Chips de Tecnologías -->
+            <div id="tech-chips-container" class="flex flex-wrap gap-2">
+              <?php foreach ($canonicalTechs as $tech): ?>
+                <?php $isSelected = in_array($tech, $activeTechs); ?>
+                <button type="button" onclick="toggleTechChip('<?= htmlspecialchars($tech) ?>')"
+                        data-tech="<?= htmlspecialchars($tech) ?>"
+                        class="tech-chip px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 <?= $isSelected ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700' ?>">
+                  <i data-lucide="<?= $isSelected ? 'check' : 'plus' ?>" class="w-3.5 h-3.5"></i>
+                  <span><?= htmlspecialchars($tech) ?></span>
+                </button>
+              <?php endforeach; ?>
             </div>
 
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Correos de acceso (co-dictado)</label>
-              <?php
-                $instEmails = [];
-                if (!empty($currentTaller['instructors']) && is_array($currentTaller['instructors'])) {
-                    foreach ($currentTaller['instructors'] as $item) {
-                        $instEmails[] = is_string($item) ? trim($item) : trim($item['email'] ?? '');
-                    }
-                } elseif (!empty($currentTaller['instructorEmail'])) {
-                    $instEmails[] = $currentTaller['instructorEmail'];
-                } else {
-                    $instEmails[] = $currentUser['email'] ?? '';
-                }
-                $instEmails = array_filter(array_unique($instEmails));
-              ?>
-              <input type="text" id="f-instructors" placeholder="correo1@fablablima.org, correo2@gmail.com"
-                     value="<?= htmlspecialchars(implode(', ', $instEmails)) ?>"
-                     <?= $isAdmin ? '' : 'readonly class="opacity-80"' ?>
-                     class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
-              <p class="text-[11px] text-slate-500 mt-1">Los correos aquí listados podrán ver y editar este taller desde sus paneles.</p>
+            <!-- Campo de especificación de software / máquinas adicionales -->
+            <div class="mt-3">
+              <input type="text" id="f-fabTool" placeholder="Máquinas o software específicos (ej. Inkscape / Cuttle & Cortadora Láser CO2)"
+                     value="<?= htmlspecialchars($currentTaller['fabTool'] ?? '') ?>"
+                     class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300">
             </div>
           </div>
 
@@ -333,15 +401,157 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       </div>
 
       <!-- ======================================================== -->
-      <!-- SECCIÓN 2: CALENDARIO DE SESIONES Y HORARIOS             -->
+      <!-- BLOQUE 2: EQUIPO DE TALLERISTAS & FACILITADORES          -->
       <!-- ======================================================== -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
         <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-3">
           <div class="flex items-center gap-2.5">
             <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">2</span>
             <div>
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Calendario de sesiones y turnos</h3>
-              <p class="text-[11px] text-slate-500">Haz clic sobre los días en el calendario para seleccionar las fechas de tu taller</p>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Equipo de Talleristas & Facilitadores</h3>
+              <p class="text-[11px] text-slate-500">Selecciona quiénes dictan y tendrán permisos para editar este taller</p>
+            </div>
+          </div>
+          <span id="badge-instructor-count" class="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 dark:bg-cyan-950 dark:text-cyan-300 border border-blue-200 dark:border-cyan-800">
+            <?= count($currentInstructorsList) ?> facilitador<?= count($currentInstructorsList) > 1 ? 'es' : '' ?>
+          </span>
+        </div>
+
+        <!-- Grilla de Talleristas Autorizados (Chips con Avatar) -->
+        <div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+            <?php foreach ($authorizedInstructors as $inst): ?>
+              <?php $isAssigned = in_array($inst['email'], $currentInstructorsList); ?>
+              <button type="button" onclick="toggleInstructor('<?= htmlspecialchars($inst['email']) ?>', '<?= htmlspecialchars(addslashes($inst['name'])) ?>')"
+                      data-email="<?= htmlspecialchars($inst['email']) ?>"
+                      data-name="<?= htmlspecialchars($inst['name']) ?>"
+                      class="instructor-chip text-left p-2.5 rounded-2xl border transition flex items-center gap-3 <?= $isAssigned ? 'bg-blue-50/80 dark:bg-blue-950/40 border-blue-400 dark:border-cyan-600 ring-1 ring-blue-400' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-slate-300' ?>">
+                <div class="w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 <?= $isAssigned ? 'bg-blue-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300' ?>">
+                  <?= strtoupper(substr($inst['name'], 0, 1)) ?>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate"><?= htmlspecialchars($inst['name']) ?></div>
+                  <div class="text-[10px] text-slate-400 truncate"><?= htmlspecialchars($inst['email']) ?></div>
+                </div>
+                <div class="shrink-0 text-blue-600 dark:text-cyan-400 <?= $isAssigned ? 'opacity-100' : 'opacity-0' ?>">
+                  <i data-lucide="check" class="w-4 h-4"></i>
+                </div>
+              </button>
+            <?php endforeach; ?>
+          </div>
+
+          <!-- Campos resultantes para el landing y permisos -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 mt-2 border-t border-slate-100 dark:border-slate-800/80">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Nombre visible en el landing *</label>
+              <input type="text" id="f-instructor" required placeholder="Ej. Evelyn Cuadrado o Hayashi Mateo y Francheska Baca"
+                     value="<?= htmlspecialchars($currentTaller['instructor'] ?? ($currentUser['name'] ?? '')) ?>"
+                     class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+              <p class="text-[10px] text-slate-400 mt-1">Se autocompleta con los seleccionados arriba, pero puedes editarlo libremente.</p>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Correos con acceso de edición</label>
+              <input type="text" id="f-instructors" readonly
+                     value="<?= htmlspecialchars(implode(', ', $currentInstructorsList)) ?>"
+                     class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-600 dark:text-slate-400">
+              <p class="text-[10px] text-slate-400 mt-1">Sincronizado automáticamente con los facilitadores marcados.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- BLOQUE 3: FORMATO & SEDE                                 -->
+      <!-- ======================================================== -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">3</span>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white">Formato de Dictado & Sede</h3>
+          </div>
+          <span class="text-[11px] text-slate-400 font-medium">Virtual / Presencial / Híbrido</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+          
+          <!-- Botones de Formato Limpios (3 Opciones) -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Modalidad *</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" onclick="setFormat('Presencial')" id="btn-fmt-presencial"
+                      class="format-btn py-2.5 px-3 rounded-2xl border text-xs font-bold flex flex-col items-center gap-1 transition <?= $cleanFormat === 'Presencial' ? 'bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-400' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300' ?>">
+                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                <span>Presencial</span>
+              </button>
+
+              <button type="button" onclick="setFormat('Virtual')" id="btn-fmt-virtual"
+                      class="format-btn py-2.5 px-3 rounded-2xl border text-xs font-bold flex flex-col items-center gap-1 transition <?= $cleanFormat === 'Virtual' ? 'bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-400' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300' ?>">
+                <i data-lucide="video" class="w-4 h-4"></i>
+                <span>Virtual</span>
+              </button>
+
+              <button type="button" onclick="setFormat('Híbrido')" id="btn-fmt-hibrido"
+                      class="format-btn py-2.5 px-3 rounded-2xl border text-xs font-bold flex flex-col items-center gap-1 transition <?= $cleanFormat === 'Híbrido' ? 'bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-400' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300' ?>">
+                <i data-lucide="layers" class="w-4 h-4"></i>
+                <span>Híbrido</span>
+              </button>
+            </div>
+            <input type="hidden" id="f-format" value="<?= htmlspecialchars($cleanFormat) ?>">
+          </div>
+
+          <!-- Sede o Espacio Específico -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Sede / Espacio Maker *</label>
+            <input type="text" id="f-venue" required placeholder="Ej. Fab Lab Miraflores o Zoom interactivo"
+                   value="<?= htmlspecialchars($cleanVenue) ?>"
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
+            <p class="text-[10px] text-slate-400 mt-1">Ubicación física del laboratorio o plataforma de conexión en vivo.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- BLOQUE 4: RETO MAKER (¿QUÉ FABRICARÁN CON SUS MANOS?)    -->
+      <!-- ======================================================== -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">4</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Reto Maker Central</h3>
+              <p class="text-[11px] text-slate-500">¿Qué fabricarán, diseñarán o construirán físicamente con sus manos?</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 dark:bg-cyan-950 dark:text-cyan-300 border border-blue-200 dark:border-cyan-800">
+            Voz activa
+          </span>
+        </div>
+
+        <div>
+          <textarea id="f-challenge" rows="3" required
+                    placeholder="Redacta el reto directo en segunda persona (ej. Diseña un personaje 2.5D autoportante para impresión 3D, simula costos de producción con FabCoins y presenta tu empaque de autor listo para exhibir)..."
+                    class="w-full px-3.5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 font-medium focus:outline-none focus:border-blue-500 leading-relaxed"><?= htmlspecialchars($currentTaller['challenge'] ?? ($currentTaller['subtitle'] ?? '')) ?></textarea>
+          <div class="flex items-center justify-between mt-1.5 text-[11px] text-slate-400">
+            <span>💡 <strong>Consejo Maker:</strong> Inicia con verbos de acción como <em>Diseña</em>, <em>Construye</em>, <em>Programa</em> o <em>Modela</em>.</span>
+            <span>Unificado para la tarjeta y el modal</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- BLOQUE 5: SESIONES, FECHAS & CALCULADORA S/. 25/H        -->
+      <!-- ======================================================== -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">5</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Calendario de Sesiones & Calculadora Maker</h3>
+              <p class="text-[11px] text-slate-500">Marca los días en el calendario interactivo y calcula automáticamente la inversión</p>
             </div>
           </div>
           <span id="badge-session-count" class="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 dark:bg-cyan-950 dark:text-cyan-300 border border-blue-200 dark:border-cyan-800">0 sesiones</span>
@@ -387,7 +597,7 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
           <div class="md:col-span-5 flex flex-col justify-between space-y-4">
             <div>
               <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Sesiones programadas:</label>
-              <div id="selected-dates-container" class="flex flex-wrap gap-1.5 min-h-[90px] p-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-dashed border-slate-300 dark:border-slate-800 text-xs">
+              <div id="selected-dates-container" class="flex flex-wrap gap-1.5 min-h-[90px] max-h-[140px] overflow-y-auto p-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-dashed border-slate-300 dark:border-slate-800 text-xs">
                 <!-- Chips de sesiones -->
               </div>
             </div>
@@ -401,11 +611,14 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
               </div>
 
               <!-- Entrada manual para etiquetas especiales -->
-              <div class="flex gap-1.5">
-                <input type="text" id="custom-date-input" placeholder="Ej. ⭐ 31 Oct · Exposición" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs">
-                <button type="button" onclick="addCustomDate()" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-bold transition shrink-0">
-                  Añadir
-                </button>
+              <div>
+                <span class="text-slate-500 block text-[11px] mb-1">Añadir sesión especial con hito:</span>
+                <div class="flex gap-1.5">
+                  <input type="text" id="custom-date-input" placeholder="Ej. ⭐ 31 Oct · Exposición" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs">
+                  <button type="button" onclick="addCustomDate()" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-bold transition shrink-0">
+                    Añadir
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -413,11 +626,16 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
 
         </div>
 
-        <!-- Rango de Horarios y Cálculo Automático de Horas -->
-        <div class="bg-slate-50/70 dark:bg-slate-950/40 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
-          <div class="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
-            <i data-lucide="clock" class="w-4 h-4 text-blue-600 dark:text-cyan-400"></i>
-            <span>Horarios y cálculo de duración</span>
+        <!-- Rango de Horarios, Cálculo Automático y Base S/. 25/h -->
+        <div class="bg-slate-50/80 dark:bg-slate-950/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+              <i data-lucide="clock" class="w-4 h-4 text-blue-600 dark:text-cyan-400"></i>
+              <span>Horarios y Calculadora Didáctica</span>
+            </div>
+            <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-800">
+              Base oficial: S/. 25 / hora taller
+            </span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
@@ -444,13 +662,13 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
 
             <div>
               <label class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Precio sugerido / final *</label>
-              <input type="text" id="f-price" placeholder="S/. 200"
+              <input type="text" id="f-price" placeholder="S/. 150"
                      value="<?= htmlspecialchars($currentTaller['price'] ?? 'S/. 150') ?>"
                      class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs font-bold text-blue-600 dark:text-cyan-400 focus:outline-none focus:border-blue-500">
             </div>
           </div>
 
-          <!-- Campos calculados resultantes (guardados para el landing) -->
+          <!-- Campos calculados automáticos (guardados para el landing) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200 dark:border-slate-800/80 text-xs">
             <div>
               <span class="text-slate-400 text-[10px] block">Horario en el landing (`schedule`):</span>
@@ -472,134 +690,105 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       </div>
 
       <!-- ======================================================== -->
-      <!-- SECCIÓN 3: METODOLOGÍA, FORMATO Y HERRAMIENTAS           -->
-      <!-- ======================================================== -->
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
-        <div class="flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-800/80 pb-3">
-          <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">3</span>
-          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Metodología maker, formato y herramientas</h3>
-        </div>
-
-        <div class="space-y-4">
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            
-            <!-- Selector de Formato -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Formato de dictado *</label>
-              <?php $curFormat = $currentTaller['format'] ?? ''; ?>
-              <select id="f-format-select" onchange="onFormatSelectChange(this.value)" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
-                <option value="Presencial (Fab Lab Miraflores)" <?= strpos($curFormat, 'Presencial') !== false && strpos($curFormat, 'Híbrido') === false ? 'selected' : '' ?>>Presencial (Fab Lab Miraflores)</option>
-                <option value="Virtual interactivo" <?= strpos($curFormat, 'Virtual') !== false && strpos($curFormat, 'Híbrido') === false ? 'selected' : '' ?>>Virtual interactivo</option>
-                <option value="Híbrido (Virtual + Presencial en Lab)" <?= strpos($curFormat, 'Híbrido') !== false ? 'selected' : '' ?>>Híbrido (Virtual + Presencial en Lab)</option>
-                <option value="otro">Otro formato personalizado...</option>
-              </select>
-              <input type="text" id="f-format" value="<?= htmlspecialchars($currentTaller['format'] ?? 'Virtual interactivo') ?>"
-                     class="w-full px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-transparent text-xs text-slate-700 dark:text-slate-300 mt-1.5 hidden"
-                     placeholder="Especificar formato detallado">
-            </div>
-
-            <!-- Selector de Herramienta Principal -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Herramienta digital principal *</label>
-              <?php $curTool = $currentTaller['fabTool'] ?? ''; ?>
-              <select id="f-tool-select" onchange="onToolSelectChange(this.value)" class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
-                <option value="Cortadora Láser CO2" <?= strpos($curTool, 'Láser') !== false || strpos($curTool, 'laser') !== false ? 'selected' : '' ?>>Cortadora láser CO2</option>
-                <option value="Impresión 3D (PLA ecológico)" <?= strpos($curTool, '3D') !== false ? 'selected' : '' ?>>Impresión 3D (PLA ecológico)</option>
-                <option value="Fresadora CNC de precisión" <?= strpos($curTool, 'CNC') !== false || strpos($curTool, 'fresadora') !== false ? 'selected' : '' ?>>Fresadora CNC de precisión</option>
-                <option value="Robótica, sensores y electrónica" <?= strpos($curTool, 'Circuits') !== false || strpos($curTool, 'mBlock') !== false || strpos($curTool, 'sensores') !== false ? 'selected' : '' ?>>Robótica, sensores y electrónica</option>
-                <option value="Bio-materiales & síntesis orgánica" <?= strpos($curTool, 'Bio') !== false || strpos($curTool, 'biopolímeros') !== false ? 'selected' : '' ?>>Bio-materiales & síntesis orgánica</option>
-                <option value="Diseño digital y modelado 3D (CAD/CAM)" <?= strpos($curTool, 'CAD') !== false || strpos($curTool, 'modelado') !== false ? 'selected' : '' ?>>Diseño digital y modelado 3D (CAD/CAM)</option>
-                <option value="otro">Herramientas mixtas / Personalizado...</option>
-              </select>
-              <input type="text" id="f-fabTool" value="<?= htmlspecialchars($currentTaller['fabTool'] ?? 'Impresión 3D (PLA ecológico)') ?>"
-                     class="w-full px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-transparent text-xs text-slate-700 dark:text-slate-300 mt-1.5"
-                     placeholder="Especificar herramientas (ej. Inkscape / Cuttle & Cortadora Láser CO2)">
-            </div>
-
-          </div>
-
-          <!-- Reto Tangible Maker -->
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Reto tangible del taller (¿Qué fabricarán con sus manos?) *</label>
-            <textarea id="f-challenge" rows="2" required placeholder="Ej. Diseñar un personaje 2.5D autoportante para impresión 3D, simular costos de producción con FabCoins y presentar el empaque de autor."
-                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500"><?= htmlspecialchars($currentTaller['challenge'] ?? '') ?></textarea>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Insignia / Badge de la tarjeta</label>
-              <input type="text" id="f-badge" placeholder="Ej. Personajes 2.5D & 3D"
-                     value="<?= htmlspecialchars($currentTaller['badge'] ?? 'Taller Maker') ?>"
-                     class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
-            </div>
-
-            <div class="sm:col-span-2">
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Descripción ampliada del taller</label>
-              <input type="text" id="f-description" placeholder="Párrafo explicativo para el modal de detalles..."
-                     value="<?= htmlspecialchars($currentTaller['description'] ?? '') ?>"
-                     class="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- SECCIÓN 4: MISIONES DIDÁCTICAS (SYLLABUS)                -->
+      <!-- BLOQUE 6: RUTA DE MISIONES MAKERDU (TEMARIO DIDÁCTICO)   -->
       <!-- ======================================================== -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800/80 pb-3">
           <div class="flex items-center gap-2.5">
-            <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">4</span>
+            <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">6</span>
             <div>
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Misiones didácticas y temario práctico</h3>
-              <p class="text-[11px] text-slate-500">Estructura paso a paso lo que se aprenderá y fabricará en cada sesión</p>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Ruta de Misiones Makerdu (Temario Didáctico)</h3>
+              <p class="text-[11px] text-slate-500">2 columnas por misión: <strong>Acción Makerdu</strong> + <strong>Entregable / Micro-reto</strong></p>
             </div>
           </div>
 
-          <div class="flex items-center gap-2">
+          <!-- Presets y botón añadir -->
+          <div class="flex items-center gap-1.5 flex-wrap">
             <button type="button" onclick="loadMissionsPreset(2)" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-semibold transition">
-              Sprint (2 misiones)
+              Sprint (2)
             </button>
             <button type="button" onclick="loadMissionsPreset(4)" class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 dark:bg-cyan-950 dark:text-cyan-300 border border-blue-200 dark:border-cyan-800 hover:bg-blue-100 text-[11px] font-bold transition">
-              Ruta estándar (4 misiones)
+              Estándar (4)
             </button>
-            <button type="button" onclick="addMissionRow()" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-[11px] font-bold transition flex items-center gap-1 shadow-sm">
+            <button type="button" onclick="loadMissionsPreset(6)" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-semibold transition">
+              Avanzado (6)
+            </button>
+            <button type="button" onclick="addMissionRow()" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-[11px] font-bold transition flex items-center gap-1 shadow-sm ml-1">
               <i data-lucide="plus" class="w-3.5 h-3.5"></i>
               <span>Añadir misión</span>
             </button>
           </div>
         </div>
 
-        <div id="syllabus-container" class="space-y-2.5">
-          <!-- Inyectado dinámicamente -->
+        <!-- Sugerencias de verbos Makerdu (Datalist) -->
+        <datalist id="maker-actions-list">
+          <option value="Descubrir & Bocetar">
+          <option value="Exploración de Materiales">
+          <option value="Digitalización 2D / Vectorial">
+          <option value="Modelado 3D CAD">
+          <option value="Calibración & Parámetros CAM">
+          <option value="Corte Láser & Despiece">
+          <option value="Impresión 3D & Sólidos">
+          <option value="Circuito & Programación">
+          <option value="Acabados & Ensamble">
+          <option value="Presentación & Reto Cumplido">
+        </datalist>
+
+        <!-- Cabecera de 2 Columnas para Misiones -->
+        <div class="hidden sm:grid grid-cols-12 gap-3 px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+          <div class="col-span-4">1. Acción Didáctica Makerdu</div>
+          <div class="col-span-7">2. Entregable / Micro-reto Tangible</div>
+          <div class="col-span-1 text-center">Quitar</div>
         </div>
+
+        <!-- Contenedor dinámico de misiones -->
+        <div id="syllabus-container" class="space-y-2.5">
+          <!-- Inyectado dinámicamente por JS -->
+        </div>
+
+        <!-- Nodo de Meta Final / ¡Reto Logrado! -->
+        <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/80">
+          <div class="bg-gradient-to-r from-amber-500/10 via-blue-500/5 to-transparent p-3.5 rounded-2xl border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+              <i data-lucide="trophy" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1 w-full space-y-1">
+              <label class="block text-xs font-bold text-amber-900 dark:text-amber-300">
+                ¡Reto Logrado! · Meta Final del Taller
+              </label>
+              <input type="text" id="f-finalDeliverable" 
+                     placeholder="Ej. Prototipo físico terminado, funcionando y catálogo digital de autor para portafolio"
+                     value="<?= htmlspecialchars($currentTaller['finalDeliverable'] ?? '') ?>"
+                     class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-amber-300/60 dark:border-amber-700/60 text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-amber-500">
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- ======================================================== -->
-      <!-- SECCIÓN 5: IMAGEN DE PORTADA DEL TALLER                  -->
+      <!-- BLOQUE 7: IMAGEN DE PORTADA (16:9)                       -->
       <!-- ======================================================== -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
         <div class="flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-800/80 pb-3">
-          <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">5</span>
-          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Imagen de portada del taller</h3>
+          <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">7</span>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white">Imagen de Portada del Taller (16:9)</h3>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
           
           <!-- Vista previa de imagen -->
           <div class="sm:col-span-5 aspect-video rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden relative shadow-sm flex items-center justify-center">
-            <img id="img-preview" src="../<?= htmlspecialchars($currentTaller['image'] ?? 'images/talleres_niños.jfif') ?>?v=6.0" 
+            <img id="img-preview" src="../<?= htmlspecialchars($currentTaller['image'] ?? 'images/talleres_niños.jfif') ?>?v=7.0" 
                  alt="Vista previa" class="w-full h-full object-cover"
                  onerror="this.src='../images/talleres_niños.jfif'">
-            <span class="absolute bottom-2 right-2 text-[10px] bg-black/70 text-white font-mono px-2 py-0.5 rounded backdrop-blur-sm">Portada</span>
+            <span class="absolute bottom-2 right-2 text-[10px] bg-black/70 text-white font-mono px-2 py-0.5 rounded backdrop-blur-sm">16:9</span>
           </div>
 
           <!-- Subida y ruta -->
           <div class="sm:col-span-7 space-y-3">
             <div>
-              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Subir imagen desde tu computadora</label>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Subir imagen desde tu dispositivo</label>
               <input type="file" id="file-upload-input" accept="image/*" onchange="uploadImageFile(this)"
                      class="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-slate-800 dark:file:text-slate-200 cursor-pointer">
               <span id="upload-status" class="text-[11px] text-slate-400 block mt-1">Formatos sugeridos: JPG, PNG, WEBP (proporción 16:9)</span>
@@ -626,7 +815,7 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
         <?php if (!$isViewOnly): ?>
           <button type="submit" class="w-full sm:w-auto px-8 py-3 rounded-2xl <?= $isPublished ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-blue-600 hover:bg-blue-500' ?> text-white text-sm font-extrabold shadow-md transition flex items-center justify-center gap-2">
             <i data-lucide="<?= $isPublished ? 'check' : ($isAdmin ? 'check' : 'send') ?>" class="w-4 h-4"></i>
-            <span><?= $isPublished ? 'Guardar cambios' : ($isAdmin ? 'Guardar y publicar taller' : 'Enviar propuesta a administración') ?></span>
+            <span><?= $isPublished ? 'Guardar cambios en vivo' : ($isAdmin ? 'Guardar y publicar taller' : 'Enviar propuesta a administración') ?></span>
           </button>
         <?php endif; ?>
       </div>
@@ -650,13 +839,141 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
     ];
     const MONTH_ABBR = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'];
 
-    // Estado de fechas del taller
     const INITIAL_TALLER = <?= json_encode($currentTaller, JSON_UNESCAPED_UNICODE) ?> || {};
+    
+    // Estado de tecnologías seleccionadas
+    let selectedTechs = <?= json_encode($activeTechs, JSON_UNESCAPED_UNICODE) ?> || [];
+    
+    // Estado de facilitadores seleccionados (emails y nombres)
+    let selectedInstructors = <?= json_encode($currentInstructorsList, JSON_UNESCAPED_UNICODE) ?> || [];
+
+    // Estado de fechas del taller
     let selectedDates = []; // Array of { year, month, day, label }
     let pickerYear = 2026;
     let pickerMonth = 9; // Octubre (0-indexed: 9)
 
-    // Inicializar fechas existentes
+    // -------------------------------------------------------------
+    // 1. Selector de Tecnologías (Chips)
+    // -------------------------------------------------------------
+    function toggleTechChip(tech) {
+      const idx = selectedTechs.indexOf(tech);
+      if (idx >= 0) {
+        selectedTechs.splice(idx, 1);
+      } else {
+        selectedTechs.push(tech);
+      }
+      updateTechChipsUI();
+    }
+
+    function updateTechChipsUI() {
+      document.querySelectorAll('.tech-chip').forEach(btn => {
+        const tech = btn.dataset.tech;
+        const isSel = selectedTechs.includes(tech);
+        if (isSel) {
+          btn.className = 'tech-chip px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-blue-600 text-white shadow-sm ring-2 ring-blue-400';
+          btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i><span>${tech}</span>`;
+        } else {
+          btn.className = 'tech-chip px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700';
+          btn.innerHTML = `<i data-lucide="plus" class="w-3.5 h-3.5"></i><span>${tech}</span>`;
+        }
+      });
+      lucide.createIcons();
+    }
+
+    // -------------------------------------------------------------
+    // 2. Selector de Facilitadores (Multi-select)
+    // -------------------------------------------------------------
+    function toggleInstructor(email, name) {
+      email = email.toLowerCase().trim();
+      const idx = selectedInstructors.indexOf(email);
+      if (idx >= 0) {
+        if (selectedInstructors.length > 1) {
+          selectedInstructors.splice(idx, 1);
+        } else {
+          alert('El taller debe tener al menos un facilitador asignado.');
+          return;
+        }
+      } else {
+        selectedInstructors.push(email);
+      }
+      updateInstructorsUI();
+    }
+
+    function updateInstructorsUI() {
+      const assignedNames = [];
+      document.querySelectorAll('.instructor-chip').forEach(chip => {
+        const email = chip.dataset.email.toLowerCase().trim();
+        const name = chip.dataset.name;
+        const isAssigned = selectedInstructors.includes(email);
+        
+        const checkIcon = chip.querySelector('div:last-child');
+        const avatar = chip.querySelector('div:first-child');
+        
+        if (isAssigned) {
+          assignedNames.push(name);
+          chip.className = 'instructor-chip text-left p-2.5 rounded-2xl border transition flex items-center gap-3 bg-blue-50/80 dark:bg-blue-950/40 border-blue-400 dark:border-cyan-600 ring-1 ring-blue-400';
+          if (avatar) avatar.className = 'w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 bg-blue-600 text-white';
+          if (checkIcon) checkIcon.className = 'shrink-0 text-blue-600 dark:text-cyan-400 opacity-100';
+        } else {
+          chip.className = 'instructor-chip text-left p-2.5 rounded-2xl border transition flex items-center gap-3 bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 hover:border-slate-300';
+          if (avatar) avatar.className = 'w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
+          if (checkIcon) checkIcon.className = 'shrink-0 text-blue-600 dark:text-cyan-400 opacity-0';
+        }
+      });
+
+      document.getElementById('f-instructors').value = selectedInstructors.join(', ');
+      
+      const badge = document.getElementById('badge-instructor-count');
+      if (badge) badge.innerText = `${selectedInstructors.length} facilitador${selectedInstructors.length > 1 ? 'es' : ''}`;
+
+      // Autocompletar nombre visible si no fue editado manualmente
+      const instructorInput = document.getElementById('f-instructor');
+      if (assignedNames.length > 0 && (!instructorInput.value || instructorInput.dataset.auto === 'true')) {
+        instructorInput.value = formatNamesList(assignedNames);
+        instructorInput.dataset.auto = 'true';
+      }
+    }
+
+    function formatNamesList(names) {
+      if (names.length === 1) return names[0];
+      if (names.length === 2) return `${names[0]} y ${names[1]}`;
+      return `${names.slice(0, -1).join(', ')} y ${names[names.length - 1]}`;
+    }
+
+    // -------------------------------------------------------------
+    // 3. Formato y Sede
+    // -------------------------------------------------------------
+    function setFormat(fmt) {
+      document.getElementById('f-format').value = fmt;
+      
+      const venueInput = document.getElementById('f-venue');
+      if (fmt === 'Virtual') {
+        if (!venueInput.value || venueInput.value === 'Fab Lab Miraflores') {
+          venueInput.value = 'Virtual (Zoom interactivo)';
+        }
+      } else {
+        if (!venueInput.value || venueInput.value === 'Virtual (Zoom interactivo)') {
+          venueInput.value = 'Fab Lab Miraflores';
+        }
+      }
+
+      ['presencial', 'virtual', 'hibrido'].forEach(key => {
+        const btn = document.getElementById(`btn-fmt-${key}`);
+        if (!btn) return;
+        const match = (key === 'presencial' && fmt === 'Presencial') ||
+                      (key === 'virtual' && fmt === 'Virtual') ||
+                      (key === 'hibrido' && fmt === 'Híbrido');
+        if (match) {
+          btn.className = 'format-btn py-2.5 px-3 rounded-2xl border text-xs font-bold flex flex-col items-center gap-1 transition bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-400';
+        } else {
+          btn.className = 'format-btn py-2.5 px-3 rounded-2xl border text-xs font-bold flex flex-col items-center gap-1 transition bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300';
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // 4. Calendario y Sesiones
+    // -------------------------------------------------------------
     function initExistingDates() {
       if (Array.isArray(INITIAL_TALLER.sessionDates) && INITIAL_TALLER.sessionDates.length > 0) {
         INITIAL_TALLER.sessionDates.forEach(sd => {
@@ -780,7 +1097,6 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
         });
       }
 
-      // Ordenar cronológicamente
       selectedDates.sort((a, b) => new Date(a.year, a.month, a.day) - new Date(b.year, b.month, b.day));
 
       renderSelectedDateChips();
@@ -849,7 +1165,7 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
         startDateInput.value = '';
       }
 
-      // 2. Detección de días de semana para etiqueta
+      // 2. Días de la semana automáticos
       const daysLabelInput = document.getElementById('calc-days-label');
       if (selectedDates.length > 0 && (!daysLabelInput.value || daysLabelInput.dataset.autofilled === 'true')) {
         const dayNames = ['Domingos', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'];
@@ -866,7 +1182,6 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       const tStart = document.getElementById('calc-time-start').value || '10:00';
       const tEnd = document.getElementById('calc-time-end').value || '11:30';
 
-      // Calcular horas por sesión
       const [h1, m1] = tStart.split(':').map(Number);
       const [h2, m2] = tEnd.split(':').map(Number);
       let diffMinutes = (h2 * 60 + m2) - (h1 * 60 + m1);
@@ -876,7 +1191,6 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       const totalSessions = selectedDates.length || 4;
       const totalHours = Math.round(hoursPerSession * totalSessions * 10) / 10;
 
-      // Generar frases para el front
       const formatTimeAmPm = (tStr) => {
         const [h, m] = tStr.split(':').map(Number);
         const ampm = h >= 12 ? 'pm' : 'am';
@@ -890,52 +1204,39 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       document.getElementById('f-schedule').value = schedStr;
       document.getElementById('f-duration').value = durStr;
 
-      // Calcular precio si es nuevo o estaba vacío
+      // Calcular precio sugerido base S/. 25/hora
       const priceInput = document.getElementById('f-price');
-      if (!priceInput.value || priceInput.value === 'S/. 150') {
+      if (!priceInput.value || priceInput.dataset.autoPrice === 'true') {
         const priceBase = Math.round(totalHours * 25);
         priceInput.value = `S/. ${priceBase}`;
+        priceInput.dataset.autoPrice = 'true';
       }
     }
 
-    // Selectores de formato y herramienta
-    function onFormatSelectChange(val) {
-      const customInput = document.getElementById('f-format');
-      if (val === 'otro') {
-        customInput.classList.remove('hidden');
-        customInput.focus();
-      } else {
-        customInput.classList.add('hidden');
-        customInput.value = val;
-      }
-    }
-
-    function onToolSelectChange(val) {
-      const customInput = document.getElementById('f-fabTool');
-      if (val === 'otro') {
-        customInput.value = '';
-        customInput.focus();
-      } else {
-        customInput.value = val;
-      }
-    }
-
-    // Misiones pedagógicas
-    function addMissionRow(session = '', title = '', desc = '') {
+    // -------------------------------------------------------------
+    // 5. Misiones Makerdu (2 Columnas: Acción + Entregable)
+    // -------------------------------------------------------------
+    function addMissionRow(action = '', deliverable = '') {
       const container = document.getElementById('syllabus-container');
-      const idx = container.querySelectorAll('.syllabus-row').length + 1;
       const div = document.createElement('div');
       div.className = 'syllabus-row grid grid-cols-1 sm:grid-cols-12 gap-2 bg-slate-50 dark:bg-slate-950 p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800 items-center shadow-sm';
       
-      let missionLabel = session || `Misión ${idx}`;
-
       div.innerHTML = `
-        <input type="text" class="sm:col-span-3 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-blue-700 dark:text-cyan-400 font-bold" value="${missionLabel}">
-        <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white" placeholder="Reto principal" value="${title}">
-        <input type="text" class="sm:col-span-4 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300" placeholder="Actividad práctica en el lab" value="${desc}">
-        <button type="button" onclick="this.parentElement.remove()" class="sm:col-span-1 text-slate-400 hover:text-rose-500 p-1 text-center" title="Quitar misión">
-          <i data-lucide="x" class="w-4 h-4 mx-auto"></i>
-        </button>
+        <div class="sm:col-span-4 relative">
+          <input type="text" list="maker-actions-list" 
+                 class="mission-action w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-blue-700 dark:text-cyan-400 font-bold focus:outline-none focus:border-blue-500" 
+                 placeholder="Ej. Descubrir / Modelar" value="${action}">
+        </div>
+        <div class="sm:col-span-7">
+          <input type="text" 
+                 class="mission-deliverable w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-800 dark:text-slate-200 font-medium focus:outline-none focus:border-blue-500" 
+                 placeholder="Entregable o micro-reto tangible..." value="${deliverable}">
+        </div>
+        <div class="sm:col-span-1 text-center">
+          <button type="button" onclick="this.closest('.syllabus-row').remove()" class="text-slate-400 hover:text-rose-500 p-1.5 transition" title="Quitar misión">
+            <i data-lucide="x" class="w-4 h-4 mx-auto"></i>
+          </button>
+        </div>
       `;
       container.appendChild(div);
       lucide.createIcons();
@@ -945,17 +1246,26 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       const container = document.getElementById('syllabus-container');
       container.innerHTML = '';
       if (count === 2) {
-        addMissionRow('Misión 1', 'Inmersión & Modelado CAD', 'Exploración de requerimientos técnicos, geometría 2D/3D y tolerancias.');
-        addMissionRow('Misión 2', 'Fabricación CAM, Ensamble & Demo', 'Corte o impresión en máquina, ensamble y reto funcional completado.');
+        addMissionRow('Inmersión & Modelado CAD', 'Exploración de requerimientos técnicos, boceto vectorial y cálculo de tolerancias.');
+        addMissionRow('Fabricación CAM & Reto Cumplido', 'Corte o impresión 3D en máquina, ensamblado de autor y prueba funcional.');
+      } else if (count === 6) {
+        addMissionRow('Inmersión Maker & Bocetos', 'Propiedades del material, fundamentos técnicos y boceto manual.');
+        addMissionRow('Diseño Vectorial & Geometría', 'Trazos en curvas Bezier, tolerancias y vectorización de precisión.');
+        addMissionRow('Modelado 3D & Ensambles', 'Construcción volumétrica paramétrica y ensamble digital.');
+        addMissionRow('Calibración & Fabricación CAM', 'Generación de trayectorias G-Code y corte/impresión en máquina.');
+        addMissionRow('Cortes & Acabados Físicos', 'Post-procesado manual, limpieza de soportes y ensamble modular.');
+        addMissionRow('Exposición & Misión Lograda', 'Presentación del prototipo funcional, catálogo digital y feedback.');
       } else {
-        addMissionRow('Misión 1', 'Inmersión Maker & Bocetos', 'Propiedades del material, fundamentos técnicos y boceto manual.');
-        addMissionRow('Misión 2', 'Modelado Digital CAD', 'Construcción geométrica 2D/3D paramétrica y cálculo de tolerancias.');
-        addMissionRow('Misión 3', 'Fabricación CAM & Calibración', 'Generación de trayectorias, calibración de máquina y corte/impresión.');
-        addMissionRow('Misión 4', 'Ensamble Físico & Misión Cumplida', 'Post-procesado, ensamble físico sin holguras y presentación del prototipo.');
+        addMissionRow('Inmersión Maker & Bocetos', 'Propiedades del material, fundamentos técnicos y boceto manual.');
+        addMissionRow('Modelado Digital CAD', 'Construcción geométrica paramétrica y cálculo de tolerancias.');
+        addMissionRow('Fabricación CAM & Calibración', 'Generación de trayectorias, calibración de máquina y fabricación.');
+        addMissionRow('Ensamble Físico & Misión Cumplida', 'Post-procesado, ensamble físico sin holguras y presentación del prototipo.');
       }
     }
 
-    // Imagen
+    // -------------------------------------------------------------
+    // 6. Imagen de Portada
+    // -------------------------------------------------------------
     function updateImagePreview(url) {
       const preview = document.getElementById('img-preview');
       if (url && url.trim()) {
@@ -990,7 +1300,9 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       }
     }
 
-    // Guardado del Taller
+    // -------------------------------------------------------------
+    // 7. Guardado del Taller (Envío Limpio y Compatible)
+    // -------------------------------------------------------------
     async function submitForm() {
       const title = document.getElementById('f-title').value.trim();
       if (!title) {
@@ -999,47 +1311,64 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
         return;
       }
 
+      const challenge = document.getElementById('f-challenge').value.trim();
+      if (!challenge) {
+        alert('Por favor describe el Reto Maker que fabricarán.');
+        document.getElementById('f-challenge').focus();
+        return;
+      }
+
+      // Estructurar misiones en 2 columnas
       const syllabus = [];
-      document.querySelectorAll('#syllabus-container > div').forEach(row => {
-        const inputs = row.querySelectorAll('input');
-        if (inputs.length >= 3 && inputs[1].value.trim()) {
+      document.querySelectorAll('#syllabus-container .syllabus-row').forEach((row, idx) => {
+        const actionInput = row.querySelector('.mission-action');
+        const deliverableInput = row.querySelector('.mission-deliverable');
+        const action = actionInput ? actionInput.value.trim() : '';
+        const deliverable = deliverableInput ? deliverableInput.value.trim() : '';
+
+        if (action || deliverable) {
           syllabus.push({
-            session: inputs[0].value.trim(),
-            title: inputs[1].value.trim(),
-            desc: inputs[2].value.trim()
+            session: `Misión ${idx + 1}`,
+            action: action || `Fase ${idx + 1}`,
+            deliverable: deliverable,
+            title: action || `Misión ${idx + 1}`,
+            desc: deliverable
           });
         }
       });
 
       const sessionDatesArr = selectedDates.map(x => x.label);
-      const rawInstructors = document.getElementById('f-instructors').value;
-      const instructorsList = rawInstructors.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+      const finalDeliverable = document.getElementById('f-finalDeliverable').value.trim();
 
       const payload = {
         id: document.getElementById('f-id').value,
         from_proposal_id: document.getElementById('f-from-proposal').value,
         title: title,
-        subtitle: document.getElementById('f-subtitle').value.trim(),
+        subtitle: challenge,
         category: document.getElementById('f-category').value,
-        targetAudience: document.getElementById('f-targetAudience').value.trim(),
+        level: document.getElementById('f-level').value,
         badge: document.getElementById('f-badge').value.trim(),
+        targetAudience: document.getElementById('f-targetAudience').value.trim(),
         price: document.getElementById('f-price').value.trim(),
         startDate: document.getElementById('f-startDate').value.trim(),
         sessionDates: sessionDatesArr,
         duration: document.getElementById('f-duration').value.trim(),
         schedule: document.getElementById('f-schedule').value.trim(),
-        format: document.getElementById('f-format').value.trim() || document.getElementById('f-format-select').value,
-        fabTool: document.getElementById('f-fabTool').value.trim(),
-        challenge: document.getElementById('f-challenge').value.trim(),
-        description: document.getElementById('f-description').value.trim(),
+        format: document.getElementById('f-format').value.trim(),
+        venue: document.getElementById('f-venue').value.trim(),
+        technologies: selectedTechs,
+        fabTool: selectedTechs.join(' · ') || document.getElementById('f-fabTool').value.trim(),
+        challenge: challenge,
+        description: challenge,
+        finalDeliverable: finalDeliverable,
         instructor: document.getElementById('f-instructor').value.trim(),
-        instructors: instructorsList,
+        instructors: selectedInstructors,
         status: document.getElementById('f-status').value,
         image: document.getElementById('f-image').value.trim(),
         syllabus: syllabus
       };
 
-      // Desactivar botones de guardado
+      // Desactivar botones de guardado mientras procesa
       document.querySelectorAll('.btn-save-header, button[type="submit"]').forEach(btn => {
         btn.disabled = true;
         btn.innerHTML = '<span>Guardando...</span>';
@@ -1098,14 +1427,20 @@ $pageTitle = $isViewOnly ? 'Consulta de estructura didáctica' : ($isNew ? ($isA
       }
     }
 
-    // Inicializar contenido existente al cargar
+    // Inicialización al cargar la página
     document.addEventListener('DOMContentLoaded', () => {
       updateThemeUI();
       initExistingDates();
+      updateTechChipsUI();
+      updateInstructorsUI();
 
       // Cargar syllabus si existe
       if (INITIAL_TALLER && Array.isArray(INITIAL_TALLER.syllabus) && INITIAL_TALLER.syllabus.length > 0) {
-        INITIAL_TALLER.syllabus.forEach(s => addMissionRow(s.session, s.title, s.desc));
+        INITIAL_TALLER.syllabus.forEach(s => {
+          const action = s.action || (s.title && s.title.includes(':') ? s.title.split(':')[0].trim() : (s.title || s.session || ''));
+          const deliverable = s.deliverable || (s.title && s.title.includes(':') ? s.title.split(':').slice(1).join(':').trim() : (s.desc || ''));
+          addMissionRow(action, deliverable);
+        });
       } else {
         loadMissionsPreset(4);
       }
