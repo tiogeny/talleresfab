@@ -146,7 +146,8 @@ function sync_to_data_js() {
     $jsContent .= "  { id: \"creativos\", name: \"Jóvenes & Creativos\" },\n";
     $jsContent .= "  { id: \"profesionales\", name: \"Adultos & Emprendedores\" },\n";
     $jsContent .= "  { id: \"educadores\", name: \"Educadores & Docentes\" }\n";
-    $jsContent .= "];\n\n";
+    $jsContent .= "];\n";
+    $jsContent .= "if (typeof window !== 'undefined') window.CATEGORIES = CATEGORIES;\n\n";
     $jsContent .= "var WORKSHOPS = " . $jsonPublished . ";\n";
     $jsContent .= "if (typeof window !== 'undefined') window.WORKSHOPS = WORKSHOPS;\n";
 

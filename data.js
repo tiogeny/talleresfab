@@ -1,5 +1,24 @@
-// Catálogo oficial de talleres FAB LAB Perú
-// Versión sincronizada automáticamente v=8.0
+// Catálogo oficial de talleres FAB LAB Perú (edu.fab.pe)
+// Sincronizado v=9.0
+
+const SITE_DATA = {
+  phone: "+51 999 999 999",
+  whatsappBase: "51999999999",
+  brandName: "FAB LAB Perú",
+  brandTagline: "Innovación y Fabricación Digital",
+  mainSiteUrl: "https://fab.pe"
+};
+if (typeof window !== 'undefined') window.SITE_DATA = SITE_DATA;
+
+const CATEGORIES = [
+  { id: "all", name: "Todos los Talleres" },
+  { id: "kids", name: "Niños & Familias" },
+  { id: "creativos", name: "Jóvenes & Creativos" },
+  { id: "profesionales", name: "Adultos & Emprendedores" },
+  { id: "educadores", name: "Educadores & Docentes" }
+];
+if (typeof window !== 'undefined') window.CATEGORIES = CATEGORIES;
+
 var WORKSHOPS = [
   {
     "id": "minicuadros-mural-2-5d",
