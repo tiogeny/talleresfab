@@ -503,8 +503,8 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
 
           <!-- Sede o Espacio Específico -->
           <div>
-            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Sede / Espacio Maker *</label>
-            <input type="text" id="f-venue" required placeholder="Ej. Fab Lab Miraflores o Zoom interactivo"
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Sede / Espacio Maker (Opcional)</label>
+            <input type="text" id="f-venue" placeholder="Ej. Fab Lab Miraflores o Zoom interactivo"
                    value="<?= htmlspecialchars($cleanVenue) ?>"
                    class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
             <p class="text-[10px] text-slate-400 mt-1">Ubicación física del laboratorio o plataforma de conexión en vivo.</p>
@@ -688,24 +688,15 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
           <div class="flex items-center gap-2.5">
             <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">6</span>
             <div>
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Ruta de Aprendizaje (Temario Didáctico)</h3>
-              <p class="text-[11px] text-slate-500">2 columnas por sesión: <strong>Acción del Taller</strong> + <strong>Entregable / Micro-reto</strong></p>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Misiones Didácticas</h3>
+              <p class="text-[11px] text-slate-500">Acción del Taller + Entregable práctico</p>
             </div>
           </div>
 
-          <!-- Presets y botón añadir -->
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <button type="button" onclick="loadMissionsPreset(2)" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-semibold transition">
-              Sprint (2)
-            </button>
-            <button type="button" onclick="loadMissionsPreset(4)" class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 dark:bg-cyan-950 dark:text-cyan-300 border border-blue-200 dark:border-cyan-800 hover:bg-blue-100 text-[11px] font-bold transition">
-              Estándar (4)
-            </button>
-            <button type="button" onclick="loadMissionsPreset(6)" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-semibold transition">
-              Avanzado (6)
-            </button>
-            <button type="button" onclick="addMissionRow()" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-[11px] font-bold transition flex items-center gap-1 shadow-sm ml-1">
-              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <!-- Botón añadir misión -->
+          <div>
+            <button type="button" onclick="addMissionRow()" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="plus" class="w-4 h-4"></i>
               <span>Añadir misión</span>
             </button>
           </div>
@@ -737,27 +728,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
           <!-- Inyectado dinámicamente por JS -->
         </div>
 
-        <!-- Nodo de Meta Final / ¡Reto Logrado! -->
-        <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <div class="bg-gradient-to-r from-amber-500/10 via-blue-500/5 to-transparent p-3.5 rounded-2xl border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
-              <i data-lucide="trophy" class="w-4 h-4"></i>
-            </div>
-            <div class="flex-1 w-full space-y-1">
-              <label class="block text-xs font-bold text-amber-900 dark:text-amber-300">
-                ¡Reto Logrado! · Meta Final del Taller
-              </label>
-              <input type="text" id="f-finalDeliverable" 
-                     placeholder="Ej. Prototipo físico terminado, funcionando y catálogo digital de autor para portafolio"
-                     value="<?= htmlspecialchars($currentTaller['finalDeliverable'] ?? '') ?>"
-                     class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-amber-300/60 dark:border-amber-700/60 text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-amber-500">
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ======================================================== -->
+        <!-- ======================================================== -->
       <!-- BLOQUE 7: IMAGEN DE PORTADA (16:9)                       -->
       <!-- ======================================================== -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
@@ -937,12 +908,13 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
       document.getElementById('f-format').value = fmt;
       
       const venueInput = document.getElementById('f-venue');
+      const venueContainer = venueInput ? venueInput.closest('div') : null;
       if (fmt === 'Virtual') {
-        if (!venueInput.value || venueInput.value === 'Fab Lab Miraflores') {
-          venueInput.value = 'Virtual (Zoom interactivo)';
-        }
+        if (venueInput) venueInput.value = '';
+        if (venueContainer) venueContainer.classList.add('opacity-40', 'pointer-events-none');
       } else {
-        if (!venueInput.value || venueInput.value === 'Virtual (Zoom interactivo)') {
+        if (venueContainer) venueContainer.classList.remove('opacity-40', 'pointer-events-none');
+        if (venueInput && !venueInput.value) {
           venueInput.value = 'Fab Lab Miraflores';
         }
       }
@@ -1328,7 +1300,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
       });
 
       const sessionDatesArr = selectedDates.map(x => x.label);
-      const finalDeliverable = document.getElementById('f-finalDeliverable').value.trim();
+      const finalDeliverable = document.getElementById('f-finalDeliverable') ? document.getElementById('f-finalDeliverable').value.trim() : '';
 
       const payload = {
         id: document.getElementById('f-id').value,

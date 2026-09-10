@@ -191,104 +191,63 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
   <!-- CUERPO PRINCIPAL DEL PANEL -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-6">
 
-    <!-- Banner de Métricas -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 flex items-center justify-between shadow-sm transition-colors">
+    <!-- Tarjetas Interactivas de Filtro (Estilo Dashboard Moderno) -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+      
+      <!-- 1. Publicados en Vivo -->
+      <div onclick="switchTab('published')" id="stat-card-published"
+           class="stat-filter-card cursor-pointer bg-white dark:bg-slate-900 border-2 border-emerald-500/80 bg-emerald-50/20 dark:bg-emerald-950/20 rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-xs hover:shadow-md transition-all group">
         <div class="space-y-1">
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Total en Base de Datos</span>
-          <h3 id="stat-total" class="text-2xl font-black text-slate-900 dark:text-white">0</h3>
-        </div>
-        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-cyan-400 flex items-center justify-center">
-          <i data-lucide="layers" class="w-5 h-5"></i>
-        </div>
-      </div>
-
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 flex items-center justify-between shadow-sm transition-colors">
-        <div class="space-y-1">
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Publicados en Vivo</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block">Publicados en Vivo</span>
           <h3 id="stat-published" class="text-2xl font-black text-emerald-600 dark:text-emerald-400">0</h3>
         </div>
-        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
           <i data-lucide="check-circle" class="w-5 h-5"></i>
         </div>
       </div>
 
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 flex items-center justify-between shadow-sm transition-colors">
+      <!-- 2. Borradores / Propuestas -->
+      <div onclick="switchTab('drafts')" id="stat-card-drafts"
+           class="stat-filter-card cursor-pointer bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-xs hover:shadow-md transition-all group">
         <div class="space-y-1">
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium"><?= $isAdmin ? 'Borradores' : 'Mis Borradores' ?></span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block">Borradores / Propuestas</span>
           <h3 id="stat-drafts" class="text-2xl font-black text-amber-600 dark:text-amber-400">0</h3>
         </div>
-        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
           <i data-lucide="file-edit" class="w-5 h-5"></i>
         </div>
       </div>
 
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 flex items-center justify-between shadow-sm transition-colors">
+      <!-- 3. Catálogo General (Todos) -->
+      <div onclick="switchTab('all')" id="stat-card-all"
+           class="stat-filter-card cursor-pointer bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-xs hover:shadow-md transition-all group">
         <div class="space-y-1">
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium"><?= $isAdmin ? 'Propuestas Recibidas' : 'Catálogo General' ?></span>
-          <h3 id="stat-proposals" class="text-2xl font-black text-blue-600 dark:text-cyan-400">0</h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block">Catálogo General</span>
+          <h3 id="stat-total" class="text-2xl font-black text-blue-600 dark:text-cyan-400">0</h3>
         </div>
-        <div class="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-600 dark:bg-cyan-500/10 dark:text-cyan-400 flex items-center justify-center">
-          <i data-lucide="<?= $isAdmin ? 'sparkles' : 'book-open' ?>" class="w-5 h-5"></i>
+        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/20 dark:text-cyan-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
+          <i data-lucide="layers" class="w-5 h-5"></i>
         </div>
       </div>
+
+      <!-- 4. Calendario del Lab -->
+      <div onclick="switchTab('calendar')" id="stat-card-calendar"
+           class="stat-filter-card cursor-pointer bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-xs hover:shadow-md transition-all group">
+        <div class="space-y-1">
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block">Calendario del Lab</span>
+          <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 block pt-1">Ver programación &rarr;</span>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
+          <i data-lucide="calendar" class="w-5 h-5"></i>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Pestañas y Filtros -->
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
-      
-      <!-- Pestañas de Navegación -->
-      <div class="flex flex-wrap items-center gap-2">
-        <?php if ($isAdmin): ?>
-          <button onclick="switchTab('published')" id="tab-published" class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-slate-800 dark:text-white border border-slate-900 dark:border-slate-700 flex items-center gap-1.5 transition shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Talleres Publicados</span>
-            <span id="badge-tab-published" class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-1.5 py-0.2 rounded font-mono">0</span>
-          </button>
-
-          <button onclick="switchTab('drafts')" id="tab-drafts" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-            <span>Borradores / En Revisión</span>
-            <span id="badge-tab-drafts" class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 px-1.5 py-0.2 rounded font-mono">0</span>
-          </button>
-
-          <button onclick="switchTab('proposals')" id="tab-proposals" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-            <span>Propuestas Web</span>
-            <span id="badge-tab-proposals" class="text-[10px] bg-blue-100 text-blue-800 dark:bg-cyan-950 dark:text-cyan-300 px-1.5 py-0.2 rounded font-mono">0</span>
-          </button>
-
-          <button onclick="switchTab('all')" id="tab-all" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <span>Todos los Talleres</span>
-          </button>
-
-          <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-500"></i>
-            <span>Calendario del Lab</span>
-          </button>
-        <?php else: ?>
-          <button onclick="switchTab('published')" id="tab-published" class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-slate-800 dark:text-white border border-slate-900 dark:border-slate-700 flex items-center gap-1.5 transition shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Talleres Publicados</span>
-            <span id="badge-tab-published" class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-1.5 py-0.2 rounded font-mono">0</span>
-          </button>
-
-          <button onclick="switchTab('drafts')" id="tab-drafts" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-            <span>Borradores / En Revisión</span>
-            <span id="badge-tab-drafts" class="text-[10px] bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 px-1.5 py-0.2 rounded font-mono">0</span>
-          </button>
-
-          <button onclick="switchTab('all')" id="tab-all" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
-            <span>Catálogo General</span>
-          </button>
-
-          <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-900 border border-transparent flex items-center gap-1.5 transition">
-            <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-500"></i>
-            <span>Calendario del Lab</span>
-          </button>
-        <?php endif; ?>
+    <!-- Barra de Búsqueda y Título de Sección -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
+      <div class="flex items-center gap-2">
+        <h2 id="active-tab-title" class="text-base font-bold text-slate-900 dark:text-white">Talleres Publicados en Vivo</h2>
       </div>
 
       <!-- Buscador rápido -->
@@ -410,12 +369,64 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
   const IS_ADMIN = <?= $isAdmin ? 'true' : 'false' ?>;
   const IS_INSTRUCTOR = <?= $isInstructor ? 'true' : 'false' ?>;
 
+  const MONTH_NAMES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  const nowInit = new Date();
+
   let state = {
     talleres: [],
     proposals: [],
     activeTab: 'published',
-    currentUser: CURRENT_USER
+    currentUser: CURRENT_USER,
+    calMonth: nowInit.getMonth(),
+    calYear: nowInit.getFullYear(),
+    calSelectedDay: nowInit.getDate()
   };
+
+  function parseAllTallerDates(t) {
+    const results = [];
+    const monthMap = {
+      'ene': 0, 'feb': 1, 'mar': 2, 'abr': 3, 'may': 4, 'jun': 5,
+      'jul': 6, 'ago': 7, 'set': 8, 'sep': 8, 'oct': 9, 'nov': 10, 'dic': 11
+    };
+
+    const datesList = (Array.isArray(t.sessionDates) && t.sessionDates.length > 0) 
+      ? t.sessionDates 
+      : (t.startDate ? [t.startDate] : []);
+
+    datesList.forEach(raw => {
+      const clean = String(raw).replace(/⭐/g, '').split('·')[0].trim().toLowerCase();
+      const match = clean.match(/(\d{1,2})\s*(?:de\s*)?([a-zá-ú]{3,})/i);
+      if (match) {
+        const day = parseInt(match[1], 10);
+        const monKey = match[2].slice(0, 3);
+        const m = monthMap[monKey];
+        if (m !== undefined && !isNaN(day)) {
+          results.push({ day, month: m, year: state.calYear });
+        }
+      }
+    });
+
+    return results;
+  }
+
+  function changeCalMonth(delta) {
+    if (delta === 0) {
+      const now = new Date();
+      state.calMonth = now.getMonth();
+      state.calYear = now.getFullYear();
+      state.calSelectedDay = now.getDate();
+    } else {
+      state.calMonth += delta;
+      if (state.calMonth < 0) {
+        state.calMonth = 11;
+        state.calYear--;
+      } else if (state.calMonth > 11) {
+        state.calMonth = 0;
+        state.calYear++;
+      }
+    }
+    renderCalendar();
+  }
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -532,15 +543,27 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
   function switchTab(tab) {
     state.activeTab = tab;
-    document.querySelectorAll('.tab-btn').forEach(b => {
-      b.classList.remove('active', 'bg-slate-900', 'dark:bg-slate-800', 'text-white', 'border-slate-900', 'dark:border-slate-700', 'shadow-sm');
-      b.classList.add('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-200/70', 'dark:text-slate-400', 'dark:hover:text-white', 'dark:hover:bg-slate-900', 'border-transparent');
+
+    // Actualizar estados visuales de las tarjetas de filtro
+    const tabCards = {
+      'published': { id: 'stat-card-published', border: 'border-emerald-500/90', bg: 'bg-emerald-50/30', title: 'Talleres Publicados en Vivo' },
+      'drafts': { id: 'stat-card-drafts', border: 'border-amber-500/90', bg: 'bg-amber-50/30', title: 'Borradores & Propuestas en Revisión' },
+      'all': { id: 'stat-card-all', border: 'border-blue-500/90', bg: 'bg-blue-50/30', title: 'Catálogo General de Talleres' },
+      'calendar': { id: 'stat-card-calendar', border: 'border-indigo-500/90', bg: 'bg-indigo-50/30', title: 'Calendario Mensual del Laboratorio' }
+    };
+
+    document.querySelectorAll('.stat-filter-card').forEach(card => {
+      card.className = 'stat-filter-card cursor-pointer bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-xs hover:shadow-md transition-all group';
     });
 
-    const activeBtn = document.getElementById('tab-' + tab);
-    if (activeBtn) {
-      activeBtn.classList.remove('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-200/70', 'dark:text-slate-400', 'dark:hover:text-white', 'dark:hover:bg-slate-900', 'border-transparent');
-      activeBtn.classList.add('active', 'bg-slate-900', 'dark:bg-slate-800', 'text-white', 'border-slate-900', 'dark:border-slate-700', 'shadow-sm');
+    const currentCfg = tabCards[tab];
+    if (currentCfg) {
+      const activeCard = document.getElementById(currentCfg.id);
+      if (activeCard) {
+        activeCard.className = `stat-filter-card cursor-pointer bg-white dark:bg-slate-900 border-2 ${currentCfg.border} ${currentCfg.bg} rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-sm transition-all group ring-2 ring-opacity-20`;
+      }
+      const titleEl = document.getElementById('active-tab-title');
+      if (titleEl) titleEl.innerText = currentCfg.title;
     }
 
     renderTalleres();
@@ -564,39 +587,19 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
     if (grid) grid.classList.remove('hidden');
 
     let items = [];
-
-    if (IS_ADMIN) {
-      if (state.activeTab === 'proposals') {
-        items = state.proposals.map(p => ({ ...p, isProposal: true }));
-      } else if (state.activeTab === 'published') {
-        items = state.talleres.filter(t => t.status === 'published');
-      } else if (state.activeTab === 'drafts') {
-        items = state.talleres.filter(t => t.status !== 'published');
-      } else {
-        items = state.talleres;
-      }
+    if (state.activeTab === 'published') {
+      items = state.talleres.filter(t => t.status === 'published');
+    } else if (state.activeTab === 'drafts') {
+      items = [...state.talleres.filter(t => t.status !== 'published'), ...state.proposals];
     } else {
-      // INSTRUCTOR VIEW
-      if (state.activeTab === 'published') {
-        // Talleres publicados donde participa como mentor principal o co-dictado
-        items = state.talleres.filter(t => t.status === 'published' && isUserInstructorOf(t, state.currentUser));
-      } else if (state.activeTab === 'drafts') {
-        // Borradores o propuestas en revisión del instructor
-        const myDrafts = state.talleres.filter(t => t.status !== 'published' && isUserInstructorOf(t, state.currentUser));
-        const myProps = state.proposals.map(p => ({ ...p, isProposal: true }));
-        items = [...myDrafts, ...myProps];
-      } else {
-        // Catálogo General (todos los talleres publicados del Fab Lab)
-        items = state.talleres.filter(t => t.status === 'published');
-      }
+      items = [...state.talleres, ...state.proposals];
     }
 
     if (search) {
       items = items.filter(t => 
         (t.title && t.title.toLowerCase().includes(search)) ||
-        (t.instructor && t.instructor.toLowerCase().includes(search)) ||
         (t.challenge && t.challenge.toLowerCase().includes(search)) ||
-        (t.fabTool && t.fabTool.toLowerCase().includes(search)) ||
+        (t.instructor && t.instructor.toLowerCase().includes(search)) ||
         (t.badge && t.badge.toLowerCase().includes(search))
       );
     }
@@ -614,98 +617,103 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       const isMyWorkshop = !isProp && (IS_ADMIN || isUserInstructorOf(t, state.currentUser));
 
       const statusBadge = isProp 
-        ? '<span class="bg-blue-50 text-blue-700 dark:bg-cyan-500/20 dark:text-cyan-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-blue-200 dark:border-cyan-500/30">Propuesta Externa</span>'
+        ? '<span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-xs">Propuesta</span>'
         : t.status === 'published'
-          ? '<span class="bg-emerald-50 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-500/30">🟢 Publicado en Vivo</span>'
-          : '<span class="bg-amber-50 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-amber-200 dark:border-amber-500/30">🟡 Borrador</span>';
+          ? '<span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-xs">Publicado</span>'
+          : '<span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-xs">Borrador</span>';
+
+      let formatLabel = t.format || 'Presencial';
+      if (formatLabel.toLowerCase().includes('virtual')) {
+        formatLabel = 'Virtual';
+      } else if (t.venue && t.venue.trim()) {
+        formatLabel = `${formatLabel} · ${t.venue.trim()}`;
+      }
+
+      const cleanChallenge = (t.challenge || t.subtitle || t.description || '').replace(/\*\*(.*?)\*\*/g, '$1');
 
       return `
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-slate-700 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 group">
           
-          <div>
-            <div class="w-full aspect-video bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-              <img src="../${t.image || 'images/talleres_niños.jfif'}?v=6.0" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='../images/talleres_niños.jfif'">
-              <div class="absolute top-3 left-3">${statusBadge}</div>
-              <div class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md text-white font-mono text-xs font-bold px-2.5 py-1 rounded-lg border border-white/10 shadow-sm">
-                ${t.price || 'S/. 150'}
-              </div>
+          <!-- Imagen 16:9 Estándar con Badges -->
+          <div class="relative w-full aspect-video bg-slate-100 dark:bg-slate-800 overflow-hidden">
+            <img src="../${t.image || 'images/taller-minicuadros-25d.jpg'}?v=7.0" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='../images/taller-minicuadros-25d.jpg'">
+            <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+              <span class="bg-slate-900/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-sm backdrop-blur-xs">
+                ${t.badge || 'Taller Maker'}
+              </span>
+              ${statusBadge}
             </div>
-
-            <div class="p-5 space-y-3">
-              <div>
-                <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-cyan-400">${t.badge || 'Taller Maker'}</span>
-                <h3 class="text-base font-bold text-slate-900 dark:text-white leading-tight mt-0.5">${t.title}</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">${t.subtitle || t.description || ''}</p>
-              </div>
-
-              ${t.challenge ? `
-                <div class="bg-amber-50/80 dark:bg-slate-950 p-2.5 rounded-xl border border-amber-200 dark:border-amber-500/20 space-y-0.5">
-                  <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 flex items-center gap-1">
-                    <i data-lucide="target" class="w-3 h-3 text-amber-600"></i> Reto Tangible:
-                  </span>
-                  <p class="text-[11px] text-slate-700 dark:text-slate-300 line-clamp-2">${t.challenge}</p>
-                </div>
-              ` : ''}
-
-              <div class="text-xs text-slate-500 dark:text-slate-400 space-y-1 pt-2 border-t border-slate-200 dark:border-slate-800/80">
-                <div class="flex items-center justify-between">
-                  <span>Mentor:</span>
-                  <strong class="text-slate-800 dark:text-slate-200">${t.instructor || 'Equipo FAB LAB'}</strong>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span>Herramienta:</span>
-                  <span class="text-blue-700 dark:text-cyan-300 font-mono text-[11px] font-medium">${t.fabTool || 'Fabricación Digital'}</span>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span>Inicio:</span>
-                  <span class="text-slate-700 dark:text-slate-300 font-mono text-[11px]">${t.startDate || 'A coordinar'}</span>
-                </div>
-              </div>
+            <div class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md text-white font-mono text-xs font-bold px-2.5 py-1 rounded-lg border border-white/10 shadow-sm">
+              ${t.price || 'S/. 200'}
             </div>
           </div>
 
-          <div class="p-4 bg-slate-50 dark:bg-slate-950/80 border-t border-slate-200 dark:border-slate-800/80 flex items-center justify-between gap-2">
+          <!-- Contenido Estilo Landing -->
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
             
-            <div class="flex items-center gap-1.5">
-              ${(IS_ADMIN && !isProp) ? `
-                <button onclick="toggleWorkshopStatus('${t.id}', '${t.status === 'published' ? 'draft' : 'published'}')" 
-                        class="p-2 rounded-xl text-xs font-semibold ${t.status === 'published' ? 'text-amber-600 hover:bg-amber-100 dark:text-amber-400 dark:hover:bg-amber-500/10' : 'text-emerald-600 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-500/10'} transition" 
-                        title="${t.status === 'published' ? 'Ocultar de la web edu.fab.pe' : 'Publicar directamente en edu.fab.pe'}">
-                  <i data-lucide="${t.status === 'published' ? 'eye-off' : 'eye'}" class="w-4 h-4"></i>
-                </button>
-              ` : ''}
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-1.5 text-xs">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-cyan-300 border border-blue-100 dark:border-cyan-900 text-[11px] font-bold">
+                  <i data-lucide="users" class="w-3 h-3 text-blue-500"></i>
+                  <span>${t.targetAudience || 'Público general'}</span>
+                </span>
+                <span class="text-slate-300 dark:text-slate-700">·</span>
+                <span class="text-[11px] text-slate-500 font-medium">Nivel ${t.level || 'Básico'}</span>
+              </div>
 
-              ${(IS_ADMIN || isMyWorkshop) ? `
-                <button onclick="editWorkshop('${t.id}', ${isProp})" class="px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-cyan-500/20 dark:text-cyan-400 dark:hover:bg-cyan-500/30 text-xs font-bold transition flex items-center gap-1 border border-blue-200 dark:border-transparent">
-                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                  <span>${isProp ? 'Editar Propuesta' : 'Editar Taller'}</span>
-                </button>
-              ` : `
-                <button onclick="viewWorkshopStructure('${t.id}')" class="px-3 py-1.5 rounded-xl bg-slate-200 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 text-xs font-semibold transition flex items-center gap-1">
-                  <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                  <span>Ver Estructura Didáctica</span>
-                </button>
-              `}
+              <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition">${t.title}</h3>
+              
+              <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                ${cleanChallenge}
+              </p>
             </div>
 
-            <div class="flex items-center gap-1">
-              <button type="button" onclick="copyWhatsAppLink('${t.id}')" class="p-2 rounded-xl text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition" title="Copiar enlace de inscripción por WhatsApp">
-                <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <!-- Modalidad, Duración y Facilitador -->
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-slate-400 font-medium">Modalidad</span>
+                <span class="font-semibold text-slate-800 dark:text-slate-200 truncate max-w-[170px]">${formatLabel}</span>
+              </div>
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-slate-400 font-medium">Dedicación</span>
+                <span class="font-bold text-slate-900 dark:text-white">${t.duration || 'A coordinar'}</span>
+              </div>
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-slate-400 font-medium">Facilitador(a)</span>
+                <span class="font-semibold text-blue-700 dark:text-cyan-400 truncate max-w-[170px]">${t.instructor || 'FAB LAB'}</span>
+              </div>
+            </div>
+
+            <!-- Barra de Acciones del Panel -->
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+              <button onclick="editWorkshop('${t.id}', ${isProp})" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white dark:bg-cyan-500/20 text-blue-700 dark:text-cyan-300 dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition active:scale-95">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                <span>${isProp ? 'Editar Propuesta' : 'Editar'}</span>
               </button>
 
-              <button type="button" onclick="duplicateWorkshop('${t.id}', ${isProp})" class="p-2 rounded-xl text-slate-500 hover:text-blue-600 hover:bg-slate-200 dark:hover:bg-slate-800 transition" title="Duplicar Taller (Nueva Fecha)">
-                <i data-lucide="copy" class="w-4 h-4"></i>
-              </button>
+              <div class="flex items-center gap-1">
+                ${(IS_ADMIN && !isProp) ? `
+                  <button onclick="toggleWorkshopStatus('${t.id}', '${t.status === 'published' ? 'draft' : 'published'}')" 
+                          class="p-2 rounded-xl text-xs font-semibold ${t.status === 'published' ? 'text-amber-600 hover:bg-amber-100 dark:text-amber-400' : 'text-emerald-600 hover:bg-emerald-100 dark:text-emerald-400'} transition" 
+                          title="${t.status === 'published' ? 'Ocultar de la web' : 'Publicar en la web'}">
+                    <i data-lucide="${t.status === 'published' ? 'eye-off' : 'eye'}" class="w-4 h-4"></i>
+                  </button>
+                ` : ''}
 
-              ${(IS_ADMIN && !isProp) ? `
-                <button onclick="deleteWorkshop('${t.id}')" class="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:text-rose-400 dark:hover:bg-rose-500/10 transition" title="Eliminar Taller Permanentemente">
-                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                <button type="button" onclick="copyWhatsAppLink('${t.id}')" class="p-2 rounded-xl text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition" title="Copiar enlace WhatsApp">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
                 </button>
-              ` : (isProp ? `
-                <button onclick="editWorkshop('${t.id}', true)" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 dark:bg-cyan-500 dark:hover:bg-cyan-400 text-white dark:text-slate-950 font-bold text-xs transition shadow-sm">
-                  Aprobar como Taller
+
+                <button type="button" onclick="duplicateWorkshop('${t.id}', ${isProp})" class="p-2 rounded-xl text-slate-500 hover:text-blue-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Duplicar taller">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
                 </button>
-              ` : '')}
+
+                ${(IS_ADMIN && !isProp) ? `
+                  <button onclick="deleteWorkshop('${t.id}')" class="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition" title="Eliminar taller">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                ` : ''}
+              </div>
             </div>
 
           </div>
