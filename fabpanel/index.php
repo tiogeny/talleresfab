@@ -680,16 +680,23 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
               </div>
               <div class="flex items-center justify-between text-[11px]">
                 <span class="text-slate-400 font-medium">Facilitador(a)</span>
-                <span class="font-semibold text-blue-700 dark:text-cyan-400 truncate max-w-[170px]">${t.instructor || 'FAB LAB'}</span>
+                <span class="font-semibold text-blue-700 dark:text-cyan-400 truncate max-w-[180px]" title="${t.instructor || 'FAB LAB'}">${(t.instructor || 'FAB LAB').split(/\s+y\s+/i).map(n => `<span class="whitespace-nowrap">${n}</span>`).join(' · ')}</span>
               </div>
             </div>
 
-            <!-- Barra de Acciones del Panel -->
+                        <!-- Barra de Acciones del Panel -->
             <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
-              <button onclick="editWorkshop('${t.id}', ${isProp})" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white dark:bg-cyan-500/20 text-blue-700 dark:text-cyan-300 dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition active:scale-95">
-                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                <span>${isProp ? 'Editar Propuesta' : 'Editar'}</span>
-              </button>
+              ${(IS_ADMIN || isMyWorkshop) ? `
+                <button onclick="editWorkshop('${t.id}', ${isProp})" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-600 hover:text-white dark:bg-cyan-500/20 text-blue-700 dark:text-cyan-300 dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition active:scale-95">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                  <span>${isProp ? 'Editar Propuesta' : 'Editar'}</span>
+                </button>
+              ` : `
+                <button onclick="viewWorkshopStructure('${t.id}')" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition" title="Ver estructura didáctica">
+                  <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                  <span>Ver Estructura</span>
+                </button>
+              `}
 
               <div class="flex items-center gap-1">
                 ${(IS_ADMIN && !isProp) ? `

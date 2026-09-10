@@ -321,11 +321,13 @@
                 </div>
 
                 <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-slate-200/50">
-                  <span class="text-slate-500 font-medium flex items-center gap-1.5">
+                  <span class="text-slate-500 font-medium flex items-center gap-1.5 shrink-0">
                     <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-600"></i>
                     <span>Facilitador(a):</span>
                   </span>
-                  <strong id="modal-instructor" class="text-blue-700 text-right font-bold leading-tight max-w-[200px]"></strong>
+                  <div id="modal-instructors-container" class="flex flex-wrap justify-end gap-1.5 max-w-[230px]">
+                    <!-- Chips indivisibles inyectados por JS -->
+                  </div>
                 </div>
               </div>
 
@@ -385,7 +387,7 @@
             <!-- MISIONES (Sin títulos redundantes, micro-badges de habilidad) -->
             <div class="pt-2 border-t border-slate-100">
               <!-- Grilla de Misiones en 2 columnas con separación armónica -->
-              <div id="modal-roadmap" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div id="modal-roadmap" class="flex flex-col gap-2 sm:gap-2.5">
                 <!-- Nodos generados por JS -->
               </div>
             </div>
@@ -414,7 +416,7 @@
 
   
   <!-- SCRIPTS & DATOS -->
-  <script src="data.js?v=12.0"></script>
+  <script src="data.js?v=13.0"></script>
   <script>
     let activeCat = 'all';
 
@@ -576,8 +578,21 @@
       const scheduleEl = document.getElementById('modal-schedule');
       if (scheduleEl) scheduleEl.innerText = w.schedule;
 
-      const instructorEl = document.getElementById('modal-instructor');
-      if (instructorEl) instructorEl.innerText = w.instructor || 'FAB LAB Perú';
+      // Facilitador(es) renderizados como chips indivisibles
+      const instructorContainer = document.getElementById('modal-instructors-container');
+      const rawInstructor = w.instructor || 'FAB LAB Perú';
+      const instructorNames = rawInstructor
+        .split(/\s+y\s+|,|\s*·\s*|\s*\/\s*/i)
+        .map(n => n.trim())
+        .filter(n => n.length > 0);
+
+      if (instructorContainer) {
+        instructorContainer.innerHTML = instructorNames.map(name => `
+          <span class="inline-flex items-center px-2 py-0.5 rounded-lg bg-blue-50 text-blue-700 border border-blue-100 text-[11px] font-bold whitespace-nowrap shadow-2xs">
+            ${name}
+          </span>
+        `).join('');
+      }
 
       // Fechas de sesiones limpias
       const datesContainer = document.getElementById('modal-dates-pills');
@@ -620,10 +635,12 @@
         return 'sparkles';
       }
 
-      // Misiones a Explorar: Micro-badges temáticos sin números
+      // Misiones Didácticas Verticales (Sin números, auto-ajustables 4 a 6 sin scroll)
       const roadmapContainer = document.getElementById('modal-roadmap');
       if (roadmapContainer) {
         const missions = Array.isArray(w.syllabus) ? w.syllabus : [];
+        const isCompact = missions.length >= 6;
+
         roadmapContainer.innerHTML = missions.map((s) => {
           let action = s.action;
           let deliverable = s.deliverable;
@@ -637,20 +654,24 @@
               deliverable = s.title || s.desc || '';
             }
           }
+          // Limpiar cualquier número o prefijo ("1.", "Misión 1:", etc.)
+          action = action.replace(/^(Misi[oó]n\s*\d*[:\.\s-]*|Sesi[oó]n\s*\d*[:\.\s-]*|\d+[\.\s:-]*)/i, '').trim() || 'ACCIÓN';
           if (!deliverable) deliverable = s.desc || '';
 
           const iconName = getMakerIcon(action);
+          const paddingClass = isCompact ? 'p-2 sm:p-2.5' : 'p-3 sm:p-3.5';
 
           return `
-            <div class="bg-slate-50/90 hover:bg-white p-3 sm:p-3.5 rounded-2xl border border-slate-200/80 hover:border-blue-300 transition duration-200 shadow-2xs flex items-start gap-3 group">
-              <div class="w-7 h-7 rounded-xl bg-blue-50 border border-blue-200/80 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition">
+            <div class="bg-slate-50/90 hover:bg-white ${paddingClass} rounded-2xl border border-slate-200/80 hover:border-blue-300 transition duration-200 shadow-2xs flex items-center gap-3 group">
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-blue-50 border border-blue-200/80 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition">
                 <i data-lucide="${iconName}" class="w-4 h-4"></i>
               </div>
-              <div class="min-w-0 flex-1">
-                <span class="text-[11px] font-extrabold text-blue-700 uppercase tracking-wide block truncate">
+              <div class="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2.5">
+                <span class="text-[11px] font-extrabold text-blue-700 uppercase tracking-wide shrink-0">
                   ${action}
                 </span>
-                <p class="text-xs font-semibold text-slate-800 mt-1 leading-snug line-clamp-2" title="${deliverable}">
+                <span class="hidden sm:inline text-slate-300">·</span>
+                <p class="text-xs font-semibold text-slate-800 leading-snug truncate" title="${deliverable}">
                   ${deliverable}
                 </p>
               </div>
