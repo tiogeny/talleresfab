@@ -265,7 +265,7 @@
 
       <!-- Cuerpo Scrolleable con Foto & Ficha a la Izquierda, Contenido a la Derecha -->
       <div class="flex-1 overflow-y-auto p-5 sm:p-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           
           <!-- COLUMNA IZQUIERDA (lg:col-span-5): Portada & Ficha Técnica Unificada -->
           <div class="lg:col-span-5 space-y-4">
@@ -364,29 +364,20 @@
 
           </div>
 
-          <!-- COLUMNA DERECHA (lg:col-span-7): Título, Desafío Maker & Misiones a Explorar -->
-          <div class="lg:col-span-7 space-y-4">
+          <!-- COLUMNA DERECHA (lg:col-span-7): Título, Descripción & Roadmap Conectado -->
+          <div class="lg:col-span-7 flex flex-col justify-between h-full pt-1 pb-1 space-y-6">
             
-            <!-- Bloque Superior: Título & Desafío Maker -->
-            <div class="space-y-3">
-              <!-- Título del Taller -->
+            <!-- Título & Descripción Directa (Sin etiqueta 'Desafío Maker', sin negritas) -->
+            <div class="space-y-2">
               <div class="pr-6 sm:pr-8">
                 <h2 id="modal-title" class="text-xl sm:text-2xl font-black text-slate-900 leading-tight tracking-tight"></h2>
               </div>
-
-              <!-- DESAFÍO MAKER (Limpio, sin tarjeta de fondo, sin negritas) -->
-              <div class="space-y-1.5 pt-1">
-                <span class="text-[11px] font-extrabold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <span class="text-xs">🎯</span>
-                  <span>Desafío Maker</span>
-                </span>
-                <p id="modal-challenge" class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal"></p>
-              </div>
+              <p id="modal-challenge" class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal"></p>
             </div>
 
-            <!-- MISIONES (Lista limpia sin tarjetas, sin números, auto-ajustable) -->
-            <div class="pt-3 border-t border-slate-100">
-              <div id="modal-roadmap" class="divide-y divide-slate-100">
+            <!-- ROADMAP DIDÁCTICO CONECTADO POR LÍNEA VERTICAL CONTINUA -->
+            <div class="flex-1 flex flex-col justify-between pt-4">
+              <div id="modal-roadmap" class="relative pl-7 sm:pl-8 flex-1 flex flex-col justify-between space-y-4 before:absolute before:left-3.5 sm:before:left-4 before:top-3 before:bottom-3 before:w-0.5 before:bg-blue-100">
                 <!-- Nodos inyectados limpiamente por JS -->
               </div>
             </div>
@@ -415,7 +406,7 @@
 
   
   <!-- SCRIPTS & DATOS -->
-  <script src="data.js?v=14.0"></script>
+  <script src="data.js?v=15.0"></script>
   <script>
     let activeCat = 'all';
 
@@ -634,13 +625,12 @@
         return 'sparkles';
       }
 
-      // Misiones Didácticas Limpias (Sin tarjetas de fondo, sin números, auto-ajustables)
+      // Misiones Didácticas Conectadas por Línea (Sin números, auto-expandibles al 100% de altura)
       const roadmapContainer = document.getElementById('modal-roadmap');
       if (roadmapContainer) {
         const missions = Array.isArray(w.syllabus) ? w.syllabus : [];
-        const isCompact = missions.length >= 6;
 
-        roadmapContainer.innerHTML = missions.map((s) => {
+        let nodesHtml = missions.map((s) => {
           let action = s.action;
           let deliverable = s.deliverable;
           if (!action) {
@@ -653,19 +643,19 @@
               deliverable = s.title || s.desc || '';
             }
           }
-          // Limpiar cualquier número o prefijo ("1.", "Misión 1:", etc.)
+          // Limpiar cualquier número o prefijo
           action = action.replace(/^(Misi[oó]n\s*\d*[:\.\s-]*|Sesi[oó]n\s*\d*[:\.\s-]*|\d+[\.\s:-]*)/i, '').trim() || 'ACCIÓN';
           if (!deliverable) deliverable = s.desc || '';
 
           const iconName = getMakerIcon(action);
-          const pyClass = isCompact ? 'py-2 sm:py-2.5' : 'py-3 sm:py-3.5';
 
           return `
-            <div class="${pyClass} flex items-start sm:items-center gap-3.5 group">
-              <div class="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 group-hover:bg-blue-600 group-hover:text-white transition duration-200">
+            <div class="relative flex items-start sm:items-center gap-3.5 group py-1">
+              <!-- Nodo circular sobre la línea continua -->
+              <div class="absolute -left-7 sm:-left-8 w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white border-2 border-blue-500 text-blue-600 flex items-center justify-center shrink-0 shadow-2xs z-10 group-hover:bg-blue-600 group-hover:text-white transition duration-200">
                 <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
               </div>
-              <div class="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2.5">
+              <div class="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2 pl-2">
                 <span class="text-xs font-black text-blue-700 uppercase tracking-wide shrink-0">
                   ${action}
                 </span>
@@ -677,6 +667,27 @@
             </div>
           `;
         }).join('');
+
+        // Hito de Cierre: Meta Tangible del Taller
+        const finalDeliverable = w.finalDeliverable || 'Prototipo físico terminado y catálogo digital de autor';
+        nodesHtml += `
+          <div class="relative flex items-start sm:items-center gap-3.5 group py-1 pt-1.5">
+            <div class="absolute -left-7 sm:-left-8 w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs z-10">
+              <i data-lucide="check" class="w-4 h-4 stroke-[2.5]"></i>
+            </div>
+            <div class="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2 pl-2">
+              <span class="text-xs font-black text-emerald-700 uppercase tracking-wide shrink-0">
+                META FINAL
+              </span>
+              <span class="hidden sm:inline text-slate-300">·</span>
+              <p class="text-xs font-semibold text-slate-800 leading-snug truncate" title="${finalDeliverable}">
+                ${finalDeliverable}
+              </p>
+            </div>
+          </div>
+        `;
+
+        roadmapContainer.innerHTML = nodesHtml;
       }
 
       // Proyecto Final Terminado
