@@ -8,7 +8,7 @@
     "level": "Básico",
     "price": "S/. 200",
     "startDate": "7 de Octubre",
-    "duration": "8 horas de taller",
+    "duration": "8 horas",
     "schedule": "Martes de 7:00 pm a 9:00 pm",
     "sessionDates": [
       "07 Oct",
@@ -73,7 +73,7 @@
     "level": "Básico",
     "price": "S/. 400",
     "startDate": "25 de Octubre",
-    "duration": "16 horas de taller",
+    "duration": "16 horas",
     "schedule": "Miércoles y Viernes de 4:00 pm a 6:00 pm",
     "sessionDates": [
       "25 Oct",
@@ -142,7 +142,7 @@
     "level": "Básico",
     "price": "S/. 200",
     "startDate": "3 de Octubre",
-    "duration": "6 horas de taller",
+    "duration": "6 horas",
     "schedule": "Sábados de 10:00 am a 11:30 am",
     "sessionDates": [
       "03 Oct",
@@ -220,7 +220,7 @@
     "level": "Intermedio",
     "price": "S/. 200",
     "startDate": "11 de Octubre",
-    "duration": "8 horas de taller",
+    "duration": "8 horas",
     "schedule": "Domingos de 10:30 am a 12:30 pm",
     "sessionDates": [
       "11 Oct",

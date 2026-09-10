@@ -671,7 +671,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
             <div>
               <span class="text-slate-400 text-[10px] block">Dedicación en el landing (`duration`):</span>
               <input type="text" id="f-duration" value="<?= htmlspecialchars($currentTaller['duration'] ?? '') ?>"
-                     placeholder="Ej. 6 horas de taller"
+                     placeholder="Ej. 6 horas"
                      class="w-full px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium text-slate-700 dark:text-slate-300">
             </div>
           </div>
@@ -917,11 +917,10 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
       const badge = document.getElementById('badge-instructor-count');
       if (badge) badge.innerText = `${selectedInstructors.length} facilitador${selectedInstructors.length > 1 ? 'es' : ''}`;
 
-      // Autocompletar nombre visible si no fue editado manualmente
+      // Autocompletar automáticamente nombre visible al seleccionar facilitadores
       const instructorInput = document.getElementById('f-instructor');
-      if (assignedNames.length > 0 && (!instructorInput.value || instructorInput.dataset.auto === 'true')) {
+      if (assignedNames.length > 0) {
         instructorInput.value = formatNamesList(assignedNames);
-        instructorInput.dataset.auto = 'true';
       }
     }
 
@@ -1190,7 +1189,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
       };
 
       const schedStr = `${daysLabel} de ${formatTimeAmPm(tStart)} a ${formatTimeAmPm(tEnd)}`;
-      const durStr = `${totalHours} horas de taller`;
+      const durStr = `${totalHours} horas`;
 
       document.getElementById('f-schedule').value = schedStr;
       document.getElementById('f-duration').value = durStr;

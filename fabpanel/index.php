@@ -73,7 +73,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
 
       <div class="text-center space-y-4 mb-8">
-        <a href="../index.html" class="inline-flex items-center gap-2">
+        <a href="https://edu.fab.pe" class="inline-flex items-center gap-2">
           <img src="../images/logo-circle.png" alt="FAB LAB Perú" class="h-10 w-10 object-contain rounded-full shadow-sm">
           <span class="font-extrabold text-slate-900 dark:text-white text-lg tracking-tight">FAB LAB Perú</span>
         </a>
@@ -117,7 +117,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       </form>
 
       <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 text-center">
-        <a href="../index.html" class="text-xs text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-slate-200 flex items-center justify-center gap-1 transition">
+        <a href="https://edu.fab.pe" class="text-xs text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-slate-200 flex items-center justify-center gap-1 transition">
           <span>&larr; Volver al Catálogo Público en edu.fab.pe</span>
         </a>
       </div>
@@ -134,7 +134,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       
       <!-- Brand & Version -->
       <div class="flex items-center gap-3">
-        <a href="../index.html" target="_blank" title="Ver web en vivo (edu.fab.pe)" class="flex items-center gap-2">
+        <a href="https://edu.fab.pe" target="_blank" title="Ver web en vivo (edu.fab.pe)" class="flex items-center gap-2">
           <img src="../images/logo-circle.png" alt="FAB LAB" class="w-8 h-8 rounded-full shadow-sm">
           <span class="font-extrabold text-slate-900 dark:text-white text-sm tracking-tight hidden sm:inline">FAB LAB Perú</span>
         </a>
@@ -153,7 +153,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
         </button>
 
         <!-- Ver edu.fab.pe y Sincronizar -->
-        <a href="../index.html" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition">
+        <a href="https://edu.fab.pe" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition">
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           <span>Ver edu.fab.pe</span>
         </a>

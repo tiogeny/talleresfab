@@ -325,7 +325,7 @@
                     <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-600"></i>
                     <span>Facilitador(a):</span>
                   </span>
-                  <strong id="modal-instructor" class="text-blue-700 text-right font-bold truncate max-w-[190px]"></strong>
+                  <strong id="modal-instructor" class="text-blue-700 text-right font-bold leading-tight max-w-[200px]"></strong>
                 </div>
               </div>
 
@@ -363,50 +363,37 @@
           </div>
 
           <!-- COLUMNA DERECHA (lg:col-span-7): Título, Desafío Maker & Misiones a Explorar -->
-          <div class="lg:col-span-7 flex flex-col justify-between h-full space-y-3.5">
+          <div class="lg:col-span-7 space-y-4">
             
             <!-- Bloque Superior: Título & Desafío Maker -->
-            <div class="space-y-2.5">
+            <div class="space-y-3">
               <!-- Título del Taller -->
               <div class="pr-6 sm:pr-8">
                 <h2 id="modal-title" class="text-xl sm:text-2xl font-black text-slate-900 leading-tight tracking-tight"></h2>
               </div>
 
               <!-- 🎯 DESAFÍO MAKER -->
-              <div class="p-3 sm:p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200/80 shadow-2xs space-y-1">
+              <div class="p-3.5 sm:p-4 rounded-2xl bg-blue-50/70 border border-blue-200/80 shadow-2xs space-y-1.5">
                 <span class="text-[10px] font-extrabold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
                   <span class="text-sm">🎯</span>
                   <span>Desafío Maker</span>
                 </span>
-                <p id="modal-challenge" class="text-xs sm:text-sm font-semibold text-slate-800 leading-snug"></p>
+                <p id="modal-challenge" class="text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed"></p>
               </div>
             </div>
 
             <!-- 🧭 MISIONES A EXPLORAR (Sin números, con micro-badges de habilidad) -->
-            <div class="space-y-2.5 pt-2 border-t border-slate-100 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                    <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-600"></i>
-                    <span>Misiones a explorar</span>
-                  </h4>
-                </div>
-
-                <!-- Grilla de Misiones en 2 columnas -->
-                <div id="modal-roadmap" class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
-                  <!-- Nodos generados por JS -->
-                </div>
+            <div class="space-y-3 pt-2 border-t border-slate-100">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-600"></i>
+                  <span>Misiones a explorar</span>
+                </h4>
               </div>
 
-              <!-- Proyecto Final Terminado (Hito de Cierre alineado a la base) -->
-              <div id="modal-final-box" class="p-3 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white border border-slate-700 shadow-xs flex items-center gap-3 mt-2">
-                <div class="w-7 h-7 rounded-lg bg-amber-400/20 border border-amber-400/40 text-amber-300 flex items-center justify-center shrink-0 text-sm shadow-inner">
-                  🏆
-                </div>
-                <div class="min-w-0 flex-1">
-                  <span class="text-[9px] uppercase font-bold text-amber-300 block tracking-wider">Proyecto Final Terminado</span>
-                  <strong id="modal-final-text" class="text-xs font-bold text-white block truncate mt-0.5"></strong>
-                </div>
+              <!-- Grilla de Misiones en 2 columnas sin huecos forzados -->
+              <div id="modal-roadmap" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <!-- Nodos generados por JS -->
               </div>
             </div>
 
@@ -434,7 +421,7 @@
 
   
   <!-- SCRIPTS & DATOS -->
-  <script src="data.js?v=10.0"></script>
+  <script src="data.js?v=11.0"></script>
   <script>
     let activeCat = 'all';
 

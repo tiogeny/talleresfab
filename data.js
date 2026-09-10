@@ -1,5 +1,5 @@
 // Catálogo oficial de talleres FAB LAB Perú (edu.fab.pe)
-// Sincronizado v=10.0
+// Sincronizado v=11.0
 
 const SITE_DATA = {
   phone: "+51 999 999 999",
@@ -29,7 +29,7 @@ var WORKSHOPS = [
     "level": "Básico",
     "price": "S/. 200",
     "startDate": "7 de Octubre",
-    "duration": "8 horas de taller",
+    "duration": "8 horas",
     "schedule": "Martes de 7:00 pm a 9:00 pm",
     "sessionDates": [
       "07 Oct",
@@ -94,7 +94,7 @@ var WORKSHOPS = [
     "level": "Básico",
     "price": "S/. 400",
     "startDate": "25 de Octubre",
-    "duration": "16 horas de taller",
+    "duration": "16 horas",
     "schedule": "Miércoles y Viernes de 4:00 pm a 6:00 pm",
     "sessionDates": [
       "25 Oct",
@@ -163,7 +163,7 @@ var WORKSHOPS = [
     "level": "Básico",
     "price": "S/. 200",
     "startDate": "3 de Octubre",
-    "duration": "6 horas de taller",
+    "duration": "6 horas",
     "schedule": "Sábados de 10:00 am a 11:30 am",
     "sessionDates": [
       "03 Oct",
@@ -241,7 +241,7 @@ var WORKSHOPS = [
     "level": "Intermedio",
     "price": "S/. 200",
     "startDate": "11 de Octubre",
-    "duration": "8 horas de taller",
+    "duration": "8 horas",
     "schedule": "Domingos de 10:30 am a 12:30 pm",
     "sessionDates": [
       "11 Oct",
