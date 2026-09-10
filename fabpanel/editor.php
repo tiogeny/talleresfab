@@ -521,8 +521,8 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
           <div class="flex items-center gap-2.5">
             <span class="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-cyan-400 flex items-center justify-center text-xs font-bold">4</span>
             <div>
-              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Reto Maker Central</h3>
-              <p class="text-[11px] text-slate-500">¿Qué fabricarán, diseñarán o construirán físicamente con sus manos?</p>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">Desafío Maker</h3>
+              <p class="text-[11px] text-slate-500">¿Qué fabricarán físicamente? Usa <strong>**palabra**</strong> para resaltar términos clave.</p>
             </div>
           </div>
           <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 dark:bg-cyan-950 dark:text-cyan-300 border border-blue-200 dark:border-cyan-800">
@@ -669,9 +669,9 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
             </div>
 
             <div>
-              <span class="text-slate-400 text-[10px] block">Duración en el landing (`duration`):</span>
+              <span class="text-slate-400 text-[10px] block">Dedicación en el landing (`duration`):</span>
               <input type="text" id="f-duration" value="<?= htmlspecialchars($currentTaller['duration'] ?? '') ?>"
-                     placeholder="Ej. 4 sesiones (6h)"
+                     placeholder="Ej. 6 horas de taller"
                      class="w-full px-3 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-medium text-slate-700 dark:text-slate-300">
             </div>
           </div>
@@ -1190,7 +1190,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
       };
 
       const schedStr = `${daysLabel} de ${formatTimeAmPm(tStart)} a ${formatTimeAmPm(tEnd)}`;
-      const durStr = `${totalSessions} sesiones (${totalHours}h)`;
+      const durStr = `${totalHours} horas de taller`;
 
       document.getElementById('f-schedule').value = schedStr;
       document.getElementById('f-duration').value = durStr;

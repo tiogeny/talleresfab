@@ -1,5 +1,5 @@
 // Catálogo oficial de talleres FAB LAB Perú (edu.fab.pe)
-// Sincronizado v=9.0
+// Sincronizado v=10.0
 
 const SITE_DATA = {
   phone: "+51 999 999 999",
@@ -29,14 +29,14 @@ var WORKSHOPS = [
     "level": "Básico",
     "price": "S/. 200",
     "startDate": "7 de Octubre",
-    "duration": "4 sesiones (8h)",
+    "duration": "8 horas de taller",
     "schedule": "Martes de 7:00 pm a 9:00 pm",
     "sessionDates": [
-      "07 Oct · Inicio",
+      "07 Oct",
       "14 Oct",
       "21 Oct",
       "28 Oct",
-      "⭐ 31 Oct · Exposición"
+      "31 Oct"
     ],
     "format": "Híbrido",
     "venue": "Fab Lab Miraflores",
@@ -44,7 +44,7 @@ var WORKSHOPS = [
       "Corte Láser",
       "Diseño Digital"
     ],
-    "challenge": "Diseña un cuadro en relieve 2.5D en capas de MDF, fabrica tus piezas con corte láser de alta precisión, aplica acabados acrílicos y expón tu obra en la Feria FABulosa.",
+    "challenge": "Diseña un **cuadro en relieve 2.5D** en capas de MDF, fabrica tus piezas con **corte láser de alta precisión**, aplica **acabados acrílicos** y expón tu obra en la **Feria FABulosa**.",
     "syllabus": [
       {
         "action": "Descubrir",
@@ -94,17 +94,17 @@ var WORKSHOPS = [
     "level": "Básico",
     "price": "S/. 400",
     "startDate": "25 de Octubre",
-    "duration": "8 sesiones (16h)",
+    "duration": "16 horas de taller",
     "schedule": "Miércoles y Viernes de 4:00 pm a 6:00 pm",
     "sessionDates": [
-      "25 Oct · Inicio",
+      "25 Oct",
       "28 Oct",
       "30 Oct",
       "04 Nov",
       "06 Nov",
       "11 Nov",
       "13 Nov",
-      "⭐ 18 Nov · Demo Day"
+      "18 Nov"
     ],
     "format": "Híbrido",
     "venue": "Virtual + Fab Lab",
@@ -112,7 +112,7 @@ var WORKSHOPS = [
       "Robótica & IA",
       "Electrónica"
     ],
-    "challenge": "Programa sensores y actuadores, entrena modelos de visión artificial con Machine Learning y construye un videojuego interactivo con control físico.",
+    "challenge": "Programa **sensores y actuadores**, entrena modelos de **visión artificial con Machine Learning** y construye un **videojuego interactivo con control físico**.",
     "syllabus": [
       {
         "action": "Explorar",
@@ -163,13 +163,13 @@ var WORKSHOPS = [
     "level": "Básico",
     "price": "S/. 200",
     "startDate": "3 de Octubre",
-    "duration": "4 sesiones (6h)",
+    "duration": "6 horas de taller",
     "schedule": "Sábados de 10:00 am a 11:30 am",
     "sessionDates": [
-      "03 Oct · Inicio",
+      "03 Oct",
       "10 Oct",
       "17 Oct",
-      "⭐ 24 Oct · Pitch Maker"
+      "24 Oct"
     ],
     "format": "Virtual interactivo",
     "venue": "",
@@ -177,7 +177,7 @@ var WORKSHOPS = [
       "Impresión 3D",
       "Diseño Digital"
     ],
-    "challenge": "Diseña tu personaje 2.5D autoportante, imprímelo en 3D en filamento biodegradable, simula costos con FabCoins y crea su empaque troquelado con tu propia marca.",
+    "challenge": "Diseña tu **personaje 2.5D autoportante**, imprímelo en 3D en **filamento biodegradable**, simula costos con **FabCoins** y crea su empaque **troquelado con tu propia marca**.",
     "syllabus": [
       {
         "action": "Descubrir",
@@ -241,13 +241,13 @@ var WORKSHOPS = [
     "level": "Intermedio",
     "price": "S/. 200",
     "startDate": "11 de Octubre",
-    "duration": "4 sesiones (8h)",
+    "duration": "8 horas de taller",
     "schedule": "Domingos de 10:30 am a 12:30 pm",
     "sessionDates": [
-      "11 Oct · Inicio",
+      "11 Oct",
       "18 Oct",
       "25 Oct",
-      "⭐ 01 Nov · Muestrario Bio"
+      "01 Nov"
     ],
     "format": "Presencial",
     "venue": "Fab Lab Miraflores",
@@ -255,7 +255,7 @@ var WORKSHOPS = [
       "Biomateriales",
       "Diseño Digital"
     ],
-    "challenge": "Sintetiza bioplásticos a partir de descartes orgánicos y alginatos, formula bio-tintes botánicos y moldea un prototipo de producto o empaque circular.",
+    "challenge": "Sintetiza **bioplásticos a partir de descartes orgánicos**, formula **bio-tintes botánicos** y moldea un **prototipo de producto o empaque circular**.",
     "syllabus": [
       {
         "action": "Formular",
