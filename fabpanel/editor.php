@@ -389,12 +389,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
               <?php endforeach; ?>
             </div>
 
-            <!-- Campo de especificación de software / máquinas adicionales -->
-            <div class="mt-3">
-              <input type="text" id="f-fabTool" placeholder="Máquinas o software específicos (ej. Inkscape / Cuttle & Cortadora Láser CO2)"
-                     value="<?= htmlspecialchars($currentTaller['fabTool'] ?? '') ?>"
-                     class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300">
-            </div>
+            
           </div>
 
         </div>
@@ -1319,7 +1314,7 @@ $cleanVenue = $currentTaller['venue'] ?? ($cleanFormat === 'Virtual' ? 'Virtual 
         format: document.getElementById('f-format').value.trim(),
         venue: document.getElementById('f-venue').value.trim(),
         technologies: selectedTechs,
-        fabTool: selectedTechs.join(' · ') || document.getElementById('f-fabTool').value.trim(),
+        fabTool: selectedTechs.join(' · '),
         challenge: challenge,
         description: challenge,
         finalDeliverable: finalDeliverable,

@@ -374,21 +374,20 @@
                 <h2 id="modal-title" class="text-xl sm:text-2xl font-black text-slate-900 leading-tight tracking-tight"></h2>
               </div>
 
-              <!-- 🎯 DESAFÍO MAKER -->
-              <div class="p-3.5 sm:p-4 rounded-2xl bg-blue-50/70 border border-blue-200/80 shadow-2xs space-y-1.5">
-                <span class="text-[10px] font-extrabold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <span class="text-sm">🎯</span>
+              <!-- DESAFÍO MAKER (Limpio, sin tarjeta de fondo, sin negritas) -->
+              <div class="space-y-1.5 pt-1">
+                <span class="text-[11px] font-extrabold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <span class="text-xs">🎯</span>
                   <span>Desafío Maker</span>
                 </span>
-                <p id="modal-challenge" class="text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed"></p>
+                <p id="modal-challenge" class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal"></p>
               </div>
             </div>
 
-            <!-- MISIONES (Sin títulos redundantes, micro-badges de habilidad) -->
-            <div class="pt-2 border-t border-slate-100">
-              <!-- Grilla de Misiones en 2 columnas con separación armónica -->
-              <div id="modal-roadmap" class="flex flex-col gap-2 sm:gap-2.5">
-                <!-- Nodos generados por JS -->
+            <!-- MISIONES (Lista limpia sin tarjetas, sin números, auto-ajustable) -->
+            <div class="pt-3 border-t border-slate-100">
+              <div id="modal-roadmap" class="divide-y divide-slate-100">
+                <!-- Nodos inyectados limpiamente por JS -->
               </div>
             </div>
 
@@ -416,7 +415,7 @@
 
   
   <!-- SCRIPTS & DATOS -->
-  <script src="data.js?v=13.0"></script>
+  <script src="data.js?v=14.0"></script>
   <script>
     let activeCat = 'all';
 
@@ -610,12 +609,12 @@
         }).join('');
       }
 
-      // Desafío Maker con soporte para negrita (**palabra**)
+      // Desafío Maker en texto limpio sin negritas
       const challengeEl = document.getElementById('modal-challenge');
       if (challengeEl) {
         let raw = w.challenge || w.description || '';
-        let formatted = raw.replace(/\*\*(.*?)\*\*/g, '<strong class="font-extrabold text-slate-950">$1</strong>');
-        challengeEl.innerHTML = formatted;
+        let clean = raw.replace(/\*\*(.*?)\*\*/g, '$1');
+        challengeEl.innerText = clean;
       }
 
       // Helper para micro-badges temáticos
@@ -635,7 +634,7 @@
         return 'sparkles';
       }
 
-      // Misiones Didácticas Verticales (Sin números, auto-ajustables 4 a 6 sin scroll)
+      // Misiones Didácticas Limpias (Sin tarjetas de fondo, sin números, auto-ajustables)
       const roadmapContainer = document.getElementById('modal-roadmap');
       if (roadmapContainer) {
         const missions = Array.isArray(w.syllabus) ? w.syllabus : [];
@@ -659,19 +658,19 @@
           if (!deliverable) deliverable = s.desc || '';
 
           const iconName = getMakerIcon(action);
-          const paddingClass = isCompact ? 'p-2 sm:p-2.5' : 'p-3 sm:p-3.5';
+          const pyClass = isCompact ? 'py-2 sm:py-2.5' : 'py-3 sm:py-3.5';
 
           return `
-            <div class="bg-slate-50/90 hover:bg-white ${paddingClass} rounded-2xl border border-slate-200/80 hover:border-blue-300 transition duration-200 shadow-2xs flex items-center gap-3 group">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-blue-50 border border-blue-200/80 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition">
-                <i data-lucide="${iconName}" class="w-4 h-4"></i>
+            <div class="${pyClass} flex items-start sm:items-center gap-3.5 group">
+              <div class="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 group-hover:bg-blue-600 group-hover:text-white transition duration-200">
+                <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
               </div>
               <div class="min-w-0 flex-1 flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2.5">
-                <span class="text-[11px] font-extrabold text-blue-700 uppercase tracking-wide shrink-0">
+                <span class="text-xs font-black text-blue-700 uppercase tracking-wide shrink-0">
                   ${action}
                 </span>
                 <span class="hidden sm:inline text-slate-300">·</span>
-                <p class="text-xs font-semibold text-slate-800 leading-snug truncate" title="${deliverable}">
+                <p class="text-xs font-medium text-slate-700 leading-snug truncate" title="${deliverable}">
                   ${deliverable}
                 </p>
               </div>

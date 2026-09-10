@@ -198,7 +198,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
       <div onclick="switchTab('published')" id="stat-card-published"
            class="stat-filter-card cursor-pointer bg-white dark:bg-slate-900 border-2 border-emerald-500/80 bg-emerald-50/20 dark:bg-emerald-950/20 rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-xs hover:shadow-md transition-all group">
         <div class="space-y-1">
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block">Publicados en Vivo</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block"><?= $isAdmin ? 'Publicados en Vivo' : 'Mis Publicados' ?></span>
           <h3 id="stat-published" class="text-2xl font-black text-emerald-600 dark:text-emerald-400">0</h3>
         </div>
         <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
@@ -546,7 +546,7 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
     // Actualizar estados visuales de las tarjetas de filtro
     const tabCards = {
-      'published': { id: 'stat-card-published', border: 'border-emerald-500/90', bg: 'bg-emerald-50/30', title: 'Talleres Publicados en Vivo' },
+      'published': { id: 'stat-card-published', border: 'border-emerald-500/90', bg: 'bg-emerald-50/30', title: IS_ADMIN ? 'Talleres Publicados en Vivo' : 'Mis Talleres Publicados en Vivo' },
       'drafts': { id: 'stat-card-drafts', border: 'border-amber-500/90', bg: 'bg-amber-50/30', title: 'Borradores & Propuestas en Revisión' },
       'all': { id: 'stat-card-all', border: 'border-blue-500/90', bg: 'bg-blue-50/30', title: 'Catálogo General de Talleres' },
       'calendar': { id: 'stat-card-calendar', border: 'border-indigo-500/90', bg: 'bg-indigo-50/30', title: 'Calendario Mensual del Laboratorio' }
@@ -588,10 +588,22 @@ $isInstructor = ($isLogged && isset($currentUser['role']) && $currentUser['role'
 
     let items = [];
     if (state.activeTab === 'published') {
-      items = state.talleres.filter(t => t.status === 'published');
+      if (IS_ADMIN) {
+        items = state.talleres.filter(t => t.status === 'published');
+      } else {
+        items = state.talleres.filter(t => t.status === 'published' && isUserInstructorOf(t, state.currentUser));
+      }
     } else if (state.activeTab === 'drafts') {
-      items = [...state.talleres.filter(t => t.status !== 'published'), ...state.proposals];
+      if (IS_ADMIN) {
+        items = [...state.talleres.filter(t => t.status !== 'published'), ...state.proposals];
+      } else {
+        items = [
+          ...state.talleres.filter(t => t.status !== 'published' && isUserInstructorOf(t, state.currentUser)),
+          ...state.proposals.filter(p => isUserInstructorOf(p, state.currentUser))
+        ];
+      }
     } else {
+      // Catálogo General: todos los talleres del Fab Lab
       items = [...state.talleres, ...state.proposals];
     }
 
