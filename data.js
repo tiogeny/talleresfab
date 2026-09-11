@@ -180,15 +180,15 @@ var WORKSHOPS = [
     "challenge": "Diseña tu **personaje 2.5D autoportante**, imprímelo en 3D en **filamento biodegradable**, simula costos con **FabCoins** y crea su empaque **troquelado con tu propia marca**.",
     "syllabus": [
       {
-        "action": "Descubrir",
+        "action": "Concebir",
         "deliverable": "Boceto de autor de criatura autoportante",
-        "title": "Bocetado de autor",
+        "title": "Boceto de autor",
         "desc": "Diseño de silueta sin soportes que se sostiene sola.",
         "session": "Sesión 1"
       },
       {
-        "action": "Digitalizar",
-        "deliverable": "Silueta Bezier y relieves vectoriales",
+        "action": "Vectorizar",
+        "deliverable": "Silueta Bézier y relieves vectoriales",
         "title": "Trazado digital CAD",
         "desc": "Modelado 2.5D en capas optimizadas para impresión 3D limpia.",
         "session": "Sesión 2"
@@ -201,25 +201,11 @@ var WORKSHOPS = [
         "session": "Sesión 3"
       },
       {
-        "action": "Presupuestar",
-        "deliverable": "Simulación de costos reales con FabCoins",
-        "title": "Economía Maker",
-        "desc": "Cálculo de peso en gramos PLA y simulación de producción.",
-        "session": "Sesión 4"
-      },
-      {
         "action": "Fabricar",
-        "deliverable": "Impresión 3D en PLA ecológico y acabados",
-        "title": "Fabricación aditiva",
-        "desc": "Impresión 3D física de tu personaje terminado.",
-        "session": "Sesión 5"
-      },
-      {
-        "action": "Empacar",
-        "deliverable": "Caja troquelada de autor y pitch de 30 segundos",
-        "title": "Packaging y presentación",
-        "desc": "Empaque de colección y presentación de tu marca.",
-        "session": "Sesión 6"
+        "deliverable": "Impresión 3D en PLA, empaque troquelado y pitch",
+        "title": "Fabricación y empaque",
+        "desc": "Impresión 3D física de tu personaje y caja de colección.",
+        "session": "Sesión 4"
       }
     ],
     "finalDeliverable": "Lanzamiento de tu personaje coleccionable y Pasaporte Maker",
